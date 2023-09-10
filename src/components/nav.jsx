@@ -7,6 +7,8 @@ import { Disclosure, Transition } from "@headlessui/react";
 import { Squash as Hamburger } from 'hamburger-react'
 import { Divide as Hamburger1 } from 'hamburger-react'
 import { useState } from 'react'
+import Image from "next/image";
+import logo from '../../public/static/logo.png'
 
 
 const Nav = () => {
@@ -23,16 +25,23 @@ const Nav = () => {
     >
       <Disclosure
         as="nav"
-        className="w-full space-x-4 rounded-xl px-4 py-3"
+        className="w-full space-x-4 rounded-xl px-4 py-5"
       >
         {({ open }) => (
           <nav className="flex justify-between space-x-8 rounded-xl flex-col">
             
               <div className="flex flex-row justify-between px-[100px] pr-[110px]">
-
-                <Link href='/' className="space-x-10 sm:flex text-[18px] rounded-md p-2 pl-4 xl:pt-2 md:pt-2 pt-5 
+                
+                <Link href='/' className="space-x-3 sm:flex text-[18px] rounded-md p-2 pl-4 xl:pt-2 md:pt-2 pt-5 
                 font-semibold hover:scale-110 cursor-pointer ease-linear duration-300">
-                  Homestead FBLA
+                  <Image
+                    className="relative w-16 h-16 my-auto"
+                    alt="SciLynk Logo"
+                    placeholder="blur"
+                    draggable="false"
+                    src={logo}
+                  />
+                  <p className="my-auto">Homestead FBLA</p>
                 </Link>
 
                 {/* Mobile Open/Close Btn */}
@@ -42,7 +51,7 @@ const Nav = () => {
                 </Disclosure.Button>
 
                 {/* Desktop Links */}
-                <div className="hidden space-x-10 sm:flex text-[17px]">
+                <div className="hidden space-x-4   sm:flex text-sm my-auto">
 
                   <Link href="/projects" className="rounded-md p-2 font-semibold text-dimWhite hover:text-gray-400 ease-linear duration-300">
                       Projects
@@ -59,12 +68,16 @@ const Nav = () => {
                   <Link href="/officers" className="rounded-md p-2 font-semibold text-dimWhite hover:text-gray-400 ease-linear duration-300">
                       Meet the Team
                   </Link>
-                  <Link href="/login" className="rounded-md p-2 font-semibold text-dimWhite hover:text-gray-400 ease-linear duration-300">
+                  <span className="p-2 font-semibold text-dimWhite ease-linear duration-300">
+                    <Link href="/login" className="rounded-md p-2 border border-dark-chocolate py-2 px-3 text-warm-beige font-semibold text-dimWhite hover:text-gray-400 ease-linear duration-300">
                       Login
-                  </Link>
-                  <Link href="/register" className="rounded-md p-2 font-semibold text-dimWhite hover:text-gray-400 ease-linear duration-300">
-                      Register
-                  </Link>
+                    </Link>
+                    <Link 
+                      href="/register" className="ml-3 rounded-md border border-dark-chocolate bg-dark-chocolate text-warm-beige py-2 px-3 font-semibold text-dimWhite hover:text-gray-400 ease-linear duration-300">
+                        Register
+                    </Link>
+                  </span>
+                  
 
                 </div>
 
