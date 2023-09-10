@@ -18,7 +18,7 @@ const Nav = () => {
       initial={{ y: -10, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="sticky top-4 z-40 backdrop-blur-lg shadow-2xl 
+      className="sticky top-0 z-40 backdrop-blur-lg shadow-2xl 
       bg-gradient-to-r from-dimBlack via-emerald-900 to-dimBlack rounded-xl ease-linear duration-200"
     >
       <Disclosure
