@@ -69,11 +69,11 @@ const Nav = () => {
                       Meet the Team
                   </Link>
                   <span className="p-2 font-semibold text-dimWhite ease-linear duration-300">
-                    <Link href="/login" className="rounded-md p-2 border border-dark-chocolate py-2 px-3 text-warm-beige font-semibold text-dimWhite hover:text-gray-400 ease-linear duration-300">
+                    <Link href="/login" className="rounded-md p-2 border border-dark-chocolate py-2 px-3 text-warm-beige font-semibold hover:text-gray-400 ease-linear duration-300 hover:bg-dark-chocolate">
                       Login
                     </Link>
                     <Link 
-                      href="/register" className="ml-3 rounded-md border border-dark-chocolate bg-dark-chocolate text-warm-beige py-2 px-3 font-semibold text-dimWhite hover:text-gray-400 ease-linear duration-300">
+                      href="/register" className="ml-3 rounded-md border border-dark-chocolate bg-dark-chocolate text-warm-beige py-2 px-3 font-semibold ease-linear duration-300 hover:brightness-75">
                         Register
                     </Link>
                   </span>
