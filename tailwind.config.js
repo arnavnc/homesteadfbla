@@ -1,3 +1,5 @@
+const { redirect } = require('next/dist/server/api-utils')
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -6,6 +8,14 @@ module.exports = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    colors: {
+      'dark-chocolate': '#461220',
+      'red-violet': '#8C2F39',
+      'watermelon-red': '#B23A48',
+      'melon': '#FCB9B2',
+      'warm-beige': '#FEDOBB',
+
+    },
     extend: {
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
