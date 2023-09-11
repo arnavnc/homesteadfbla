@@ -1,48 +1,32 @@
 "use client"
 
-import { motion } from "framer-motion";
 import Image from "next/image";
+import logo from "../../public/static/faces/ChloeL.png"
 
-
-const OfficerCard = () => {
+export default function OfficerCard() {
     return (
-      <div className="xs:w-[250px] w-full ease-in-out duration-75">
-
-          <div
-            className=" rounded-[20px] 
-            py-5 px-12 min-h-[280px] flex justify-evenly 
-            items-center flex-col"
-            >   
-            
-            
-            <div className="bg-watermelon-red rounded-3xl max-w-4xl scale-75 flex flex-row">
-
-                <Image src={'/verticalimg.jpg'} width={100} height={100} layout='responsive' alt="title" 
-                className="p-10 rounded-full mr-10" 
-                />
-
-                <div className="scale-110 mr-7">
-            
-                <h1 className="text-melon text-3xl
-                font-bold text-center pb-2 pt-24">{'Arnav Chakravarthy'}</h1>
-
-                <h1 className="text-melon text-xl
-                font-bold text-center pb-8">{'VP of Something'}</h1>
-
-                <h1 className="text-melon text-xl
-                font-bold text-center px-10 pb-5">Hey y'all, I'm Arnav and I can't wait to get to know all of you as your VP Member Relations this year! Outside of FBLA, I love reading sci-fi novels, playing/watching basketball, and meeting new people. Always feel free to reach out at any time -- I promise I'm one of the cooler officers </h1>
-
-                <h1 className="text-melon text-xl
-                font-bold text-center pb-10">{'Officer Quote'}</h1>
-
-                </div>
-              
+        <figure class="md:flex bg-black bg-opacity-25 rounded-xl p-8 md:p-0">
+            <Image src={logo} alt="" class="w-32 h-48 md:w-48 md:h-auto md:rounded-l-lg md:rounded-r-none rounded-l-lg rounded-r-lg mx-auto"/>
+            <div class="pt-6 md:p-8 text-center md:text-left space-y-4">
+                <figcaption class="font-medium">
+                    <div class="font-bold text-xl text-watermelon-red">
+                    Chloe Lu
+                    </div>
+                    <div class="text-md text-slate-300">
+                    Executive VP - Development
+                    </div>
+                </figcaption>
+                <blockquote>
+                    <p class="text-md">
+                    My name is Chloe Lu, and I am this year's Executive Vice President of Development. I am super excited to get to know the new members this year and see you all at the next project meetings! A little about me is that I love listening to live music, staying at Carmel by the Sea, eating Italian food, and learning American Sign Language in my free time. I will see you around campus, don't forget to say hi.
+                    </p>
+                </blockquote>
+                <blockquote>
+                    <p class="text-sm font-light italic">
+                    “The elevator to success is out of order. You'll have to use the stairs. One step at a time.”
+                    </p>
+                </blockquote>
             </div>
-
-          </div>
-
-      </div>
+        </figure>
     )
   }
-
-  export default OfficerCard;
