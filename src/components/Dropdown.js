@@ -1,0 +1,45 @@
+import React, { useState } from 'react';
+import Link from 'next/link';
+import {AiOutlineCaretDown} from 'react-icons/ai'
+
+const DropdownMenu = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const closeDropdown = () => {
+    setIsOpen(false);
+  };
+
+  return (
+    <div className="relative inline-block">
+      <div onMouseEnter={toggleDropdown} className='flex flex-row'>
+        Projects <AiOutlineCaretDown className='mt-1 ml-1'/>
+      </div>
+
+      <div
+        className={`absolute mt-2 p-2 bg-red-300 text-red-900 border-none rounded-md shadow-lg transition-opacity ${
+          isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
+        }`}
+        onMouseLeave={closeDropdown}
+      >
+        <Link href="/projects/american-enterprise">
+          <span className="block px-2 py-1 hover:text-red-700 ease-linear duration-150">American Enterprise</span>
+        </Link>
+        <Link href="/projects/community-service">
+          <span className="block px-2 py-1 hover:text-red-700 ease-linear duration-150">Community Service</span>
+        </Link>
+        <Link href="/projects/partnership-with-business">
+          <span className="block px-2 py-1 hover:text-red-700 ease-linear duration-150">Partnership with Business</span>
+        </Link>
+        <Link href="/projects/software-ventures">
+          <span className="block px-2 py-1 hover:text-red-700 ease-linear duration-150">Software Ventures</span>
+        </Link>
+      </div>
+    </div>
+  );
+};
+
+export default DropdownMenu;

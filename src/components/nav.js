@@ -3,13 +3,14 @@
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { Disclosure, Transition } from "@headlessui/react";
+import Select from 'react-select'
 
 import { Squash as Hamburger } from 'hamburger-react'
 import { Divide as Hamburger1 } from 'hamburger-react'
 import { useState } from 'react'
 import Image from "next/image";
 import logo from '../../public/static/logo.png'
-
+import Dropdown from "./Dropdown";
 
 const Nav = () => {
 
@@ -53,9 +54,11 @@ const Nav = () => {
                 {/* Desktop Links */}
                 <div className="hidden space-x-4   sm:flex text-sm my-auto">
 
-                  <Link href="/projects" className="rounded-md p-2 font-semibold text-dimWhite hover:text-gray-400 ease-linear duration-300">
-                      Projects
-                  </Link>
+                  <div className="rounded-md p-2 font-semibold text-dimWhite hover:text-gray-400 ease-linear duration-300 cursor-pointer">
+                    
+                    <Dropdown />
+
+                  </div>
                   <Link href="/competitions" className="rounded-md p-2 font-semibold text-dimWhite hover:text-gray-400 ease-linear duration-300">
                       Competitions History
                   </Link>
