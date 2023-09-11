@@ -39,7 +39,7 @@ const officers = {
         },
         {
             "name": "",
-            "position": "Treasurer",
+            "position": "VP Finance",
             "bio": "",
             "quote": "",
             "image": "",
