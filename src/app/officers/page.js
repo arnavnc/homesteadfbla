@@ -9,12 +9,30 @@ export default function Officers() {
   return (
     <>
         <Nav />
-        <div className="rounded-xl">  
+        {/* <div className="rounded-xl">  
             <Image src={officersPic} className="object-cover opacity-25 h-[60vh] w-[100vw] px-10"/>
-        </div>
+        </div> */}
         
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 px-10 my-10 gap-4">
+            <div className="border-2 border-dashed rounded-md border-blue-600 bg-blue-600 bg-opacity-10 px-4 py-3">
+                <h1 className="text-lg font-bold text-blue-600">Executive Team</h1>
+                <p className="text-md font-light text-blue-400">Desc</p>
+            </div>
+            <div className="border-2 border-dashed rounded-md border-purple-600 bg-purple-600 bg-opacity-10 px-4 py-3">
+                <h1 className="text-lg font-bold text-purple-600">Operations Team</h1>
+                <p className="text-md font-light text-purple-400">Desc</p>
+            </div>
+            <div className="border-2 border-dashed rounded-md border-yellow-600 bg-yellow-600 bg-opacity-10 px-4 py-3">
+                <h1 className="text-lg font-bold text-yellow-600">Competions Team</h1>
+                <p className="text-md font-light text-yellow-400">Desc</p>
+            </div>
+            <div className="border-2 border-dashed rounded-md border-orange-600 bg-orange-600 bg-opacity-10 px-4 py-3">
+                <h1 className="text-lg font-bold text-orange-600">Project Chairs</h1>
+                <p className="text-md font-light text-orange-400">Desc</p>
+            </div>
+        </div>
         <div className="px-10">
-            <h1 className="text-4xl font-bold my-10">Meet our Team!</h1>
+            {/* <h1 className="text-4xl font-bold my-10">Meet our Team!</h1> */}
 
             
             <div className="border">

@@ -9,7 +9,6 @@ export default function Home() {
   return (
     <main className="mx-auto space-y-[-6px] pb-10 px-5 lg:px-0 min-h-screen">
           <Nav />
-          {/* <CompetitionsHistory /> */}
           <Footer />
     </main>
   )

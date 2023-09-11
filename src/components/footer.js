@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import logo from '../../public/static/logo.png'
-import OfficerCard from "./officerCard";
 
 const navigation = {
   about: [
@@ -166,8 +165,6 @@ export default function Footer() {
           </p>
         </div>
       </div>
-
-      <OfficerCard />
     </footer>
   );
 }
