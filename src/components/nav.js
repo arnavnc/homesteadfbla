@@ -26,7 +26,7 @@ const Nav = () => {
     >
       <Disclosure
         as="nav"
-        className="w-full space-x-4 rounded-xl px-4 py-5"
+        className="w-full space-x-4 rounded-xl px-4 py-0"
       >
         {({ open }) => (
           <nav className="flex justify-between space-x-8 rounded-xl flex-col">

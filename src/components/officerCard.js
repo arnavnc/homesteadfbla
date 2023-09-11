@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Saanika from "../../public/static/faces/Saanika.png"
-import Chloe from "../../public/static/faces/ChloeL.png"
+import ChloeL from "../../public/static/faces/ChloeL.png"
 import Nitya from "../../public/static/faces/Nitya.png"
 import Arnav from "../../public/static/faces/Arnav.png"
 import Bhavya from "../../public/static/faces/Bhavya.png"
@@ -26,8 +26,8 @@ export default function OfficerCard({ name, position, bio, quote, image }) {
     return (
         <figure class="md:flex bg-white bg-opacity-5 rounded-xl p-8 md:p-0">
            
-            <div class="pt-6 md:p-8 text-center md:text-left space-y-4">
-            <Image src={Arnav} alt="" class="object-cover object-top 2xl:h-[60%] opacity-75 w-32 h-48 md:w-full md:h-96 rounded-l-lg rounded-r-lg mx-auto"/>
+            <div class="pt-6 md:p-8 text-center md:text-left space-y-4 h-fit">
+            <Image src={Arnav} alt="" class="object-cover object-top h-96 opacity-75 rounded-l-lg rounded-r-lg mx-auto"/>
                 <figcaption class="font-medium">
                     <div class="font-bold text-xl text-watermelon-red">
                     {name}

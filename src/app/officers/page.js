@@ -9,7 +9,7 @@ export default function Officers() {
   return (
     <>
         <Nav />
-        <Image src={officersPic} className="fixed blur-sm bg-scroll object-cover opacity-10 h-[100vh] w-[100vw]"/>
+        <Image src={officersPic} className="fixed blur-sm bg-scroll object-cover opacity-10 h-[100vh] w-[100vw]" draggable={false}/>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 px-10 my-10 gap-4">
             <div className="border-2 border-dashed rounded-md border-blue-600 bg-blue-600 bg-opacity-10 px-4 py-3">
                 <h1 className="text-lg font-bold text-blue-600">Executive Team</h1>
@@ -17,7 +17,8 @@ export default function Officers() {
             </div>
             <div className="border-2 border-dashed rounded-md border-purple-600 bg-purple-600 bg-opacity-10 px-4 py-3">
                 <h1 className="text-lg font-bold text-purple-600">Operations Team</h1>
-                <p className="text-md font-light text-purple-400">Members of the Operations Team are responsible for managing both internal and external communications for the club. They handle logistical tasks like coordinating conferences, overseeing finances, and planning events. Known for their approachable demeanor, they serve as a friendly point of contact within Homestead FBLA.</p>
+                <p
+                 className="text-md font-light text-purple-400">Members of the Operations Team are responsible for managing both internal and external communications for the club. They handle logistical tasks like coordinating conferences, overseeing finances, and planning events. Known for their approachable demeanor, they serve as a friendly point of contact within Homestead FBLA.</p>
             </div>
             <div className="border-2 border-dashed rounded-md border-yellow-600 bg-yellow-600 bg-opacity-10 px-4 py-3">
                 <h1 className="text-lg font-bold text-yellow-600">Competions Team</h1>
@@ -32,44 +33,46 @@ export default function Officers() {
             {/* <h1 className="text-4xl font-bold my-10">Meet our Team!</h1> */}
 
             
-            <div className="border">
-                <h2 className="text-2xl font-bold">The Executive Team</h2>
-                <div>
+            <div className="my-10 bg-blue-600 bg-opacity-20 border-2 rounded-lg border-dashed border-blue-600 px-8 py-6">  
+                <h2 className="text-blue-600 text-2xl font-bold mb-6">Executive Team</h2>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     {officers.exec.map((officer) => (
                     <OfficerCard key={officer.name} {...officer} />
                     ))}
                 </div>
             </div>
-
             
             <div className="my-10 bg-purple-600 bg-opacity-20 border-2 rounded-lg border-dashed border-purple-600 px-8 py-6">  
                 <h2 className="text-purple-600 text-2xl font-bold mb-6">Operations Team</h2>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     {officers.ops.map((officer) => (
                     <OfficerCard key={officer.name} {...officer} />
                     ))}
                 </div>
             </div>
             
-            <div className="grid grid-4">
-                <h2 className="text-2xl font-bold">Competitions Team</h2>
-                {officers.comps.map((officer) => (
-                <OfficerCard key={officer.name} {...officer} />
-                ))}
+            <div className="my-10 bg-yellow-600 bg-opacity-20 border-2 rounded-lg border-dashed border-yellow-600 px-8 py-6">  
+                <h2 className="text-yellow-600 text-2xl font-bold mb-6">Comps Team</h2>
+                <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
+                    {officers.comps.map((officer) => (
+                    <OfficerCard key={officer.name} {...officer} />
+                    ))}
+                </div>
             </div>
 
-            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 gap-y-4">
             {["ml", "ae", "cs", "pwb", "sv"].map((teamKey) => (
-                <div key={teamKey}>
-                <h2 className="text-2xl font-bold">Projects Team</h2>
-                    <h3 className="text-lg font-bold">{getTeamTitle(teamKey)}</h3>
-                    <div className="grid grid-2">
+                <div key={teamKey} className="my-10 bg-orange-600 bg-opacity-20 border-2 rounded-lg border-dashed border-orange-600 px-8 py-6">
+                <h2 className="text-orange-600 text-2xl font-bold mb-6">Project Chairs | {getTeamTitle(teamKey)}</h2>
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                         {officers.projects[teamKey].map((officer) => (
                         <OfficerCard key={officer.name} {...officer} />
                         ))}
                     </div>
                 </div>
             ))}
+            </div>
+            
         </div>
         <Footer />
     </>
