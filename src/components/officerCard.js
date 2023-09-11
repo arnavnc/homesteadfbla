@@ -25,8 +25,9 @@ import Aayush from "../../public/static/faces/Aayush.png"
 export default function OfficerCard({ name, position, bio, quote, image }) {
     return (
         <figure class="md:flex bg-white bg-opacity-5 rounded-xl p-8 md:p-0">
-            {/* <Image fill={true} src={{image}} alt="" class="w-32 h-48 md:w-48 md:h-auto md:rounded-l-lg md:rounded-r-none rounded-l-lg rounded-r-lg mx-auto"/> */}
+           
             <div class="pt-6 md:p-8 text-center md:text-left space-y-4">
+            <Image src={Alex} alt="" class="object-cover object-top opacity-75 w-32 h-48 md:w-full md:h-96 rounded-l-lg rounded-r-lg mx-auto"/>
                 <figcaption class="font-medium">
                     <div class="font-bold text-xl text-watermelon-red">
                     {name}
