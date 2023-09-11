@@ -9,7 +9,7 @@ export default function Officers() {
   return (
     <>
         <Nav />
-        <Image src={officersPic} className="fixed blur-sm bg-scroll object-cover opacity-10 h-[100vh] w-[100vw]" draggable={false}/>
+        <Image src={officersPic} className="fixed blur-sm bg-scroll object-cover opacity-10 h-[100vh] w-[100vw] z-[-10]" draggable={false}/>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 px-10 my-10 gap-4">
             <div className="border-2 border-dashed rounded-md border-blue-600 bg-blue-600 bg-opacity-10 px-4 py-3">
                 <h1 className="text-lg font-bold text-blue-600">Executive Team</h1>

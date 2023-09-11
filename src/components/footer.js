@@ -11,17 +11,17 @@ const navigation = {
   history: [
     { name: "Competitions", href: "/competitions" },
     { name: "Timeline", href: "/timeline" },
-    { name: "Media", href: "/timeline" },
+    { name: "Media", href: "/media" },
   ],
   projects: [
-    { name: "American Enterprise", href: "/officers" },
-    { name: "Community Service", href: "/advisers" },
-    { name: "Partnership with Business", href: "/press" },
-    { name: "Software Ventures", href: "/press" },
+    { name: "American Enterprise", href: "/projects/american-enterprise" },
+    { name: "Community Service", href: "/projects/community-service" },
+    { name: "Partnership with Business", href: "/projects/partnership-with-business" },
+    { name: "Software Ventures", href: "/projects/software-ventures" },
   ],
   legal: [
-    { name: "Privacy", href: "/privacy" },
-    { name: "Terms", href: "/tos" },
+    { name: "Privacy", href: "/" },
+    { name: "Terms", href: "/" },
   ],
   social: [
     {
@@ -52,13 +52,10 @@ const navigation = {
 export default function Footer() {
   return (
     <footer
-      className="bg-gradient-to-b from-background-darker to-background border-t border-neutral-800"
+      className="bg-dark-chocolate opacity-50 mt-10"
       aria-labelledby="footer-heading"
     >
-      <h2 id="footer-heading" className="sr-only">
-        Footer
-      </h2>
-      <div className="mx-auto max-w-7xl px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-32">
+      <div className="mx-auto max-w-7xl px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-32 opacity-100">
         <div className="xl:grid xl:grid-cols-3 xl:gap-8">
             <Link href='/' className="space-x-3 sm:flex text-xl rounded-md 
                 font-semibold cursor-pointer ease-linear duration-300">

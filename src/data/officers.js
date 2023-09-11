@@ -57,7 +57,7 @@ const officers = {
             "name": "Ian Yoon",
             "position": "VP of Case Competitions",
             "bio": "Hi, my name is Ian Yoon and I will be your Vice President of Case Study Competitions. A few notes about me are that I like to go running, playing chess, and discovering new music. I also love to meet new people, so if you ever see me at school, feel free to say hi!",
-            "quote": "\"There is always room for improvement\" - Me",
+            "quote": "There is always room for improvement",
             "image": "Ian",
         },
         {
@@ -136,7 +136,7 @@ const officers = {
                 "name": "Jane Ser",
                 "position": "Partnership with Business Chair",
                 "bio": "Hello everyone! My name is Jane, and I am a sophomore. I'm really excited to lead the PwB project this year, as I have learned a lot as a member last year. I hope this project can be as meaningful and fun to you guys as it has been for me!",
-                "quote": "\"Twenty years from now you will be more disappointed by the things that you didn't do than by the ones you did do.\" - Julian Gough",
+                "quote": "Twenty years from now you will be more disappointed by the things that you didn't do than by the ones you did do.",
                 "image": "Jane",
             }
         ],
@@ -145,7 +145,7 @@ const officers = {
                 "name": "Alex Cismaru",
                 "position": "Softwave Ventures Chair",
                 "bio": "Hey y'all! I'm Alex Cismaru, your tech chair for this year, and my favorite color is blue. My favorite pickup line is: \"Is your name Wi-Fi, cause I'm feeling a strong connection.\" If you see me around school, please say hi.",
-                "quote": "\"Are you ladies alright?\" - Omar the Ref",
+                "quote": "Are you ladies alright?",
                 "image": "Alex",
             },
             {
