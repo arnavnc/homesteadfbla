@@ -1,7 +1,7 @@
 import Nav from "@/components/nav";
 import OfficerCard from "@/components/officerCard.js";
 import officers from "../../data/officers.js";
-import Footer from "@/components/footer";
+import Footer from "@/components/footer.js";
 import officersPic from "../../../public/static/officers.jpg"
 import Image from "next/image";
 
