@@ -66,7 +66,7 @@ export default function Footer() {
                     draggable="false"
                     src={logo}
                 />
-                <p className="mt-3">Homestead FBLA</p>
+                <p className="mt-3 hidden md:block">Homestead FBLA</p>
             </Link>
           <div className="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
             <div className="md:grid md:grid-cols-2 md:gap-8">
@@ -88,7 +88,7 @@ export default function Footer() {
                 </ul>
               </div>
               <div>
-                <h3 className="text-sm font-semibold leading-6 text-white">
+                <h3 className="text-sm font-semibold leading-6 text-white mt-10 md:mt-0">
                   History
                 </h3>
                 <ul role="list" className="mt-6 space-y-4">
