@@ -1,7 +1,7 @@
 import Nav from "@/components/nav";
 import OfficerCard from "@/components/officerCard.js";
 import officers from "../../data/officers.js";
-import Footer from "@/components/footer";
+import Footer from "@/components/footer.js";
 import officersPic from "../../../public/static/officers.jpg"
 import Image from "next/image";
 
@@ -26,7 +26,7 @@ export default function Officers() {
             </div>
             <div className="border-2  rounded-md border-orange-600 bg-orange-600 bg-opacity-10 px-4 py-3">
                 <h1 className="text-lg font-bold text-orange-600">Project Chairs</h1>
-                <p className="text-md font-light text-orange-400">The Projects Chairs focus on leading a variety of initiatives designed to expose members to different aspects of business. They oversee the execution of their respective projects, providing regular updates and specific areas of focus through Homestead FBLA's individual project pages.</p>
+                <p className="text-md font-light text-orange-400">The Projects Chairs focus on leading a variety of initiatives designed to expose members to different aspects of business. They oversee the execution of their respective projects, providing regular updates and specific areas of focus through our individual project pages.</p>
             </div>
         </div>
         <div className="px-10">

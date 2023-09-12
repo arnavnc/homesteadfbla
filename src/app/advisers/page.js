@@ -1,15 +1,16 @@
-import Nav from "@/components/Nav";
-import OfficerCard from "../../components/OfficerCard";
+
 import advisers from "../../data/advisers.js";
-import Footer from "@/components/Footer";
+import Footer from "@/components/footer.js";
 import advisersPic from "../../../public/static/advisers.jpg"
 import Image from "next/image";
+import Nav from "@/components/nav";
+import OfficerCard from "@/components/officerCard.js";
 
 export default function Officers() {
   return (
     <>
         <Nav />
-        <Image src={advisersPic} className="fixed bg-scroll object-cover object-bottom opacity-10 h-[100vh] w-[100vw] z-[-10]" draggable={false}/>
+        <Image alt="advisers" src={advisersPic} className="fixed bg-scroll object-cover object-bottom opacity-10 h-[100vh] w-[100vw] z-[-10]" draggable={false}/>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 px-10 my-10 gap-4">
             
         </div>

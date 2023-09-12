@@ -1,7 +1,7 @@
-import Nav from "@/components/Nav";
+import Nav from "@/components/nav";
 import MentorCard from "../../components/MentorCard";
 import advisers from "../../data/advisers.js";
-import Footer from "@/components/Footer";
+import Footer from "@/components/footer";
 import advisersPic from "../../../public/static/advisers.jpg"
 import Image from "next/image";
 
