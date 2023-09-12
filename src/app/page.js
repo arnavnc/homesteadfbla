@@ -28,7 +28,7 @@ export default function Home() {
               <div className='rounded-lg border-2 border-red-violet bg-red-violet bg-opacity-30 
               px-8 py-6 pb-9'>
                 <h1 className='text-xl font-semibold'>Competions</h1>
-                <p className='text-gray-300 mt-2 mb-[55px]'>Homestead FBLA competes at Bay Section, States, and Nationals every year. We currently have 23 consecutive Bay Section Championships, 21 consecutive state championships, and 20 national championships.</p>
+                <p className='text-gray-300 mt-2 mb-[50px]'>Homestead FBLA competes at Bay Section, States, and Nationals every year. We currently have 23 consecutive Bay Section Championships, 21 consecutive state championships, and 20 national championships.</p>
                 <Link href="code.org" className='border-2 border-watermelon-red hover:bg-watermelon-red 
                 ease-linear duration-200 cursor-pointer w-fit p-3 text-[15px] rounded-xl'>
                   View Our Competitive History
@@ -66,7 +66,7 @@ export default function Home() {
               <div className='rounded-lg border-2 border-melon bg-melon bg-opacity-30 
               px-8 py-6 pb-9'>
                 <h1 className='text-xl font-semibold'>Competions</h1>
-                <p className='text-gray-300 mt-2 mb-9'>Homestead FBLA currently has 4 projects. The projects consist of the American Enterprise Project, the Community Service Project, the Partnership with Business Project, and the Software Ventures Project.</p>
+                <p className='text-gray-300 mt-2 mb-[50px]'>Homestead FBLA currently has 4 projects. The projects consist of the American Enterprise Project, the Community Service Project, the Partnership with Business Project, and the Software Ventures Project.</p>
                 <Link href="code.org" className='border-2 border-red-300 hover:bg-red-300 
                 ease-linear duration-200 cursor-pointer w-fit p-3 text-[15px] rounded-xl'>
                   View Our Competitive History
@@ -75,6 +75,33 @@ export default function Home() {
               
             </div>
           </section>
+
+          {/* Mobile Form  */}
+
+          <section className='py-10 px-10 lg:px-16 bg-red-violet bg-opacity-20 block lg:hidden'>
+            <h1 className='text-3xl font-bold mb-5'>Work With Us</h1>
+            <form className="mx-auto max-w-md">
+              <div className="mb-4">
+                <label htmlFor="firstName" className="block text-base font-medium mb-2 text-red-400">First Name</label>
+                <input type="text" id="firstName" name="firstName" className="bg-red-violet bg-opacity-60 text-white rounded-md py-2 px-3 w-full outline-none placeholder:text-red-200" placeholder='First and Last Name'/>
+              </div>
+              
+              <div className="mb-4">
+                <label htmlFor="email" className="block text-base font-medium mb-2 text-red-400">Email</label>
+                <input type="email" id="email" name="email" className="bg-red-violet bg-opacity-60 text-white rounded-md py-2 px-3 w-full outline-none placeholder:text-red-200" placeholder='Ex. johndoe@example.com'/>
+              </div>
+
+              <div className="mb-4">
+                <label htmlFor="message" className="block text-base font-medium mb-2 text-red-400">Message</label>
+                <textarea id="message" name="message" rows="4" className="bg-red-violet bg-opacity-60 text-white rounded-md py-2 px-3 w-full outline-none placeholder:text-red-200" placeholder='Hey there! My name is John Doe...'></textarea>
+              </div>
+              
+              <div className="text-center">
+                <button type="submit" className="bg-watermelon-red text-white py-2 px-4 rounded-md hover:bg-opacity-75 transition duration-300 ease-in-out">Submit</button>
+              </div>
+            </form>
+          </section>
+      
           <Footer />
     </main>
   )
