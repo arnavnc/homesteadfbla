@@ -20,7 +20,7 @@ const DropdownMenu = () => {
       </div>
 
       <div
-        className={`w-52 absolute mt-2 p-2 bg-black text-white border-none bg-opacity-50 rounded-b-lg shadow-lg transition-opacity ${
+        className={`w-52 absolute mt-2 p-2 bg-black text-white border-none bg-opacity-90 rounded-b-lg shadow-lg transition-opacity ${
           isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
         }`}
         onMouseLeave={closeDropdown}

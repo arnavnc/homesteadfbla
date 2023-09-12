@@ -1,6 +1,6 @@
 import Image from 'next/image'
-import Nav from "@/components/Nav";
-import Footer from "@/components/Footer";
+import Nav from "@/components/nav";
+import Footer from "@/components/footer"
 // import Timeline from "@/components/CompetitionHistory";
 // import CompetitionsHistory from '@/components/CompetitionHistory';
 import Arnav from "../../public/static/officers.jpg"
@@ -22,19 +22,55 @@ export default function Home() {
             </div>
           </main>
           <section className='py-10 px-10 lg:px-16 bg-red-violet bg-opacity-20'>
-            <h1 className='text-3xl font-bold mb-5'>HEader</h1>
+            <h1 className='text-3xl font-bold mb-5'>About Us</h1>
             <div className='grid grid-cols-1 lg:grid-cols-3 gap-6'>
-              <div className='rounded-lg border-2 border-red-violet bg-red-violet bg-opacity-30 px-8 py-6'>
-                <h1>Blah</h1>
-                <p>Blah</p>
+              
+              <div className='rounded-lg border-2 border-red-violet bg-red-violet bg-opacity-30 
+              px-8 py-6 pb-9'>
+                <h1 className='text-xl font-semibold'>Competions</h1>
+                <p className='text-gray-300 mt-2 mb-[55px]'>Homestead FBLA competes at Bay Section, States, and Nationals every year. We currently have 23 consecutive Bay Section Championships, 21 consecutive state championships, and 20 national championships.</p>
+                <Link href="code.org" className='border-2 border-watermelon-red hover:bg-watermelon-red 
+                ease-linear duration-200 cursor-pointer w-fit p-3 text-[15px] rounded-xl'>
+                  View Our Competitive History
+                </Link>
               </div>
-              <div className='rounded-lg border-2 border-watermelon-red bg-watermelon-red bg-opacity-40 px-8 py-6'>
-                <h1>Blah</h1>
-                <p>Blah</p>
+
+              <div className='rounded-lg border-2 border-watermelon-red bg-watermelon-red bg-opacity-30 
+              px-8 py-6 pb-9'>
+                <h1 className='text-xl font-semibold'>Competions</h1>
+                <p className='text-gray-300 mt-2 mb-9'>Homestead FBLA currently has 4 projects. The projects consist of the American Enterprise Project, the Community Service Project, the Partnership with Business Project, and the Software Ventures Project.</p>
+                
+                <div className='lg:flex lg:justify-between grid grid-cols-2 gap-y-5 lg:gap-0'>
+                  <Link href="code.org" className='border-2 border-watermelon-red hover:bg-watermelon-red 
+                  ease-linear duration-200 flex justify-center cursor-pointer w-16 p-3 text-[15px] rounded-xl'>
+                    AE
+                  </Link>
+
+                  <Link href="code.org" className='border-2 border-watermelon-red hover:bg-watermelon-red 
+                  ease-linear duration-200 cursor-pointer w-16 flex justify-center p-3 text-[15px] rounded-xl'>
+                    CS
+                  </Link>
+
+                  <Link href="code.org" className='border-2 border-watermelon-red hover:bg-watermelon-red 
+                  ease-linear duration-200 flex justify-center cursor-pointer w-16 p-3 text-[15px] rounded-xl'>
+                    PWB
+                  </Link>
+
+                  <Link href="code.org" className='border-2 border-watermelon-red hover:bg-watermelon-red 
+                  ease-linear duration-200 flex justify-center cursor-pointer w-16 p-3 text-[15px] rounded-xl'>
+                    SV
+                  </Link>
+                </div>
               </div>
-              <div className='rounded-lg border-2 border-melon bg-melon bg-opacity-20 px-8 py-6'>
-                <h1>Blah</h1>
-                <p>Blah</p>
+
+              <div className='rounded-lg border-2 border-melon bg-melon bg-opacity-30 
+              px-8 py-6 pb-9'>
+                <h1 className='text-xl font-semibold'>Competions</h1>
+                <p className='text-gray-300 mt-2 mb-9'>Homestead FBLA currently has 4 projects. The projects consist of the American Enterprise Project, the Community Service Project, the Partnership with Business Project, and the Software Ventures Project.</p>
+                <Link href="code.org" className='border-2 border-red-300 hover:bg-red-300 
+                ease-linear duration-200 cursor-pointer w-fit p-3 text-[15px] rounded-xl'>
+                  View Our Competitive History
+                </Link>
               </div>
               
             </div>
