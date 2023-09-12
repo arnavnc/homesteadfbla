@@ -29,7 +29,7 @@ export default function Home() {
               px-8 py-6 pb-9'>
                 <h1 className='text-xl font-semibold'>Competions</h1>
                 <p className='text-gray-300 mt-2 mb-[50px]'>Homestead FBLA competes at Bay Section, States, and Nationals every year. We currently have 23 consecutive Bay Section Championships, 21 consecutive state championships, and 20 national championships.</p>
-                <Link href="code.org" className='border-2 border-watermelon-red hover:bg-watermelon-red 
+                <Link href="/competitions" className='border-2 border-watermelon-red hover:bg-watermelon-red 
                 ease-linear duration-200 cursor-pointer w-fit p-3 text-[15px] rounded-xl'>
                   View Our Competitive History
                 </Link>
@@ -41,22 +41,22 @@ export default function Home() {
                 <p className='text-gray-300 mt-2 mb-9'>Homestead FBLA currently has 4 projects. The projects consist of the American Enterprise Project, the Community Service Project, the Partnership with Business Project, and the Software Ventures Project.</p>
                 
                 <div className='lg:flex lg:justify-between grid grid-cols-2 gap-y-5 lg:gap-0'>
-                  <Link href="code.org" className='border-2 border-watermelon-red hover:bg-watermelon-red 
+                  <Link href="/projects/american-enterprise" className='border-2 border-watermelon-red hover:bg-watermelon-red 
                   ease-linear duration-200 flex justify-center cursor-pointer w-16 p-3 text-[15px] rounded-xl'>
                     AE
                   </Link>
 
-                  <Link href="code.org" className='border-2 border-watermelon-red hover:bg-watermelon-red 
+                  <Link href="/projects/community-service" className='border-2 border-watermelon-red hover:bg-watermelon-red 
                   ease-linear duration-200 cursor-pointer w-16 flex justify-center p-3 text-[15px] rounded-xl'>
                     CS
                   </Link>
 
-                  <Link href="code.org" className='border-2 border-watermelon-red hover:bg-watermelon-red 
+                  <Link href="/projects/partnership-with-business" className='border-2 border-watermelon-red hover:bg-watermelon-red 
                   ease-linear duration-200 flex justify-center cursor-pointer w-16 p-3 text-[15px] rounded-xl'>
                     PWB
                   </Link>
 
-                  <Link href="code.org" className='border-2 border-watermelon-red hover:bg-watermelon-red 
+                  <Link href="/projects/software-ventures" className='border-2 border-watermelon-red hover:bg-watermelon-red 
                   ease-linear duration-200 flex justify-center cursor-pointer w-16 p-3 text-[15px] rounded-xl'>
                     SV
                   </Link>
@@ -101,7 +101,7 @@ export default function Home() {
               </div>
             </form>
           </section>
-      
+       
           <Footer />
     </main>
   )
