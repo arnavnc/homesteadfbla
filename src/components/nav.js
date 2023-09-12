@@ -11,6 +11,7 @@ import { useState } from 'react'
 import Image from "next/image";
 import logo from '../../public/static/logo.png'
 import Dropdown from "./Dropdown";
+import MobileDropdown from './MobileDropdown';
 
 const Nav = () => {
 
@@ -18,9 +19,9 @@ const Nav = () => {
 
   return (
     <motion.div
-      initial={{ y: -10, opacity: 0 }}
+      initial={{ y: -5, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: 0.3 }}
       className="sticky top-0 z-40 backdrop-blur-lg shadow-2xl 
       bg-gradient-to-r from-dimBlack via-emerald-900 to-dimBlack rounded-xl ease-linear duration-200"
     >
@@ -31,10 +32,10 @@ const Nav = () => {
         {({ open }) => (
           <nav className="flex justify-between space-x-8 rounded-xl flex-col">
             
-              <div className="flex flex-row justify-between px-[100px] pr-[110px]">
+              <div className="flex flex-row justify-between xl:mx-10">
                 
                 <Link href='/' className="space-x-3 sm:flex text-[18px] rounded-md p-2 pl-4 xl:pt-2 md:pt-2 pt-5 
-                font-semibold hover:scale-110 cursor-pointer ease-linear duration-300">
+                font-semibold hover:scale-105 cursor-pointer ease-linear duration-150">
                   <Image
                     className="relative w-16 h-16 my-auto"
                     alt="SciLynk Logo"
@@ -42,7 +43,7 @@ const Nav = () => {
                     draggable="false"
                     src={logo}
                   />
-                  <p className="my-auto">Homestead FBLA</p>
+                  <p className="my-auto sm:block hidden">Homestead FBLA</p>
                 </Link>
 
                 {/* Mobile Open/Close Btn */}
@@ -99,41 +100,45 @@ const Nav = () => {
                 className="relative"
               >
                 <div
-                  className="my-2 border-t border-emerald-800/40 sm:hidden mr-4 ml-[-7px]"
+                  className="my-2 border-t border-gray-800/40 sm:hidden mr-4 ml-[-7px]"
                 >
-                  <div className="mt-2 flex flex-col space-y-1">
+                  <div className="mt-2 flex flex-col space-y-4">
                   <Link href="/" passHref className="mt-[3px]">
+                      <div
+                        as="a"
+                        className="rounded-md p-2 font-semibold text-gray-300 hover:bg-gray-900/50"
+                      >
+                        <MobileDropdown />
+                      </div>
+                    </Link>
+
+                    <Link href="/competitions" passHref>
                       <Disclosure.Button
                         as="a"
                         className="rounded-md p-2 font-semibold text-gray-300 hover:bg-gray-900/50"
                       >
-                        Home
+                        Competitions History
                       </Disclosure.Button>
                     </Link>
-                    <Link href="/portfolio" passHref>
+
+                    <Link href="/press" passHref>
                       <Disclosure.Button
                         as="a"
                         className="rounded-md p-2 font-semibold text-gray-300 hover:bg-gray-900/50"
                       >
-                        Portfolio
+                        Press Releases
                       </Disclosure.Button>
                     </Link>
-                    <Link href="/blog" passHref>
+
+                    <Link href="/officers" passHref>
                       <Disclosure.Button
                         as="a"
                         className="rounded-md p-2 font-semibold text-gray-300 hover:bg-gray-900/50"
                       >
-                        Blog
+                        Meet the Team
                       </Disclosure.Button>
                     </Link>
-                    <Link href="/contact" passHref>
-                      <Disclosure.Button
-                        as="a"
-                        className="rounded-md p-2 font-semibold text-gray-300 hover:bg-gray-900/50"
-                      >
-                        Contact
-                      </Disclosure.Button>
-                    </Link>
+
                   </div>
                 </div>
               </Transition>
