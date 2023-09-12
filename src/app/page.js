@@ -1,6 +1,6 @@
 import Image from 'next/image'
-import Nav from "@/components/nav";
-import Footer from "@/components/footer";
+import Nav from "@/components/Nav";
+import Footer from "@/components/Footer";
 // import Timeline from "@/components/CompetitionHistory";
 // import CompetitionsHistory from '@/components/CompetitionHistory';
 

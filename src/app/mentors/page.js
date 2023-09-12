@@ -1,5 +1,5 @@
 import Nav from "@/components/Nav";
-import OfficerCard from "../../components/OfficerCard";
+import MentorCard from "../../components/MentorCard";
 import advisers from "../../data/advisers.js";
 import Footer from "@/components/Footer";
 import advisersPic from "../../../public/static/advisers.jpg"
@@ -15,11 +15,11 @@ export default function Officers() {
         </div>
         <div className="px-10">
   
-                <h2 className="text-watermelon-red text-2xl font-bold mb-6">Our Advisers ❤️</h2>
-                <p className="text-lg italic font-light">Several people inquire about the secret behind our success at the Regional, State, and National levels. Our answer is straightforward: there is no hidden formula. Instead, we attribute our achievements to a trio of exceptionally dedicated advisers. These individuals have devoted significant portions of their careers to nurturing the next generation of business leaders.</p>
+                <h2 className="text-watermelon-red text-2xl font-bold mb-6">Our Mentors ❤️</h2>
+                <p className="text-lg italic font-light">Here are the dedicated collection of professionals, alumni, officers, and students who support our chapter competitors as committed mentors.</p>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 my-10">
                     {advisers.map((adviser) => (
-                    <OfficerCard key={adviser.name} {...adviser} />
+                    <MentorCard key={adviser.name} {...adviser} />
                     ))}
                 </div>
         </div>
