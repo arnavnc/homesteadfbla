@@ -1,9 +1,10 @@
-import Nav from "@/components/Nav";
-import OfficerCard from "../../components/OfficerCard";
+
 import advisers from "../../data/advisers.js";
-import Footer from "@/components/Footer";
+import Footer from "@/components/footer";
 import advisersPic from "../../../public/static/advisers.jpg"
 import Image from "next/image";
+import Nav from "@/components/nav";
+import OfficerCard from "@/components/officerCard.js";
 
 export default function Officers() {
   return (
