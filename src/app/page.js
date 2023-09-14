@@ -1,15 +1,19 @@
+"use client"
 import Image from 'next/image'
 import Nav from "@/components/nav";
 import Footer from "@/components/footer"
+import { useState, useEffect } from 'react';
 // import Timeline from "@/components/CompetitionHistory";
 // import CompetitionsHistory from '@/components/CompetitionHistory';
 import Arnav from "../../public/static/officers.jpg"
 import Link from 'next/link';
-
+import firebase from './firebase';
+ 
 export default function Home() {
+
   return (
     <main className="mx-auto space-y-[-6px] pb-10 lg:px-0 min-h-screen">
-          <Image src={Arnav} className="fixed blur-sm bg-scroll object-cover opacity-10 h-[100vh] z-[-10]" draggable={false}/>
+        <Image src={Arnav} className="fixed blur-sm bg-scroll object-cover opacity-10 h-[100vh] z-[-10]" draggable={false}/>
           <Nav />
           <main className='lg:flex flex-cols-2 justify-evenly'>
             <div className="flex flex-col text-center items-center lg:items-start lg:text-left justify-center h-[50vh] lg:min-h-[80vh] py-2 px-5 md:px-20 space-y-5">
@@ -103,6 +107,8 @@ export default function Home() {
           </section>
        
           <Footer />
+
+
     </main>
   )
 }
