@@ -18,7 +18,10 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+const firebaseApp = initializeApp(firebaseConfig);
 if (typeof window !== 'undefined') {
-  const analytics = getAnalytics(app);
+  const analytics = getAnalytics(firebaseApp);
 }
+
+export default firebaseApp;
+
