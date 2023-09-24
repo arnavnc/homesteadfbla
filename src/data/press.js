@@ -1,5 +1,12 @@
 let press = [
     {
+        title: "National Leadership Conference 2023",
+        date: "July 2023",
+        desc: "Cupertino, California — Homestead High School Future Business Leaders of America (FBLA) continues its incredible legacy of victories after securing its 22nd National Championship at the highly anticipated National Leadership Conference (NLC). The conference took place from June 26th to July 1, 2023, at the Georgia World Congress Center in Atlanta, Georgia. Earning an impressive 103 sweepstakes points, the Homestead FBLA team demonstrated their dedication to securing another national championship title. The team outperformed fierce competition, including the 2nd place Johns Creek High School (GA) scoring 96 points, followed by South Forsyth High School (GA) with 86 points, and competitors from FBLA Canada earning 74 points...",
+        link: "https://drive.google.com/file/d/1_m2OYny6Y6GftnnRnwKSPrWqDR4L0oIB/view?usp=drive_link",
+        image: "NLC2023"
+    },
+    {
         title: "State Leadership Conference 2023",
         date: "May 2023",
         desc: "Cupertino, California — Homestead High School Future Business Leaders of America (FBLA) continued its success with its 24th consecutive Sweepstakes championship at the California FBLA State Leadership Conference (SLC), at the SAFE Credit Union convention center in Sacramento, California from April 27 to April 30. In total, Homestead High School earned 521 points, with a 223-point difference from the 2nd place chapter, Oxford Academy (Cypress, California) who earned 298 points. The 3rd, 4th, and 5th place chapters were Los Osos High School (Rancho Cucamonga, CA) with 279 points, Lynbrook High School (San Jose, CA) with 277 points, and Centennial High School (Corona, CA) with 220 points respectively...",
