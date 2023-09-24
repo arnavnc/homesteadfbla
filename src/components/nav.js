@@ -60,16 +60,16 @@ const Nav = () => {
                     <Dropdown />
 
                   </div>
-                  <Link href="/competitions" className="rounded-md p-2 font-semibold text-dimWhite hover:text-gray-300 ease-linear duration-300">
+                  <Link href="/competitions" className="rounded-md p-2 font-semibold text-dimWhite hover:text-gray-400 ease-linear duration-300">
                       Competitions History
                   </Link>
-                  <Link href="/press" className="rounded-md p-2 font-semibold text-dimWhite hover:text-gray-300 ease-linear duration-300">
+                  <Link href="/press" className="rounded-md p-2 font-semibold text-dimWhite hover:text-gray-400 ease-linear duration-300">
                       Press Releases
                   </Link>
                   {/* <Link href="/mom" className="rounded-md p-2 font-semibold text-dimWhite hover:text-gray-400 ease-linear duration-300">
                       Members of the Month
                   </Link> */}
-                  <Link href="/officers" className="rounded-md p-2 font-semibold text-dimWhite hover:text-gray-300 ease-linear duration-300">
+                  <Link href="/officers" className="rounded-md p-2 font-semibold text-dimWhite hover:text-gray-400 ease-linear duration-300">
                       Meet the Team
                   </Link>
                   <span className="p-2 font-semibold text-dimWhite ease-linear duration-300">

@@ -35,12 +35,15 @@ export default function Home() {
               
               <div className='rounded-lg border-2 border-red-violet bg-red-violet bg-opacity-30 
               px-8 py-6 pb-9'>
+
                 <h1 className='text-xl font-semibold'>Competions</h1>
-                <p className='text-gray-300 mt-2 mb-[50px]'>Homestead FBLA competes at Bay Section, States, and Nationals every year. We currently have 23 consecutive Bay Section Championships, 21 consecutive state championships, and 20 national championships.</p>
+                <p className='text-gray-300 mt-2 mb-[48px]'>Homestead FBLA competes at Bay Section, States, and Nationals every year. We currently have 23 consecutive Bay Section Championships, 21 consecutive state championships, and 20 national championships.</p>
+
                 <Link href="/competitions" className='border-2 border-watermelon-red hover:bg-watermelon-red 
-                ease-linear duration-200 cursor-pointer w-fit p-3 text-[15px] rounded-xl'>
+                ease-linear duration-200 cursor-pointer w-fit p-3 lg:text-[15px] text-sm rounded-xl'>
                   View Our Competitive History
                 </Link>
+
               </div>
 
               <div className='rounded-lg border-2 border-watermelon-red bg-watermelon-red bg-opacity-30 
@@ -49,23 +52,23 @@ export default function Home() {
                 <p className='text-gray-300 mt-2 mb-9'>Homestead FBLA currently has 4 projects. The projects consist of the American Enterprise Project, the Community Service Project, the Partnership with Business Project, and the Software Ventures Project.</p>
                 
                 <div className='lg:grid-cols-4 lg:gap-x-3 gap-x-3 gap-y-3 lg:justify-between grid grid-cols-2 lg:gap-0'>
-                  <Link href="/projects/american-enterprise" className='border-2 border-watermelon-red hover:bg-watermelon-red 
-                  ease-linear duration-200 flex justify-center cursor-pointer p-3 text-[15px] rounded-xl'>
+                  <Link href="/projects/american-enterprise" className='border-2 border-watermelon-red hover:bg-watermelon-red ease-linear duration-200 flex justify-center cursor-pointer p-3 
+                  text-[15px] rounded-xl'>
                     AE
                   </Link>
 
-                  <Link href="/projects/community-service" className='border-2 border-watermelon-red hover:bg-watermelon-red 
-                  ease-linear duration-200 cursor-pointer flex justify-center p-3 text-[15px] rounded-xl'>
+                  <Link href="/projects/community-service" className='border-2 border-watermelon-red hover:bg-watermelon-red ease-linear duration-200 cursor-pointer flex justify-center p-3 
+                  text-[15px] rounded-xl'>
                     CS
                   </Link>
 
-                  <Link href="/projects/partnership-with-business" className='border-2 border-watermelon-red hover:bg-watermelon-red 
-                  ease-linear duration-200 flex justify-center cursor-pointer p-3 text-[15px] rounded-xl'>
+                  <Link href="/projects/partnership-with-business" className='border-2 border-watermelon-red hover:bg-watermelon-red ease-linear duration-200 flex justify-center cursor-pointer p-3 
+                  text-[15px] rounded-xl'>
                     PWB
                   </Link>
 
-                  <Link href="/projects/software-ventures" className='border-2 border-watermelon-red hover:bg-watermelon-red 
-                  ease-linear duration-200 flex justify-center cursor-pointer p-3 text-[15px] rounded-xl'>
+                  <Link href="/projects/software-ventures" className='border-2 border-watermelon-red hover:bg-watermelon-red ease-linear duration-200 flex justify-center cursor-pointer p-3 
+                  text-[15px] rounded-xl'>
                     SV
                   </Link>
                 </div>
@@ -73,12 +76,16 @@ export default function Home() {
 
               <div className='rounded-lg border-2 border-melon bg-melon bg-opacity-30 
               px-8 py-6 pb-9'>
-                <h1 className='text-xl font-semibold'>Competions</h1>
-                <p className='text-gray-300 mt-2 mb-[50px]'>Homestead FBLA currently has 4 projects. The projects consist of the American Enterprise Project, the Community Service Project, the Partnership with Business Project, and the Software Ventures Project.</p>
-                <Link href="code.org" className='border-2 border-red-300 hover:bg-red-300 
-                ease-linear duration-200 cursor-pointer w-fit p-3 text-[15px] rounded-xl'>
-                  View Our Competitive History
+
+                <h1 className='text-xl font-semibold'>Officers</h1>
+                <p className='text-gray-300 mt-2 mb-[45px]'>Homestead FBLA's leadership consists of Teams setting strategy, handling logistics and events, and Project Chairs leading business initiatives. The officers provide direction, organization, and execution of the chapter's activities.</p>
+
+                <Link href="/officers" className='border-2 border-red-300 hover:bg-red-300 
+                hover:text-red-500 hover:font-semibold ease-linear duration-200 
+                cursor-pointer w-fit p-3 lg:text-[15px] text-sm rounded-xl'>
+                  Meet our Officer Team
                 </Link>
+
               </div>
               
             </div>
