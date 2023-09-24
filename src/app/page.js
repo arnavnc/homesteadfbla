@@ -41,27 +41,27 @@ export default function Home() {
 
               <div className='rounded-lg border-2 border-watermelon-red bg-watermelon-red bg-opacity-30 
               px-8 py-6 pb-9'>
-                <h1 className='text-xl font-semibold'>Competions</h1>
+                <h1 className='text-xl font-semibold'>Projects</h1>
                 <p className='text-gray-300 mt-2 mb-9'>Homestead FBLA currently has 4 projects. The projects consist of the American Enterprise Project, the Community Service Project, the Partnership with Business Project, and the Software Ventures Project.</p>
                 
-                <div className='lg:flex lg:justify-between grid grid-cols-2 gap-y-5 lg:gap-0'>
+                <div className='lg:grid-cols-4 lg:gap-x-3 gap-x-3 gap-y-3 lg:justify-between grid grid-cols-2 lg:gap-0'>
                   <Link href="/projects/american-enterprise" className='border-2 border-watermelon-red hover:bg-watermelon-red 
-                  ease-linear duration-200 flex justify-center cursor-pointer w-16 p-3 text-[15px] rounded-xl'>
+                  ease-linear duration-200 flex justify-center cursor-pointer p-3 text-[15px] rounded-xl'>
                     AE
                   </Link>
 
                   <Link href="/projects/community-service" className='border-2 border-watermelon-red hover:bg-watermelon-red 
-                  ease-linear duration-200 cursor-pointer w-16 flex justify-center p-3 text-[15px] rounded-xl'>
+                  ease-linear duration-200 cursor-pointer flex justify-center p-3 text-[15px] rounded-xl'>
                     CS
                   </Link>
 
                   <Link href="/projects/partnership-with-business" className='border-2 border-watermelon-red hover:bg-watermelon-red 
-                  ease-linear duration-200 flex justify-center cursor-pointer w-16 p-3 text-[15px] rounded-xl'>
+                  ease-linear duration-200 flex justify-center cursor-pointer p-3 text-[15px] rounded-xl'>
                     PWB
                   </Link>
 
                   <Link href="/projects/software-ventures" className='border-2 border-watermelon-red hover:bg-watermelon-red 
-                  ease-linear duration-200 flex justify-center cursor-pointer w-16 p-3 text-[15px] rounded-xl'>
+                  ease-linear duration-200 flex justify-center cursor-pointer p-3 text-[15px] rounded-xl'>
                     SV
                   </Link>
                 </div>
@@ -82,7 +82,7 @@ export default function Home() {
 
           {/* Mobile Form  */}
 
-          <section className='py-10 px-10 lg:px-16 bg-red-violet bg-opacity-20 block lg:hidden'>
+          {/* <section className='py-10 px-10 lg:px-16 bg-red-violet bg-opacity-20 block lg:hidden'>
             <h1 className='text-3xl font-bold mb-5'>Work With Us</h1>
             <form className="mx-auto max-w-md">
               <div className="mb-4">
@@ -104,7 +104,7 @@ export default function Home() {
                 <button type="submit" className="bg-watermelon-red text-white py-2 px-4 rounded-md hover:bg-opacity-75 transition duration-300 ease-in-out">Submit</button>
               </div>
             </form>
-          </section>
+          </section> */}
        
           <Footer />
 
