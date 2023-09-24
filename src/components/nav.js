@@ -53,7 +53,7 @@ const Nav = () => {
                 </Disclosure.Button>
 
                 {/* Desktop Links */}
-                <div className="hidden space-x-4   sm:flex text-sm my-auto">
+                <div className="hidden space-x-4 sm:flex text-sm my-auto">
 
                   <div className="rounded-md p-2 font-semibold text-dimWhite hover:text-gray-400 ease-linear duration-300 cursor-pointer">
                     
@@ -100,10 +100,10 @@ const Nav = () => {
                 className="relative"
               >
                 <div
-                  className="my-2 border-t border-gray-800/40 sm:hidden mr-4 ml-[-7px]"
+                  className="my-2 border-t border-gray-800/40 sm:hidden mr-4 ml-[-7px] h-[175px]"
                 >
                   <div className="mt-2 flex flex-col space-y-4">
-                  <Link href="/" passHref className="mt-[3px]">
+                  <Link href="/" passHref className="mt-[3px] mb-[-9px]">
                       <div
                         as="a"
                         className="rounded-md p-2 font-semibold text-gray-300 hover:bg-gray-900/50"
