@@ -4,6 +4,7 @@ import React, { useEffect } from 'react';
 import firebase from 'src/app/firebase.js';
 import { useRouter } from 'next/router';
 
+
 const GoogleAuth = () => {
   const router = useRouter();
   useEffect(() => {
