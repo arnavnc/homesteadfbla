@@ -16,7 +16,7 @@ const DropdownMenu = () => {
   return (
     <div className="relative inline-block">
       <div onMouseEnter={toggleDropdown} className='flex flex-row'>
-        Projects <AiOutlineCaretDown className='mt-[5px] ml-[2px] scale-105'/>
+        Projects <AiOutlineCaretDown className='mt-1 ml-[2px] scale-105'/>
       </div>
 
       <div

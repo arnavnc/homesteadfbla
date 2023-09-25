@@ -1,6 +1,7 @@
 "use client"
 import Image from "next/image";
 import Link from "next/link";
+import { BiRightArrowAlt } from 'react-icons/bi'
 
 export default function PDFCard({ title, date, desc, link, image }) {
     return (
@@ -19,8 +20,8 @@ export default function PDFCard({ title, date, desc, link, image }) {
                     </div>
                 </div>
                 <div className="bg-dark-chocolate rounded-md px-3 py-2 w-full text-center text-sm border-2 border-dark-chocolate hover:brightness-90 transition ease-linear duration-300">
-                    <Link href={link} target="blank">
-                        View Press Release &rarr;
+                    <Link href={link} target="blank" className="flex flex-row group">
+                        View Press Release <BiRightArrowAlt className='mt-1 scale-[1.35] ml-[7px] group-hover:translate-x-1 ease-linear duration-150'/>
                     </Link>
                 </div>
                 
