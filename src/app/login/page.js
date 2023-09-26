@@ -1,8 +1,9 @@
 'use client'
 
-import React from 'react';
+import React, {useEffect} from 'react';
 import firebase from 'src/app/firebase.js';
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { useRouter } from 'next/router';
 // import { makeStyles } from "@material-ui/core/styles";
 
 import Nav from "@/components/nav";
@@ -49,11 +50,12 @@ export default class LoginPage extends React.Component {
   }
 
   login(typeOfLogin) {
-    var ref = this;
-    var provider = new firebase.auth.GoogleAuthProvider();
-    firebase
-      .auth()
-      .signInWithPopup(provider)
+    // const router = useRouter();
+    
+    // Use Firebase to initiate the Google authentication process
+    // const provider = new firebase.auth.GoogleAuthProvider();
+
+    signInWithPopup(auth, provider)
       .then((result) => {
         var token = result.credential.accessToken;
         var user = result.user;
@@ -61,17 +63,17 @@ export default class LoginPage extends React.Component {
 
         this.checkIfUser(user, db).then((data) => {
           if (data) {
-            if (data["authLevel"] === typeOfLogin) {
+            if (data["authLevel"] === typeOfLogin) {s
               if (data["authLevel"] === "member") {
-                ref.goTo("/member-portal");
+                this.goTo("/member-portal");
               } else {
-                ref.goTo("/admin-portal");
+                this.goTo("/admin-portal");
               }
             } else {
               user
                 .delete()
                 .then(function () {
-                  ref.goTo("/wrong-login");
+                  router.push("/wrong-login");
                 })
                 .catch(function (error) {});
             }
@@ -80,13 +82,15 @@ export default class LoginPage extends React.Component {
             user
               .delete()
               .then(function () {
-                ref.goTo("/not-a-user");
+                router.push("/not-a-user");
               })
               .catch(function (error) {});
           }
         });
       });
   }
+
+
   render() {
     if (this.state.redirect) {
       return <Redirect to={this.state.redirect} />;
@@ -112,20 +116,8 @@ function LoginPageComponent(props) {
       <div className="border-2  rounded-md border-purple-600 bg-purple-600 bg-opacity-10 px-4 py-3">
         <h1 className="text-lg font-bold text-purple-600">Login</h1>
         <p>Please click the button below to sign in with Google:</p>
-        <Button
-          target="_blank"
-          color="transparent"
-          onClick={() => login("member")}
-        >
-          Member Login
-        </Button>
-        <Button
-          target="_blank"
-          color="transparent"
-          onClick={() => login("admin")}
-        >
-          Admin Login
-        </Button>
+        <button onClick={() => login("member")}>Member Login</button>
+        <button onClick={() => login("admin")}>Admin Login</button>
       </div>
       <Footer />
     </div>
@@ -176,3 +168,5 @@ export default function Login() {
   
 }
 */
+
+
