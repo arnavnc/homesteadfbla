@@ -2,6 +2,7 @@
 
 import React, {useEffect} from 'react';
 import firebase from 'src/app/firebase.js';
+import { collection, query, where, getDocs, getFirestore } from "firebase/firestore";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { useRouter } from 'next/router';
 // import { makeStyles } from "@material-ui/core/styles";
@@ -28,14 +29,26 @@ export default class LoginPage extends React.Component {
     this.setState({ redirect: location });
   }
 
+  
   checkIfUser(user, db) {
     let data = null;
     console.log('the user',  user)
+    const q = query(collection(db, "users"), where("email", "==", true));
+    const querySnapshot = getDocs(q);
+    const fetchData = async () => {
+      const querySnapshot = await getDocs(collectionRef);
+      const docs = [];
+      querySnapshot.forEach((doc) => {
+        // Extract data from each document
+        const data = doc.data();
+        docs.push(data);
+      });
+      setData(docs);
+    };
+
+    /*
     return Promise.all([
-      db
-        .collection("users")
-        .where("email", "==", user["email"])
-        .get()
+      q.get()
         .then(function (querySnapshot) {
           querySnapshot.forEach(function (doc) {
             data = doc.data();
@@ -47,6 +60,7 @@ export default class LoginPage extends React.Component {
     ]).then(() => {
       return Promise.resolve(data);
     });
+    */
   }
 
   login(typeOfLogin) {
@@ -57,13 +71,14 @@ export default class LoginPage extends React.Component {
 
     signInWithPopup(auth, provider)
       .then((result) => {
-        var token = result.credential.accessToken;
-        var user = result.user;
-        var db = firebase.firestore();
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        var token = credential.accessToken;
+        const user = result.user;
+        const db = getFirestore(firebase);
 
         this.checkIfUser(user, db).then((data) => {
           if (data) {
-            if (data["authLevel"] === typeOfLogin) {s
+            if (data["authLevel"] === typeOfLogin) {
               if (data["authLevel"] === "member") {
                 this.goTo("/member-portal");
               } else {
