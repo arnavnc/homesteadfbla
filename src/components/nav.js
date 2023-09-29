@@ -100,7 +100,7 @@ const Nav = () => {
                 className="relative"
               >
                 <div
-                  className="my-2 border-t border-gray-800/40 sm:hidden mr-4 ml-[-7px] h-[175px]"
+                  className="my-2 border-t border-gray-800/40 sm:hidden mr-4 ml-[-7px] h-[240px]"
                 >
                   <div className="mt-2 flex flex-col space-y-4">
                   <Link href="/" passHref className="mt-[3px] mb-[-9px]">
@@ -138,6 +138,27 @@ const Nav = () => {
                         Meet the Team
                       </Disclosure.Button>
                     </Link>
+
+                    <div className="flex justify-between mx-10 pt-4">
+                      <Link href="/login" passHref>
+                        <Disclosure.Button
+                          as="a"
+                          className="ml-3 rounded-md bg-watermelon-red text-warm-beige py-2 px-3 
+                          font-semibold ease-linear duration-300 hover:brightness-90"
+                        >
+                          Login
+                        </Disclosure.Button>
+                      </Link>
+
+                      <Link href="/register" passHref>
+                        <Disclosure.Button
+                          as="a"
+                          className="rounded-md p-2 py-2 px-3 text-warm-beige font-semibold ease-linear duration-300 bg-red-900"
+                        >
+                          Register
+                        </Disclosure.Button>
+                      </Link>
+                    </div>
 
                   </div>
                 </div>

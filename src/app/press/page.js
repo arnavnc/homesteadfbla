@@ -8,9 +8,10 @@ import Link from "next/link";
 
 export default function Press() {
   return (
-    <>
-      <Nav />
-      <Image src={officersPic} className="fixed blur-sm bg-scroll object-cover opacity-10 h-[100vh] w-[100vw] z-[-10]" draggable={false}/>
+    <main>
+      <Image src={officersPic} className="fixed blur-sm bg-scroll object-cover opacity-10 h-[100vh] 
+       z-[-10]" draggable={false}/>
+       <Nav />
       <div className="border-2 border-dark-chocolate bg-dark-chocolate p-10 m-10 rounded-xl bg-opacity-30">
         <h1 className="text-3xl font-bold">Press</h1>
         <p className="mt-3 text-lg">View our past press releases below. For any press related inquiries, email <Link href="mailto:press@hhsfbla.com" className="text-watermelon-red underline inline">press@hhsfbla.com</Link> and our press team will reach out to you within 48 hours.</p>
@@ -21,6 +22,6 @@ export default function Press() {
         ))}
       </div>
       <Footer />
-    </>
+    </main>
   );
 }
