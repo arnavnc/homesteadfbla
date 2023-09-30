@@ -21,9 +21,8 @@ const Nav = () => {
     <motion.div
       initial={{ y: -5, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.3 }}
-      className="sticky top-0 z-40 backdrop-blur-lg shadow-2xl 
-      bg-gradient-to-r from-dimBlack via-emerald-900 to-dimBlack rounded-xl ease-linear duration-200"
+      transition={{ duration: 0.1 }}
+      className="sticky top-0 z-40 backdrop-blur-lg shadow-2xl rounded-xl rounded-t-none ease-linear duration-200"
     >
       <Disclosure
         as="nav"
@@ -103,14 +102,14 @@ const Nav = () => {
                   className="my-2 border-t border-gray-800/40 sm:hidden mr-4 ml-[-7px] h-[240px]"
                 >
                   <div className="mt-2 flex flex-col space-y-4">
-                  <Link href="/" passHref className="mt-[3px] mb-[-9px]">
+                  <div className="mt-[3px] mb-[-9px]">
                       <div
                         as="a"
                         className="rounded-md p-2 font-semibold text-gray-300 hover:bg-gray-900/50"
                       >
                         <MobileDropdown />
                       </div>
-                    </Link>
+                    </div>
 
                     <Link href="/competitions" passHref>
                       <Disclosure.Button
@@ -139,11 +138,11 @@ const Nav = () => {
                       </Disclosure.Button>
                     </Link>
 
-                    <div className="flex justify-between mx-10 pt-4">
-                      <Link href="/login" passHref>
+                    <div className="flex justify-between mx-10 mr-12 pt-4">
+                      <Link href="/register" passHref>
                         <Disclosure.Button
                           as="a"
-                          className="ml-3 rounded-md bg-watermelon-red text-warm-beige py-2 px-3 
+                          className="rounded-md bg-watermelon-red text-warm-beige py-2 px-3 
                           font-semibold ease-linear duration-300 hover:brightness-90"
                         >
                           Login

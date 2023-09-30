@@ -13,7 +13,7 @@ import { BiRightArrowAlt } from 'react-icons/bi'
 export default function Home() {
 
   return (
-    <main className="mx-auto space-y-[-6px] pb-10 lg:px-0 min-h-screen">
+    <main className="mx-auto space-y-[-6px] lg:px-0 min-h-screen">
         <Image src={Arnav} className="fixed blur-sm bg-scroll object-cover opacity-10 h-[100vh] z-[-10]" draggable={false}/>
           <Nav />
           <main className='lg:flex flex-cols-2 justify-evenly'>
