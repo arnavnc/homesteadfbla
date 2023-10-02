@@ -32,6 +32,7 @@ export default class LoginPage extends React.Component {
     }
 
     
+
     checkIfUser(user, db) {
       let data = null;
       console.log('the user',  user)
@@ -77,7 +78,7 @@ export default class LoginPage extends React.Component {
           var token = credential.accessToken;
           const user = result.user;
           const db = getFirestore(firebase);
-
+/*
           this.checkIfUser(user, db).then((data) => {
             if (data) {
               if (data["authLevel"] === typeOfLogin) {
@@ -104,6 +105,8 @@ export default class LoginPage extends React.Component {
                 .catch(function (error) {});
             }
           });
+          */
+         this.goTo("/");
         });
     }
 
