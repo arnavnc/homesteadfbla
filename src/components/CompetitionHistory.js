@@ -75,26 +75,22 @@ const CompetitionsHistory = () => {
 
         const confQueryCollection = collection(db, `confQuery`);
         const conferenceDocument = doc(confQueryCollection, `${conference}`);
-        let yearCollections = [];
+        // let yearCollections = [];
         console.log(conferenceDocument);
 
         for (let year in years) {
-          console.log(years[year]);
-          yearCollections.push(
-            await collection(conferenceDocument, `${years[year]}`)
+          let yearCollection = await collection(
+            conferenceDocument,
+            `${years[year]}`
           );
-        }
 
-        for (let yearCollection of yearCollections) {
           const eventDocs = await getDocs(yearCollection);
 
           for (let eventDoc of eventDocs.docs) {
-            console.log("got here");
-            console.log(eventDoc);
             const data = eventDoc.data();
             results.push({
               ...data,
-              year: yearDoc.id,
+              year: years[year],
               conference,
             });
           }
@@ -103,8 +99,8 @@ const CompetitionsHistory = () => {
         // }
       }
 
-      // console.log("results");
-      // console.log(results);
+      console.log("results");
+      console.log(results);
       setAllData(results);
       setFilteredData(results);
     };
