@@ -80,24 +80,13 @@ const CompetitionsHistory = () => {
 
         for (let year in years) {
           console.log(years[year]);
-          yearCollections.push(collection(conferenceDocument, `${year}`));
+          yearCollections.push(
+            await collection(conferenceDocument, `${years[year]}`)
+          );
         }
 
-        console.log("finished with getting conference docs");
-
         for (let yearCollection of yearCollections) {
-          // console.log(yearCollection);
-
-          // const eventsQuery = collection(
-          //   db,
-          //   `confQuery/${conference}/${yearDoc.id}`
-          // );
-
           const eventDocs = await getDocs(yearCollection);
-
-          for (let eventDoc of eventDocs.docs) {
-            console.log(eventDoc);
-          }
 
           for (let eventDoc of eventDocs.docs) {
             console.log("got here");
