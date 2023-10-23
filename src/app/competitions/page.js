@@ -15,6 +15,8 @@ import {
 import Link from "next/link";
 import CompetitionsHistory from "@/components/CompetitionHistory";
 
+const names = {};
+
 export default function Home() {
   // const firestore = getFirestore(firebase); // get firestore
   // const conferenceCollection = collection(firestore, "confQuery"); // get the confQuery collection

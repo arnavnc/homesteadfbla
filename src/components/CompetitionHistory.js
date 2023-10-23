@@ -15,6 +15,40 @@ import { getAnalytics } from "firebase/analytics";
 
 // Initialize Firebase
 
+const conferences = ["Bay", "State", "Nationals"];
+const years = [
+  "1994",
+  "1995",
+  "1996",
+  "1997",
+  "1998",
+  "1999",
+  "2000",
+  "2001",
+  "2002",
+  "2003",
+  "2004",
+  "2005",
+  "2006",
+  "2007",
+  "2008",
+  "2009",
+  "2010",
+  "2011",
+  "2012",
+  "2013",
+  "2014",
+  "2015",
+  "2016",
+  "2017",
+  "2018",
+  "2019",
+  "2020",
+  "2021",
+  "2022",
+  "2023",
+];
+
 const app = firebase;
 const analytics = getAnalytics(app);
 const CompetitionsHistory = () => {
@@ -33,50 +67,14 @@ const CompetitionsHistory = () => {
   useEffect(() => {
     const fetchData = async () => {
       const db = getFirestore();
-      const conferences = ["Bay", "State", "Nationals"];
-      const years = [
-        "1994",
-        "1995",
-        "1996",
-        "1997",
-        "1998",
-        "1999",
-        "2000",
-        "2001",
-        "2002",
-        "2003",
-        "2004",
-        "2005",
-        "2006",
-        "2007",
-        "2008",
-        "2009",
-        "2010",
-        "2011",
-        "2012",
-        "2013",
-        "2014",
-        "2015",
-        "2016",
-        "2017",
-        "2018",
-        "2019",
-        "2020",
-        "2021",
-        "2022",
-        "2023",
-      ];
       let results = [];
 
       for (let conference of conferences) {
-        console.log(conference);
-
         // need to get the collection confQuery, need to get the doc for the conference, and then need to get the list of collections of the years
 
         const confQueryCollection = collection(db, `confQuery`);
         const conferenceDocument = doc(confQueryCollection, `${conference}`);
         // let yearCollections = [];
-        console.log(conferenceDocument);
 
         for (let year in years) {
           let yearCollection = await collection(
@@ -95,12 +93,8 @@ const CompetitionsHistory = () => {
             });
           }
         }
-
-        // }
       }
 
-      console.log("results");
-      console.log(results);
       setAllData(results);
       setFilteredData(results);
     };
@@ -111,6 +105,7 @@ const CompetitionsHistory = () => {
   // Filter data based on search terms
   useEffect(() => {
     const filterData = () => {
+      console.log("allData.filter output");
       const newFilteredData = allData.filter(
         (item) =>
           (searchTerm.year ? item.year.includes(searchTerm.year) : true) &&
@@ -121,6 +116,7 @@ const CompetitionsHistory = () => {
           (searchTerm.name ? item.name.includes(searchTerm.name) : true) &&
           (searchTerm.place ? item.place.includes(searchTerm.place) : true)
       );
+      console.log(newFilteredData);
       setFilteredData(newFilteredData);
     };
 
@@ -148,9 +144,14 @@ const CompetitionsHistory = () => {
     });
   };
 
-  // console.log("hello1");
-  // console.log(filteredData);
-  // console.log("hello2");
+  console.log("Filtered Data");
+  console.log(filteredData);
+
+  console.log("All Data");
+  console.log(allData);
+
+  console.log("search term");
+  console.log(searchTerm);
 
   return (
     <div>

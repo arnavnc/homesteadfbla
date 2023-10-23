@@ -5,6 +5,7 @@ import Footer from "@/components/footer";
 import advisersPic from "../../../public/static/advisers.jpg"
 import Image from "next/image";
 
+
 export default function Officers() {
   return (
     <>
