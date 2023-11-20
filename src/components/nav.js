@@ -65,6 +65,9 @@ const Nav = () => {
                   <Link href="/press" className="rounded-md p-2 font-semibold text-dimWhite hover:text-gray-400 ease-linear duration-300">
                       Press Releases
                   </Link>
+                  <Link href="/mentors" className="rounded-md p-2 font-semibold text-dimWhite hover:text-gray-400 ease-linear duration-300">
+                      Mentors
+                  </Link>
                   {/* <Link href="/mom" className="rounded-md p-2 font-semibold text-dimWhite hover:text-gray-400 ease-linear duration-300">
                       Members of the Month
                   </Link> */}
