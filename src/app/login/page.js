@@ -14,43 +14,18 @@ import Nav from "@/components/nav";
 import Footer from "@/components/footer.js";
 import { SYSTEM_ENTRYPOINTS } from 'next/dist/shared/lib/constants';
 import { setUserId } from 'firebase/analytics';
-// import Button from "@/components/Button.js";
-
-// const auth = getAuth(firebase);
-// const provider = new GoogleAuthProvider();
 
 
-// const useStyles = makeStyles(styles);
+function LoginPageComponent({ login, router }) {
+  const [cardAnimaton, setCardAnimation] = useState('cardHidden');
 
-export default function LoginPageComponent(props) {
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setCardAnimation('');
+    }, 700);
 
-//     const {user, googleSignIn, logOut } = UserAuth();
-//     const [loading, setLoading] = useState(true);  
-
-//   const handleSignIn = async () => {
-//     try {
-//       await googleSignIn()
-//     } catch(error) {
-//       console.log(error);
-//     }
-//   }
-
-//   const handleSignOut = async () => {
-//     try {
-//       await logOut();
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
-
-//   useEffect(() => {
-//     const checkAuthentication = async () => {
-//       await new Promise((resolve) => setTimeout(resolve, 50));
-//       setLoading(false);
-//     };
-//     checkAuthentication();
-//   }, [user]);
-
+    return () => clearTimeout(timeoutId);
+  }, []);
   return (
       <div>
       <Image src={Arnav} className="fixed blur-sm bg-scroll object-cover opacity-10 h-[100vh] z-[-10]" draggable={false}/>
@@ -66,7 +41,7 @@ export default function LoginPageComponent(props) {
               <div className='bg-red-900 h-fit mt-4 rounded-2xl'>
               <div className=' backdrop-blur-xl rounded-2xl'>
                   <button 
-                //   onClick={handleSignIn}
+                  onClick={() => login("member")}
                   className='bg-red-900 p-4 rounded-2xl 
                   lg:hover:translate-x-[-10px] lg:hover:translate-y-4 ease-linear duration-200'
                   >
@@ -96,57 +71,77 @@ export default function LoginPageComponent(props) {
   );
 }
 
-/*
-const handleLogin = async () => {
-    console.log("Member Login button clicked");
-      try {
-        await signInWithGoogle();
-        // User is now logged in
-        // Check user's authLevel
-        const user = auth.currentUser;
-        if (user) {
-          const authLevel = await checkUserAuthLevel(user.uid);
-          if (authLevel === "member") {
-              console.log("MEMBER");
-            // User is a member, you can proceed
-  
-          } else if (authLevel === "ERROR") {
-            console.error("ERROR: User is an admin.");
-          } else {
-            console.error("UNKNOWN: Auth level not recognized.");
-          }
-        }
-      } catch (error) {
-        console.error("Error signing in:", error);
-      }
-};
-*/
+export default class LoginPage extends React.Component {
 
-
-/*
-const auth = getAuth(firebase);
-const provider = new GoogleAuthProvider();
-const firestore = getFirestore(firebase);
-// const useStyles = makeStyles(styles);
-
-export const checkUserAuthLevel = async (userId) => {
-  try {
-    const userDoc = await firestore.collection("users").doc(userId).get();
-    if (userDoc.exists) {
-      const authLevel = userDoc.data().authLevel;
-      if (authLevel === "member") {
-        // User is a member
-        return "member";
-      } else if (authLevel === "admin") {
-        // User is an admin
-        return "ERROR";
-      }
-    }
-    // Handle case where user document doesn't exist or authLevel is not recognized
-    return "UNKNOWN";
-  } catch (error) {
-    console.error("Error checking auth level:", error);
-    return "ERROR";
+  constructor(props) {
+    super(props);
+    this.login = this.login.bind(this);
+    this.state = {
+      redirect: null,
+    };
+    this.goTo = this.goTo.bind(this);
   }
-};
-*/
+
+  goTo(location) {
+    this.setState({ redirect: location });
+  }
+
+  async checkIfUser(user, db) {
+    let data = null;
+    console.log('the user', user);
+    try {
+      const querySnapshot = await getDocs(
+        collection(db, 'users').where('email', '==', user.email)
+      );
+      querySnapshot.forEach((doc) => {
+        data = doc.data();
+      });
+    } catch (error) {
+      console.log('Error getting documents: ', error);
+    }
+    return data;
+  }
+
+  login(typeOfLogin) {
+    const provider = new GoogleAuthProvider();
+    const auth = getAuth();
+    const ref = this;
+
+    signInWithPopup(auth, provider)
+      .then(async (result) => {
+        const token = result.credential.accessToken;
+        const user = result.user;
+        const db = getFirestore();
+
+        try {
+          const data = await this.checkIfUser(user, db);
+
+          if (data) {
+            if (data.authLevel === typeOfLogin) {
+              if (data.authLevel === 'member') {
+                ref.goTo('/member-portal');
+              } else {
+                ref.goTo('/admin-portal');
+              }
+            } else {
+              await user.delete();
+              ref.goTo('/wrong-login');
+            }
+          } else {
+            console.log('NOT A USER', data);
+            await user.delete();
+            ref.goTo('/not-a-user');
+          }
+        } catch (error) {
+          console.error('Error during login:', error);
+        }
+      });
+  }
+
+  render() {
+    if (this.state.redirect) {
+      return <Redirect to={this.state.redirect} />;
+    }
+    return <LoginPageComponent login={this.login} router={this.props.router} />;
+  }
+}
