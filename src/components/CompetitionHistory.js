@@ -105,18 +105,23 @@ const CompetitionsHistory = () => {
   // Filter data based on search terms
   useEffect(() => {
     const filterData = () => {
-      console.log("allData.filter output");
+      // console.log("is number or string?");
       const newFilteredData = allData.filter(
-        (item) =>
+        (item) => 
+          // (() => console.log(typeof item.place.toString()))
           (searchTerm.year ? item.year.includes(searchTerm.year) : true) &&
           (searchTerm.conference
             ? item.conference.includes(searchTerm.conference)
             : true) &&
           (searchTerm.event ? item.event.includes(searchTerm.event) : true) &&
           (searchTerm.name ? item.name.includes(searchTerm.name) : true) &&
-          (searchTerm.place ? item.place.includes(searchTerm.place) : true)
+          (searchTerm.place ? item.place.toString().includes(searchTerm.place) : true)
       );
-      console.log(newFilteredData);
+
+      console.log("place".includes("a"));
+      // console.log(typeof item.place);
+
+      // console.log(newFilteredData);
       setFilteredData(newFilteredData);
     };
 
@@ -147,8 +152,8 @@ const CompetitionsHistory = () => {
   console.log("Filtered Data");
   console.log(filteredData);
 
-  console.log("All Data");
-  console.log(allData);
+  // console.log("All Data");
+  // console.log(allData);
 
   console.log("search term");
   console.log(searchTerm);
@@ -196,7 +201,7 @@ const CompetitionsHistory = () => {
           onChange={handleInputChange}
         />
       </div>
-      <table>
+      <table className = "w-full space-x-3">
         <thead>
           <tr>
             <th>Year</th>
