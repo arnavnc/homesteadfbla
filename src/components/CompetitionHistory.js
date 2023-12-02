@@ -155,38 +155,41 @@ const CompetitionsHistory = () => {
 
   return (
     <div>
-      <h1>Searchable Table</h1>
-      <div>
+      <div class = "w-full space-x-3">
         <input
-          className="text-black"
+          className="bg-transparent p-2 rounded-2x border-b placeholder:text-gray-300 
+          outline-none"
           type="text"
           name="year"
           placeholder="Search by Year"
           onChange={handleInputChange}
         />
         <input
-          className="text-black"
+          className="bg-transparent p-2 rounded-2x border-b placeholder:text-gray-300 "
           type="text"
           name="conference"
           placeholder="Search by Conference"
           onChange={handleInputChange}
         />
         <input
-          className="text-black"
+          className="bg-transparent p-2 rounded-2x border-b placeholder:text-gray-300 
+          outline-none"
           type="text"
           name="event"
           placeholder="Search by Event"
           onChange={handleInputChange}
         />
         <input
-          className="text-black"
+          className="bg-transparent p-2 rounded-2x border-b placeholder:text-gray-300 
+          outline-none"
           type="text"
           name="name"
           placeholder="Search by Name"
           onChange={handleInputChange}
         />
         <input
-          className="text-black"
+          className="bg-transparent p-2 rounded-2x border-b placeholder:text-gray-300 
+          outline-none"
           type="text"
           name="place"
           placeholder="Search by Place"
