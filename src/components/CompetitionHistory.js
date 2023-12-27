@@ -53,7 +53,7 @@ const app = firebase;
 const analytics = getAnalytics(app);
 const CompetitionsHistory = () => {
   const [allData, setAllData] = useState([]);
-  const [filteredData, setFilteredData] = useState([]);
+  // const [filteredData, setFilteredData] = useState([]);
   const [searchTerm, setSearchTerm] = useState({
     year: "",
     conference: "",
@@ -65,81 +65,81 @@ const CompetitionsHistory = () => {
   // Fetch all data from Firestore once on component mount
   // Fetch all data from Firestore once on component mount
   useEffect(() => {
-    const fetchData = async () => {
-      const db = getFirestore();
-      let results = [];
+      const fetchData = async () => {
+        const db = getFirestore();
+        let results = [];
 
-      for (let conference of conferences) {
-        // need to get the collection confQuery, need to get the doc for the conference, and then need to get the list of collections of the years
+        for (let conference of conferences) {
+          // need to get the collection confQuery, need to get the doc for the conference, and then need to get the list of collections of the years
 
-        const confQueryCollection = collection(db, `confQuery`);
-        const conferenceDocument = doc(confQueryCollection, `${conference}`);
-        // let yearCollections = [];
+          const confQueryCollection = collection(db, `confQuery`);
+          const conferenceDocument = doc(confQueryCollection, `${conference}`);
+          // let yearCollections = [];
 
-        for (let year in years) {
-          let yearCollection = await collection(
-            conferenceDocument,
-            `${years[year]}`
-          );
+          for (let year in years) {
+            let yearCollection = await collection(
+              conferenceDocument,
+              `${years[year]}`
+            );
 
-          const eventDocs = await getDocs(yearCollection);
+            const eventDocs = await getDocs(yearCollection);
 
-          for (let eventDoc of eventDocs.docs) {
-            const data = eventDoc.data();
-            results.push({
-              ...data,
-              year: years[year],
-              conference,
-            });
+            for (let eventDoc of eventDocs.docs) {
+              const data = eventDoc.data();
+              results.push({
+                ...data,
+                year: years[year],
+                conference,
+              });
+            }
           }
         }
-      }
 
-      setAllData(results);
-      setFilteredData(results);
-    };
+        setAllData(results);
+        // setFilteredData(results);
+      };
 
-    fetchData();
+      fetchData();
   }, []);
 
-  // Filter data based on search terms
-  useEffect(() => {
-    const filterData = () => {
-      // console.log("is number or string?");
-      const newFilteredData = allData.filter(
-        (item) => 
-          // (() => console.log(typeof item.place.toString()))
-          (searchTerm.year ? item.year.includes(searchTerm.year) : true) &&
-          (searchTerm.conference
-            ? item.conference.includes(searchTerm.conference)
-            : true) &&
-          (searchTerm.event ? item.event.includes(searchTerm.event) : true) &&
-          (searchTerm.name ? item.name.includes(searchTerm.name) : true) &&
-          (searchTerm.place ? item.place.toString().includes(searchTerm.place) : true)
-      );
-
-      console.log("place".includes("a"));
-      // console.log(typeof item.place);
-
-      // console.log(newFilteredData);
-      setFilteredData(newFilteredData);
-    };
-
-    filterData();
+  const filteredData = useMemo(() => {
+    return Object.values(searchTerm).some((term) => term.trim() !== "")
+      ? allData.filter((item) =>
+          item.year.includes(searchTerm.year) &&
+          item.conference.includes(searchTerm.conference) &&
+          item.event.includes(searchTerm.event) &&
+          item.name.includes(searchTerm.name) &&
+          item.place.toString().includes(searchTerm.place)
+        )
+      : [];
   }, [searchTerm]);
 
-  // const filteredData = useMemo(() => {
-  //   return allData.filter(
-  //     (item) =>
-  //       (searchTerm.year ? item.year.includes(searchTerm.year) : true) &&
-  //       (searchTerm.conference
-  //         ? item.conference.includes(searchTerm.conference)
-  //         : true) &&
-  //       (searchTerm.event ? item.event.includes(searchTerm.event) : true) &&
-  //       (searchTerm.name ? item.name.includes(searchTerm.name) : true) &&
-  //       (searchTerm.place ? item.place.includes(searchTerm.place) : true)
-  //   );
-  // }, [allData, searchTerm]);
+  // Filter data based on search terms
+  // useEffect(() => {
+  //   const filterData = () => {
+  //     // console.log("is number or string?");
+  //     const newFilteredData = allData.filter(
+  //       (item) => 
+  //         // (() => console.log(typeof item.place.toString()))
+  //         (searchTerm.year ? item.year.includes(searchTerm.year) : true) &&
+  //         (searchTerm.conference
+  //           ? item.conference.includes(searchTerm.conference)
+  //           : true) &&
+  //         (searchTerm.event ? item.event.includes(searchTerm.event) : true) &&
+  //         (searchTerm.name ? item.name.includes(searchTerm.name) : true) &&
+  //         (searchTerm.place ? item.place.toString().includes(searchTerm.place) : true)
+  //     );
+
+  //     // console.log("place".includes("a"));
+  //     // console.log(typeof item.place);
+
+  //     // console.log(newFilteredData);
+  //     setFilteredData(newFilteredData);
+  //   };
+
+  //   filterData();
+  // }, [searchTerm]);
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -152,8 +152,8 @@ const CompetitionsHistory = () => {
   console.log("Filtered Data");
   console.log(filteredData);
 
-  // console.log("All Data");
-  // console.log(allData);
+  console.log("All Data");
+  console.log(allData);
 
   console.log("search term");
   console.log(searchTerm);
