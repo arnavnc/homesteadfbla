@@ -26,11 +26,11 @@ export default function RegisterPage() {
       />
       <Nav />
       <main className="lg:flex justify-evenly">
-        <div className="flex flex-col text-center items-center lg:items-start lg:text-left justify-center pt-7 lg:pt-0 lg:h-[70vh] py-2 px-5 md:px-20 space-y-5">
-          <h1 className="text-4xl lg:text-6xl font-bold lg:mt-10">
-            Register an account with Homestead FBLA
+        <div className="flex flex-col text-center items-center lg:items-center lg:text-center justify-center pt-7 lg:pt-0 lg:h-[70vh] py-2 px-5 md:px-20 space-y-5">
+          <h1 className="bg-red-violet p-10 rounded-2xl text-4xl lg:text-6xl font-bold lg:mt-10">
+            Register
           </h1>
-          <div className="bg-watermelon-red w-full p-10 rounded-2xl 
+          <div className="bg-watermelon-red p-10 rounded-2xl w-50
                   flex flex-col lg:flex-row justify-center bg-opacity-75 gap-10">
             <Register />
           </div>
