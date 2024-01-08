@@ -58,23 +58,23 @@ export default function Register() {
         const usersCollection = collection(db, "users");
 
 
-        return db.collection("users").doc(firstName + " " + lastName).set({
-            email: email,
-            id: id,
-            authLevel: "member",
-        }).then(function () {
-            return Promise.resolve(
-                <h8>
-                    {" "}
-                    Account Created!
-                    <br /> You can now sign in with
-                    <br /> Google via the login
-                    <br /> page.
-                </h8>
-            );
-        }).catch(function (error) {
-            return Promise.reject("An error occurred. Try again?");
-        });
+        // return db.collection("users").doc(firstName + " " + lastName).set({
+        //     email: email,
+        //     id: id,
+        //     authLevel: "member",
+        // }).then(function () {
+        //     return Promise.resolve(
+        //         <h8>
+        //             {" "}
+        //             Account Created!
+        //             <br /> You can now sign in with
+        //             <br /> Google via the login
+        //             <br /> page.
+        //         </h8>
+        //     );
+        // }).catch(function (error) {
+        //     return Promise.reject("An error occurred. Try again?");
+        // });
 
     };
 
