@@ -5,7 +5,7 @@ import logo from '../../public/static/logo.png'
 const navigation = {
   about: [
     { name: "Officers", href: "/officers" },
-    { name: "Advisers", href: "/advisers" },
+    { name: "Advisers (Soon!)", href: "" },
     { name: "Press", href: "/press" },
   ],
   history: [

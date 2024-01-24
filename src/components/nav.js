@@ -65,8 +65,8 @@ const Nav = () => {
                   <Link href="/press" className="rounded-md p-2 font-semibold text-dimWhite hover:text-gray-400 ease-linear duration-300">
                       Press Releases
                   </Link>
-                  <Link href="/mentors" className="rounded-md p-2 font-semibold text-dimWhite hover:text-gray-400 ease-linear duration-300">
-                      Mentors
+                  <Link href="" className="rounded-md p-2 font-semibold text-dimWhite hover:text-gray-400 ease-linear duration-300">
+                      Mentors (Soon!)
                   </Link>
                   {/* <Link href="/mom" className="rounded-md p-2 font-semibold text-dimWhite hover:text-gray-400 ease-linear duration-300">
                       Members of the Month
@@ -75,12 +75,12 @@ const Nav = () => {
                       Meet the Team
                   </Link>
                   <span className="p-2 font-semibold text-dimWhite ease-linear duration-300">
-                    <Link href="/login" className="rounded-md p-2 border border-dark-chocolate py-2 px-3 text-warm-beige font-semibold ease-linear duration-300 hover:bg-dark-chocolate">
-                      Login
+                    <Link href="" className="rounded-md p-2 border border-dark-chocolate py-2 px-3 text-warm-beige font-semibold ease-linear duration-300 hover:bg-dark-chocolate">
+                      Login (Soon!)
                     </Link>
                     <Link 
-                      href="/register" className="ml-3 rounded-md border border-dark-chocolate bg-dark-chocolate text-warm-beige py-2 px-3 font-semibold ease-linear duration-300 hover:brightness-90">
-                        Register
+                      disabled href="" className="disabled:border-green-500 ml-3 rounded-md border border-dark-chocolate bg-dark-chocolate text-warm-beige py-2 px-3 font-semibold ease-linear duration-300 hover:brightness-90">
+                        Register (Soon!)
                     </Link>
                   </span>
                   
