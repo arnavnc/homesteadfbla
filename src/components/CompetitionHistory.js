@@ -201,17 +201,17 @@ const CompetitionsHistory = () => {
           onChange={handleInputChange}
         />
       </div>
-      <table className = "w-full space-x-3">
-        <thead>
-          <tr>
-            <th>Year</th>
-            <th>Conference</th>
-            <th>Event</th>
-            <th>Name</th>
-            <th>Place</th>
-          </tr>
-        </thead>
-        <tbody>
+      <div className="">
+        <div>
+          <div className="flex flex-row space-x-[160px]">
+            <div>Year</div>
+            <div className="pl-14">Conference</div>
+            <div className="ml-[-1rem]">Event</div>
+            <div className="pl-12">Name</div>
+            <div className="pl-10">Place</div>
+          </div>
+        </div>
+        <div>
           {filteredData.length > 0 &&
             filteredData.map((item, index) => (
               <tr key={index}>
@@ -222,8 +222,8 @@ const CompetitionsHistory = () => {
                 <td>{item.place}</td>
               </tr>
             ))}
-        </tbody>
-      </table>
+        </div>
+      </div>
     </div>
   );
 };

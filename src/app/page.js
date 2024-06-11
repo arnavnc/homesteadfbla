@@ -26,7 +26,7 @@ export default function Home() {
             The #1 Chapter in the Nation
           </p>
           <Link
-            className="rounded-md bg-red-violet w-fit px-4 py-2 hover:brightness-90 transition ease-linear duration-300 flex flex-row group"
+            className="rounded-md bg-red-violet w-fit  px-4 py-2 hover:brightness-90 transition ease-linear duration-300 flex flex-row group"
             href="https://www.youtube.com/watch?v=fNxKm-bBoY8&feature=youtu.be&ab_channel=TimothyBeckmann"
             target="_blank"
           >
