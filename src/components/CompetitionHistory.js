@@ -170,7 +170,7 @@ const CompetitionsHistory = () => {
           onChange={handleInputChange}
         />
         <input
-          className="bg-transparent p-2 rounded-2x border-b placeholder:text-gray-300 "
+          className="bg-transparent p-2 rounded-2x border-b placeholder:text-gray-300 outline-none"
           type="text"
           name="conference"
           placeholder="Search by Conference"

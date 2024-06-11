@@ -45,7 +45,7 @@ export default function Home() {
             className="rounded-lg border-2 border-red-violet bg-red-violet bg-opacity-30 
               px-8 py-6 pb-9"
           >
-            <h1 className="text-xl font-semibold">Competions</h1>
+            <h1 className="text-xl font-semibold">Competitions</h1>
             <p className="text-gray-300 mt-2 mb-[48px]">
               Homestead FBLA competes at Bay Section, States, and Nationals
               every year. We currently have 23 consecutive Bay Section
@@ -55,7 +55,7 @@ export default function Home() {
 
             <Link
               href="/competitions"
-              className="border-2 border-watermelon-red hover:bg-watermelon-red 
+              className="border-2  border-watermelon-red hover:bg-watermelon-red 
                 ease-linear duration-200 cursor-pointer w-fit p-3 lg:text-[15px] text-sm rounded-xl"
             >
               View Our Competitive History
