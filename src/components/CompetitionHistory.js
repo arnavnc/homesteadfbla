@@ -59,7 +59,7 @@ const CompetitionsHistory = () => {
     conference: "",
     event: "",
     name: "",
-    place: "",
+//    place: "",
   });
 
   // Fetch all data from Firestore once on component mount
@@ -108,8 +108,9 @@ const CompetitionsHistory = () => {
           item.year.includes(searchTerm.year) &&
           item.conference.includes(searchTerm.conference) &&
           item.event.includes(searchTerm.event) &&
-          item.name.includes(searchTerm.name) &&
-          item.place.toString().includes(searchTerm.place)
+          item.name.includes(searchTerm.name) 
+          //&&
+         // item.place.toString().includes(searchTerm.place)
         )
       : [];
   }, [searchTerm]);
@@ -192,14 +193,14 @@ const CompetitionsHistory = () => {
           placeholder="Search by Name"
           onChange={handleInputChange}
         />
-        <input
+        {/* <input
           className="bg-transparent p-2 rounded-2x border-b placeholder:text-gray-300 
           outline-none"
           type="text"
           name="place"
           placeholder="Search by Place"
           onChange={handleInputChange}
-        />
+        /> */}
       </div>
       <div className="">
         <div>
@@ -208,7 +209,7 @@ const CompetitionsHistory = () => {
             <div className="pl-14">Conference</div>
             <div className="ml-[-1rem]">Event</div>
             <div className="pl-12">Name</div>
-            <div className="pl-10">Place</div>
+            {/* <div className="pl-10">Place</div> */}
           </div>
         </div>
         <div>
@@ -219,7 +220,7 @@ const CompetitionsHistory = () => {
                 <td>{item.conference}</td>
                 <td>{item.event}</td>
                 <td>{item.name}</td>
-                <td>{item.place}</td>
+                {/* <td>{item.place}</td> */}
               </tr>
             ))}
         </div>
