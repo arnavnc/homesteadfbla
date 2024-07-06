@@ -1,4 +1,3 @@
-"use client";
 import { useState, useEffect, useMemo } from "react";
 import {
   getFirestore,
@@ -58,6 +57,7 @@ const CompetitionsHistory = () => {
   }, []);
 
   // Filter data based on search terms
+  
   const filteredData = useMemo(() => {
     return Object.values(searchTerm).some((term) => term.trim() !== "")
       ? allData.filter((item) =>
@@ -120,18 +120,18 @@ const CompetitionsHistory = () => {
         />
       </div>
       <div className="p-4 bg-white shadow-lg rounded-md">
-        <div>
-          <div className="flex flex-row space-x-[160px] mb-2">
-            <div>Year</div>
-            <div className="pl-14">Conference</div>
-            <div className="ml-[-1rem]">Event</div>
-            <div className="pl-12">Name</div>
-            <div className="pl-10">Place</div>
-          </div>
-        </div>
-        <div>
+        <div style={{ maxHeight: "400px", overflowY: "auto" }}>
           {filteredData.length > 0 ? (
             <table className="w-full">
+              <thead>
+                <tr className="border-b">
+                  <th className="p-2 text-left">Year</th>
+                  <th className="p-2 text-left">Conference</th>
+                  <th className="p-2 text-left">Event</th>
+                  <th className="p-2 text-left">Name</th>
+                  <th className="p-2 text-left">Place</th>
+                </tr>
+              </thead>
               <tbody>
                 {filteredData.map((item, index) => (
                   <tr key={index} className="border-t">
