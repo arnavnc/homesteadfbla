@@ -220,13 +220,14 @@ const CompetitionsHistory = () => {
                 <td>{item.conference}</td>
                 <td>{item.event}</td>
                 <td>{item.name}</td>
-                {/* <td>{item.place}</td> */}
+                <td>{item.place}</td>
               </tr>
             ))}
         </div>
       </div>
     </div>
   );
+
 };
 
 export default CompetitionsHistory;
