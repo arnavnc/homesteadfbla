@@ -57,7 +57,6 @@ const CompetitionsHistory = () => {
   }, []);
 
   // Filter data based on search terms
-  
   const filteredData = useMemo(() => {
     return Object.values(searchTerm).some((term) => term.trim() !== "")
       ? allData.filter((item) =>
@@ -120,20 +119,20 @@ const CompetitionsHistory = () => {
         />
       </div>
       <div className="p-4 bg-white shadow-lg rounded-md">
-        <div style={{ maxHeight: "400px", overflowY: "auto" }}>
-          {filteredData.length > 0 ? (
-            <table className="w-full">
-              <thead>
-                <tr className="border-b">
-                  <th className="p-2 text-left">Year</th>
-                  <th className="p-2 text-left">Conference</th>
-                  <th className="p-2 text-left">Event</th>
-                  <th className="p-2 text-left">Name</th>
-                  <th className="p-2 text-left">Place</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredData.map((item, index) => (
+        <div style={{ maxHeight: "300px", overflowY: "auto" }}>
+          <table className="w-full">
+            <thead>
+              <tr className="border-b">
+                <th className="p-2 text-left">Year</th>
+                <th className="p-2 text-left">Conference</th>
+                <th className="p-2 text-left">Event</th>
+                <th className="p-2 text-left">Name</th>
+                <th className="p-2 text-left">Place</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredData.length > 0 ? (
+                filteredData.map((item, index) => (
                   <tr key={index} className="border-t">
                     <td className="p-2">{item.year}</td>
                     <td className="p-2">{item.conference}</td>
@@ -141,12 +140,14 @@ const CompetitionsHistory = () => {
                     <td className="p-2">{item.name}</td>
                     <td className="p-2">{item.place}</td>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          ) : (
-            <p>No results found</p>
-          )}
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="5" className="p-2 text-center">No results found</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
