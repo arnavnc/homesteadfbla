@@ -58,12 +58,19 @@ const CompetitionsHistory = () => {
 
   // Filter data based on search terms
   const filteredData = useMemo(() => {
-    return Object.values(searchTerm).some((term) => term.trim() !== "")
+    const searchTermLower = {
+      year: searchTerm.year.toLowerCase(),
+      conference: searchTerm.conference.toLowerCase(),
+      event: searchTerm.event.toLowerCase(),
+      name: searchTerm.name.toLowerCase()
+    };
+
+    return Object.values(searchTermLower).some((term) => term.trim() !== "")
       ? allData.filter((item) =>
-          item.year.includes(searchTerm.year) &&
-          item.conference.includes(searchTerm.conference) &&
-          item.event.includes(searchTerm.event) &&
-          item.name.includes(searchTerm.name)
+          item.year.toLowerCase().includes(searchTermLower.year) &&
+          item.conference.toLowerCase().includes(searchTermLower.conference) &&
+          item.event.toLowerCase().includes(searchTermLower.event) &&
+          item.name.toLowerCase().includes(searchTermLower.name)
         )
       : allData;
   }, [searchTerm, allData, triggerSearch]);
@@ -81,8 +88,8 @@ const CompetitionsHistory = () => {
   };
 
   return (
-    <div className="p-4">
-      <div className="w-full space-x-3 mb-4">
+    <div className="pt-2">
+      <div className="w-full space-x-3 mb-2">
         <button
           onClick={handleSearch}
           className="bg-blue-500 text-white p-2 rounded-md"
@@ -118,7 +125,7 @@ const CompetitionsHistory = () => {
           onChange={handleInputChange}
         />
       </div>
-      <div className="p-4 bg-white shadow-lg rounded-md">
+      <div className="p-2 bg-white shadow-lg rounded-md">
         <div style={{ maxHeight: "300px", overflowY: "auto" }}>
           <table className="w-full">
             <thead>
