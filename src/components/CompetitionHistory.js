@@ -57,14 +57,20 @@ const CompetitionsHistory = () => {
   }, []);
 
   // Filter data based on search terms
-  
   const filteredData = useMemo(() => {
-    return Object.values(searchTerm).some((term) => term.trim() !== "")
+    const searchTermLower = {
+      year: searchTerm.year.toLowerCase(),
+      conference: searchTerm.conference.toLowerCase(),
+      event: searchTerm.event.toLowerCase(),
+      name: searchTerm.name.toLowerCase()
+    };
+
+    return Object.values(searchTermLower).some((term) => term.trim() !== "")
       ? allData.filter((item) =>
-          item.year.includes(searchTerm.year) &&
-          item.conference.includes(searchTerm.conference) &&
-          item.event.includes(searchTerm.event) &&
-          item.name.includes(searchTerm.name)
+          item.year.toLowerCase().includes(searchTermLower.year) &&
+          item.conference.toLowerCase().includes(searchTermLower.conference) &&
+          item.event.toLowerCase().includes(searchTermLower.event) &&
+          item.name.toLowerCase().includes(searchTermLower.name)
         )
       : allData;
   }, [searchTerm, allData, triggerSearch]);
@@ -82,8 +88,8 @@ const CompetitionsHistory = () => {
   };
 
   return (
-    <div className="p-4">
-      <div className="w-full space-x-3 mb-4">
+    <div className="pt-2">
+      <div className="w-full space-x-3 mb-2">
         <button
           onClick={handleSearch}
           className="bg-blue-500 text-white p-2 rounded-md"
@@ -119,21 +125,21 @@ const CompetitionsHistory = () => {
           onChange={handleInputChange}
         />
       </div>
-      <div className="p-4 bg-white shadow-lg rounded-md">
-        <div style={{ maxHeight: "400px", overflowY: "auto" }}>
-          {filteredData.length > 0 ? (
-            <table className="w-full">
-              <thead>
-                <tr className="border-b">
-                  <th className="p-2 text-left">Year</th>
-                  <th className="p-2 text-left">Conference</th>
-                  <th className="p-2 text-left">Event</th>
-                  <th className="p-2 text-left">Name</th>
-                  <th className="p-2 text-left">Place</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredData.map((item, index) => (
+      <div className="p-2 bg-white shadow-lg rounded-md">
+        <div style={{ maxHeight: "300px", overflowY: "auto" }}>
+          <table className="w-full">
+            <thead>
+              <tr className="border-b">
+                <th className="p-2 text-left">Year</th>
+                <th className="p-2 text-left">Conference</th>
+                <th className="p-2 text-left">Event</th>
+                <th className="p-2 text-left">Name</th>
+                <th className="p-2 text-left">Place</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredData.length > 0 ? (
+                filteredData.map((item, index) => (
                   <tr key={index} className="border-t">
                     <td className="p-2">{item.year}</td>
                     <td className="p-2">{item.conference}</td>
@@ -141,12 +147,14 @@ const CompetitionsHistory = () => {
                     <td className="p-2">{item.name}</td>
                     <td className="p-2">{item.place}</td>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          ) : (
-            <p>No results found</p>
-          )}
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="5" className="p-2 text-center">No results found</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
