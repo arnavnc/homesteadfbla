@@ -1,22 +1,46 @@
-export default function LoginPage() {
+// import { useEffect } from 'react';
+// import { useRouter } from 'next/router';
+// import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+// import firebase from 'src/app/firebase'; // Adjust the path as per your project structure
 
-  return (
-    <main>
-      <main className="lg:flex justify-evenly">
-        <div className="flex flex-col text-center items-center lg:items-center lg:text-center justify-center pt-7 lg:pt-0 lg:h-[70vh] py-2 px-5 md:px-20 space-y-5">
-          <h1 className="bg-red-violet p-10 rounded-2xl text-4xl lg:text-6xl font-bold lg:mt-10">
-            Register
-          </h1>
-          <div className="bg-watermelon-red p-10 rounded-2xl w-50
-                  flex flex-col lg:flex-row justify-center bg-opacity-75 gap-10">
-          </div>
-        </div>
-      </main>
-    </main>
-  );
-}
+// const auth = getAuth();
+// const provider = new GoogleAuthProvider();
 
+// const LoginPage = () => {
+//   const router = useRouter();
 
+//   useEffect(() => {
+//     const unsubscribe = auth.onAuthStateChanged((user) => {
+//       if (user) {
+//         // User is signed in.
+//         router.push('/press'); // Redirect to dashboard or any other page after successful login
+//       } else {
+//         // User is signed out.
+//       }
+//     });
+
+//     return () => unsubscribe();
+//   }, []);
+
+//   const handleGoogleSignIn = async () => {
+//     try {
+//       const result = await signInWithPopup(auth, provider);
+//       const user = result.user;
+//       // Optionally, you can perform further checks or actions after login
+//     } catch (error) {
+//       console.error('Error signing in with Google:', error);
+//     }
+//   };
+
+//   return (
+//     <div>
+//       <h1>Login Page</h1>
+//       <button onClick={handleGoogleSignIn}>Sign in with Google</button>
+//     </div>
+//   );
+// };
+
+// export default LoginPage;
 
 // 'use client'
 

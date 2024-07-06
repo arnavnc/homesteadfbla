@@ -75,7 +75,7 @@ const Nav = () => {
                       Meet the Team
                   </Link>
                   <span className="p-2 font-semibold text-dimWhite ease-linear duration-300">
-                    <Link href="" className="rounded-md p-2 border border-dark-chocolate py-2 px-3 text-warm-beige font-semibold ease-linear duration-300 hover:bg-dark-chocolate">
+                    <Link href="/login" className="rounded-md p-2 border border-dark-chocolate py-2 px-3 text-warm-beige font-semibold ease-linear duration-300 hover:bg-dark-chocolate">
                       Login (Soon!)
                     </Link>
                     <Link 
