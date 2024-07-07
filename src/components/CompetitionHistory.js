@@ -120,34 +120,42 @@ const CompetitionsHistory = () => {
     <div className="pt-2 text-white">
       <div className="w-full space-x-3 mb-2 flex">
         <input
-          className="bg-transparent p-2 rounded-2x border-b placeholder:text-gray-300 text-gray-300 outline-none"
+          className="bg-transparent p-2 rounded-2x border-b placeholder:text-gray-300 text-white outline-none"
           type="text"
           name="year"
           placeholder="Search by Year"
           onChange={handleInputChange}
         />
         <select
-          className="bg-transparent p-2 rounded-2x border-b placeholder:text-gray-300 text-gray-300 outline-none"
+          className={`bg-transparent p-2 rounded-2x border-b placeholder:text-gray-300 outline-none ${
+            searchTerm.conference ? "text-white" : "text-gray-300"
+          }`}
           name="conference"
           onChange={handleInputChange}
         >
-          <option value="">Search by Conference</option>
+          <option value="" className= "text-black">
+            Search by Conference
+          </option>
           {conferences.map((conference, index) => (
             <option key={index} value={conference} className="text-black">{conference}</option>
           ))}
         </select>
         <select
-          className="bg-transparent p-2 rounded-2x border-b placeholder:text-gray-300 text-gray-300 outline-none"
+          className={`bg-transparent p-2 rounded-2x border-b placeholder:text-gray-300 outline-none ${
+            searchTerm.event ? "text-white" : "text-gray-300"
+          }`}
           name="event"
           onChange={handleInputChange}
         >
-          <option value="">Search by Event</option>
+          <option value="" className= "text-black">
+            Search by Event
+          </option>
           {events.map((event, index) => (
             <option key={index} value={event} className="text-black">{event}</option>
           ))}
         </select>
         <input
-          className="bg-transparent p-2 rounded-2x border-b placeholder:text-gray-300 text-gray-300 outline-none"
+          className="bg-transparent p-2 rounded-2x border-b placeholder:text-gray-300 text-white outline-none"
           type="text"
           name="name"
           placeholder="Search by Name"
