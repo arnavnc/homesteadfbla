@@ -15,6 +15,25 @@ const years = [
   "2018", "2019", "2020", "2021", "2022", "2023",
 ];
 
+const events = [
+  "Accounting I", "Accounting II", "Advertising", "Agribusiness", "American Enterprise Project",
+  "Banking & Financial Systems", "Broadcast Journalism", "Business Calculations", "Business Communication",
+  "Business Ethics", "Business Law", "Business Management", "Business Plan", "Client Service", "Coding & Programming",
+  "Community Service Project", "Computer Applications", "Computer Game & Simulation Programming", "Computer Problem Solving",
+  "Cyber Security", "Data Analysis", "Database Design & Applications", "Digital Animation", "Digital Video Production", "Economics",
+  "Electronic Career Portfolio", "Entrepreneurship", "Financial Statement Analysis", "Future Business Educator", "Future Business Leader",
+  "Graphic Design", "Healthcare Administration", "Help Desk", "Hospitality & Event Management", "Human Resource Management", "Impromptu Speaking",
+  "Insurance & Risk Management", "International Business", "Introduction to Business Communication", "Introduction to Business Concepts",
+  "Introduction to Business Presentation", "Introduction to Business Procedures", "Introduction to Event Planning", "Introduction to FBLA",
+  "Introduction to Financial Math", "Introduction to Information Technology", "Introduction to Marketing Concepts", "Introduction to Parliamentary Procedure",
+  "Introduction to Programming", "Introduction to Public Speaking", "Introduction to Social Media Strategy", "Job Interview", "Journalism",
+  "Local Chapter Annual Business Report", "Management Information Systems", "Marketing", "Mobile Application Development", "Network Design",
+  "Networking Infrastructures", "Organizational Leadership", "Parliamentary Procedure", "Partnership with Business Project", "Personal Finance",
+  "Public Policy & Advocacy", "Public Service Announcement", "Public Speaking", "Sales Presentation", "Securities & Investments",
+  "Social Media Strategies", "Sports & Entertainment Management", "Spreadsheet Applications", "Supply Chain Management", "UX Design",
+  "Visual Design", "Website Coding & Development", "Website Design", "Word Processing"
+];
+
 const app = firebase;
 const analytics = getAnalytics(app);
 
@@ -98,31 +117,37 @@ const CompetitionsHistory = () => {
   };
 
   return (
-    <div className="pt-2 text-black">
+    <div className="pt-2 text-white">
       <div className="w-full space-x-3 mb-2 flex">
         <input
-          className="bg-transparent p-2 rounded-2x border-b placeholder:text-gray-300 outline-none"
+          className="bg-transparent p-2 rounded-2x border-b placeholder:text-gray-300 text-gray-300 outline-none"
           type="text"
           name="year"
           placeholder="Search by Year"
           onChange={handleInputChange}
         />
-        <input
-          className="bg-transparent p-2 rounded-2x border-b placeholder:text-gray-300 outline-none"
-          type="text"
+        <select
+          className="bg-transparent p-2 rounded-2x border-b placeholder:text-gray-300 text-gray-300 outline-none"
           name="conference"
-          placeholder="Search by Conference"
           onChange={handleInputChange}
-        />
-        <input
-          className="bg-transparent p-2 rounded-2x border-b placeholder:text-gray-300 outline-none"
-          type="text"
+        >
+          <option value="">Search by Conference</option>
+          {conferences.map((conference, index) => (
+            <option key={index} value={conference} className="text-black">{conference}</option>
+          ))}
+        </select>
+        <select
+          className="bg-transparent p-2 rounded-2x border-b placeholder:text-gray-300 text-gray-300 outline-none"
           name="event"
-          placeholder="Search by Event"
           onChange={handleInputChange}
-        />
+        >
+          <option value="">Search by Event</option>
+          {events.map((event, index) => (
+            <option key={index} value={event} className="text-black">{event}</option>
+          ))}
+        </select>
         <input
-          className="bg-transparent p-2 rounded-2x border-b placeholder:text-gray-300 outline-none"
+          className="bg-transparent p-2 rounded-2x border-b placeholder:text-gray-300 text-gray-300 outline-none"
           type="text"
           name="name"
           placeholder="Search by Name"
