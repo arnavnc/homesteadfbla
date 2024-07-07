@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import {
   getFirestore,
   collection,
@@ -20,13 +20,14 @@ const analytics = getAnalytics(app);
 
 const CompetitionsHistory = () => {
   const [allData, setAllData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
   const [searchTerm, setSearchTerm] = useState({
     year: "",
     conference: "",
     event: "",
     name: ""
   });
-  const [triggerSearch, setTriggerSearch] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   // Fetch all data from Firestore once on component mount
   useEffect(() => {
@@ -51,30 +52,13 @@ const CompetitionsHistory = () => {
       }
 
       setAllData(results);
+      setLoading(false); // Set loading to false once data is fetched
     };
 
     fetchData();
   }, []);
 
-  // Filter data based on search terms
-  const filteredData = useMemo(() => {
-    const searchTermLower = {
-      year: searchTerm.year.toLowerCase(),
-      conference: searchTerm.conference.toLowerCase(),
-      event: searchTerm.event.toLowerCase(),
-      name: searchTerm.name.toLowerCase()
-    };
-
-    return Object.values(searchTermLower).some((term) => term.trim() !== "")
-      ? allData.filter((item) =>
-          item.year.toLowerCase().includes(searchTermLower.year) &&
-          item.conference.toLowerCase().includes(searchTermLower.conference) &&
-          item.event.toLowerCase().includes(searchTermLower.event) &&
-          item.name.toLowerCase().includes(searchTermLower.name)
-        )
-      : allData;
-  }, [searchTerm, allData, triggerSearch]);
-
+  // Handle input change
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setSearchTerm({
@@ -83,19 +67,39 @@ const CompetitionsHistory = () => {
     });
   };
 
+  // Handle search action
   const handleSearch = () => {
-    setTriggerSearch(!triggerSearch);
+    const searchTermLower = {
+      year: searchTerm.year.toLowerCase(),
+      conference: searchTerm.conference.toLowerCase(),
+      event: searchTerm.event.toLowerCase(),
+      name: searchTerm.name.toLowerCase()
+    };
+
+    const filtered = allData.filter((item) =>
+      (!searchTermLower.year || item.year.toLowerCase().includes(searchTermLower.year)) &&
+      (!searchTermLower.conference || item.conference.toLowerCase().includes(searchTermLower.conference)) &&
+      (!searchTermLower.event || item.event.toLowerCase().includes(searchTermLower.event)) &&
+      (!searchTermLower.name || item.name.toLowerCase().includes(searchTermLower.name))
+    );
+
+    // Sort the filtered data
+    filtered.sort((a, b) => {
+      if (a.year !== b.year) return a.year.localeCompare(b.year);
+
+      const conferenceOrder = ["Bay", "State", "Nationals"];
+      if (a.conference !== b.conference) return conferenceOrder.indexOf(a.conference) - conferenceOrder.indexOf(b.conference);
+      
+      if (a.event !== b.event) return a.event.localeCompare(b.event);
+      return a.place - b.place;
+    });
+
+    setFilteredData(filtered);
   };
 
   return (
     <div className="pt-2">
-      <div className="w-full space-x-3 mb-2">
-        <button
-          onClick={handleSearch}
-          className="bg-blue-500 text-white p-2 rounded-md"
-        >
-          Search
-        </button>
+      <div className="w-full space-x-3 mb-2 flex">
         <input
           className="bg-transparent p-2 rounded-2x border-b placeholder:text-gray-300 outline-none"
           type="text"
@@ -124,6 +128,36 @@ const CompetitionsHistory = () => {
           placeholder="Search by Name"
           onChange={handleInputChange}
         />
+        <button
+          onClick={handleSearch}
+          className={`p-2 rounded-md flex items-center justify-center ${loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-500 text-white'}`}
+          disabled={loading}
+        >
+          {loading ? (
+            <svg
+              className="animate-spin h-5 w-5 text-white"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                className="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                strokeWidth="4"
+              ></circle>
+              <path
+                className="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C6.477 0 2 4.477 2 10h2zm2 5.291l-1.35-1.351A8.01 8.01 0 014 12H2c0 2.21.896 4.21 2.34 5.66L6 17.291z"
+              ></path>
+            </svg>
+          ) : (
+            'Search'
+          )}
+        </button>
       </div>
       <div className="p-2 bg-white shadow-lg rounded-md">
         <div style={{ maxHeight: "300px", overflowY: "auto" }}>
