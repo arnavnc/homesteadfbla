@@ -76,7 +76,7 @@ const Nav = () => {
                   </Link>
                   <span className="p-2 font-semibold text-dimWhite ease-linear duration-300">
                     <Link href="/login" className="rounded-md p-2 border border-dark-chocolate py-2 px-3 text-warm-beige font-semibold ease-linear duration-300 hover:bg-dark-chocolate">
-                      Login (Soon!)
+                      Login
                     </Link>
                     <Link 
                       disabled href="" className="disabled:border-green-500 ml-3 rounded-md border border-dark-chocolate bg-dark-chocolate text-warm-beige py-2 px-3 font-semibold ease-linear duration-300 hover:brightness-90">
