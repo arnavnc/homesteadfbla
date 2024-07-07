@@ -5,13 +5,13 @@ import logo from '../../public/static/logo.png'
 const navigation = {
   about: [
     { name: "Officers", href: "/officers" },
-    { name: "Advisers (Soon!)", href: "" },
-    { name: "Press", href: "/press" },
+    { name: "Mentors", href: "" },
   ],
   history: [
     { name: "Competitions", href: "/competitions" },
-    { name: "Timeline", href: "/timeline" },
-    { name: "Media", href: "/media" },
+    { name: "Press", href: "/press" },
+    // { name: "Timeline", href: "/timeline" },
+    // { name: "Media", href: "/media" },
   ],
   projects: [
     { name: "American Enterprise", href: "/projects/american-enterprise" },

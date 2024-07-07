@@ -10,6 +10,8 @@ import Link from "next/link";
 import firebase from "./firebase";
 import { BiRightArrowAlt } from "react-icons/bi";
 
+import About from "@/components/timeline";
+
 export default function Home() {
   return (
     <main className="mx-auto space-y-[-6px] lg:px-0 min-h-screen">

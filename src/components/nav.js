@@ -143,7 +143,7 @@ const Nav = () => {
                     </Link>
 
                     <div className="flex justify-between mx-10 mr-12 pt-4">
-                      <Link href="/register" passHref>
+                      <Link href="/login" passHref>
                         <Disclosure.Button
                           as="a"
                           className="rounded-md bg-watermelon-red text-warm-beige py-2 px-3 
