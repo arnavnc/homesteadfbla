@@ -1,5 +1,9 @@
 import { useState, useEffect } from "react";
-import { getFirestore, collection, getDocs } from "firebase/firestore";
+import {
+  getFirestore,
+  collection,
+  getDocs,
+} from "firebase/firestore";
 import firebase from "src/app/firebase.js";
 import { getAnalytics } from "firebase/analytics";
 
@@ -94,7 +98,7 @@ const CompetitionsHistory = () => {
   };
 
   return (
-    <div className="pt-2">
+    <div className="pt-2 text-black">
       <div className="w-full space-x-3 mb-2 flex">
         <input
           className="bg-transparent p-2 rounded-2x border-b placeholder:text-gray-300 outline-none"
@@ -103,19 +107,13 @@ const CompetitionsHistory = () => {
           placeholder="Search by Year"
           onChange={handleInputChange}
         />
-        <select
-          className={`bg-transparent p-2 rounded-2x border-b placeholder:text-gray-300 outline-none ${!searchTerm.conference && 'text-gray-300'}`}
+        <input
+          className="bg-transparent p-2 rounded-2x border-b placeholder:text-gray-300 outline-none"
+          type="text"
           name="conference"
+          placeholder="Search by Conference"
           onChange={handleInputChange}
-          value={searchTerm.conference}
-        >
-          <option value="" className="text-black">Select Conference</option>
-          {conferences.map((conference) => (
-            <option key={conference} value={conference} className="text-black">
-              {conference}
-            </option>
-          ))}
-        </select>
+        />
         <input
           className="bg-transparent p-2 rounded-2x border-b placeholder:text-gray-300 outline-none"
           type="text"
@@ -132,7 +130,7 @@ const CompetitionsHistory = () => {
         />
         <button
           onClick={handleSearch}
-          className={`p-2 rounded-md flex items-center justify-center ${loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-500 text-white'}`}
+          className={`p-2 rounded-md flex items-center justify-center ${loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-red-900 text-white opacity-80'}`}
           disabled={loading}
         >
           {loading ? (
@@ -161,11 +159,11 @@ const CompetitionsHistory = () => {
           )}
         </button>
       </div>
-      <div className="p-2 bg-white shadow-lg rounded-md">
+      <div className="p-2 border border-red-950 border-opacity-30 shadow-lg rounded-md mt-4">
         <div style={{ maxHeight: "300px", overflowY: "auto" }}>
           <table className="w-full">
             <thead>
-              <tr className="border-b">
+              <tr className="border-b border-red-950 border-opacity-30">
                 <th className="p-2 text-left">Year</th>
                 <th className="p-2 text-left">Conference</th>
                 <th className="p-2 text-left">Event</th>
@@ -176,8 +174,8 @@ const CompetitionsHistory = () => {
             <tbody>
               {filteredData.length > 0 ? (
                 filteredData.map((item, index) => (
-                  <tr key={index} className="border-t">
-                    <td className="p-2">{item.year}</td>
+                  <tr key={index} className="border-b border-red-950 border-opacity-30">
+                    <td className="p-3">{item.year}</td>
                     <td className="p-2">{item.conference}</td>
                     <td className="p-2">{item.event}</td>
                     <td className="p-2">{item.name}</td>
