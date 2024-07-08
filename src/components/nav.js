@@ -105,7 +105,7 @@ const Nav = () => {
                       <img
                         src={user.photoURL}
                         alt="Profile"
-                        className="w-8 h-8 rounded-full mt-[1px]"
+                        className="w-9 h-9 rounded-full mt-[1px]"
                       />
                     </button>
                     {menuOpen && (
