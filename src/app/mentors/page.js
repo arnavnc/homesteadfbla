@@ -8,12 +8,12 @@ import Image from "next/image";
 export default function Officers() {
   return (
     <>
-      <Nav />
       <Image
         src={advisersPic}
         className="fixed bg-scroll object-cover object-bottom opacity-10 h-[100vh] w-[100vw] z-[-10]"
         draggable={false}
       />
+      <Nav />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 px-10 my-10 gap-4"></div>
       <div className="px-10">
         <h2 className="text-watermelon-red text-2xl font-bold mb-6">

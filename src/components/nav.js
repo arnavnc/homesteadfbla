@@ -105,20 +105,20 @@ const Nav = () => {
                       <img
                         src={user.photoURL}
                         alt="Profile"
-                        className="w-10 h-10 rounded-full"
+                        className="w-8 h-8 rounded-full mt-[1px]"
                       />
                     </button>
                     {menuOpen && (
-                      <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-2">
-                        <button
+                      <div className="absolute right-0 mt-2 w-36 bg-white rounded-md shadow-lg py-2">
+                        <Link
                           href="/profile"
-                          className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
+                          className="block w-full text-left px-4 py-1 text-gray-700 hover:bg-gray-100"
                         >
                           My Profile
-                        </button>
+                        </Link>
                         <button
                           onClick={handleLogout}
-                          className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
+                          className="block w-full text-left px-4 py-1 text-gray-700 hover:bg-gray-100"
                         >
                           Logout
                         </button>
