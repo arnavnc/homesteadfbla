@@ -4,16 +4,17 @@ import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { Disclosure, Transition } from "@headlessui/react";
 import { useState, useEffect } from "react";
-import {Divide as Hamburger} from "hamburger-react";
 import Image from "next/image";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import logo from "../../public/static/logo.png";
 import Dropdown from "./Dropdown";
 import MobileDropdown from "./MobileDropdown";
+import { Divide as Hamburger } from "hamburger-react";
 
 const Nav = () => {
   const [isOpen, setOpen] = useState(false);
   const [user, setUser] = useState(null);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const auth = getAuth();
@@ -96,12 +97,34 @@ const Nav = () => {
                 </Link>
 
                 {user ? (
-                  <button
-                    onClick={handleLogout}
-                    className="rounded-md p-2 border border-dark-chocolate py-2 px-3 text-warm-beige font-semibold ease-linear duration-300 hover:bg-dark-chocolate"
-                  >
-                    Logout
-                  </button>
+                  <div className="relative">
+                    <button
+                      onClick={() => setMenuOpen(!menuOpen)}
+                      className="flex items-center space-x-2"
+                    >
+                      <img
+                        src={user.photoURL}
+                        alt="Profile"
+                        className="w-10 h-10 rounded-full"
+                      />
+                    </button>
+                    {menuOpen && (
+                      <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-2">
+                        <button
+                          href="/profile"
+                          className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
+                        >
+                          My Profile
+                        </button>
+                        <button
+                          onClick={handleLogout}
+                          className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
+                        >
+                          Logout
+                        </button>
+                      </div>
+                    )}
+                  </div>
                 ) : (
                   <span className="p-2 font-semibold text-dimWhite ease-linear duration-300">
                     <Link
@@ -173,13 +196,28 @@ const Nav = () => {
 
                   <div className="flex justify-between mx-10 mr-12 pt-4">
                     {user ? (
-                      <button
-                        onClick={handleLogout}
-                        className="rounded-md bg-watermelon-red text-warm-beige py-2 px-3 
-                          font-semibold ease-linear duration-300 hover:brightness-90"
-                      >
-                        Logout
-                      </button>
+                      <div className="relative">
+                        <button
+                          onClick={() => setMenuOpen(!menuOpen)}
+                          className="flex items-center space-x-2"
+                        >
+                          <img
+                            src={user.photoURL}
+                            alt="Profile"
+                            className="w-10 h-10 rounded-full"
+                          />
+                        </button>
+                        {menuOpen && (
+                          <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-2">
+                            <button
+                              onClick={handleLogout}
+                              className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
+                            >
+                              Logout
+                            </button>
+                          </div>
+                        )}
+                      </div>
                     ) : (
                       <>
                         <Link href="/login" passHref>
