@@ -135,11 +135,10 @@ const Nav = () => {
                       Login
                     </Link>
                     <Link
-                      disabled
-                      href=""
+                      href="/register"
                       className="disabled:border-green-500 ml-3 rounded-md border border-dark-chocolate bg-dark-chocolate text-warm-beige py-2 px-3 font-semibold ease-linear duration-300 hover:brightness-90"
                     >
-                      Register (Soon!)
+                      Register
                     </Link>
                   </span>
                 )}
