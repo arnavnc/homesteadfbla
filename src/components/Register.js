@@ -31,7 +31,8 @@ export default function Register() {
             state.email &&
             state.id &&
             state.key &&
-            validKeys.includes(state.key)
+            validKeys.includes(state.key) &&
+            state.email.includes('.fuhsd.org')
         );
     };
 
