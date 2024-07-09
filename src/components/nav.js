@@ -5,11 +5,12 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Disclosure, Transition } from "@headlessui/react";
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import { getAuth, onAuthStateChanged, signOut} from "firebase/auth";
 import logo from "../../public/static/logo.png";
 import Dropdown from "./Dropdown";
 import MobileDropdown from "./MobileDropdown";
 import { Divide as Hamburger } from "hamburger-react";
+import {auth} from "@/app/firebase"
 
 const Nav = () => {
   const [isOpen, setOpen] = useState(false);
@@ -17,7 +18,7 @@ const Nav = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    const auth = getAuth();
+    // const auth = getAuth();
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
@@ -30,7 +31,7 @@ const Nav = () => {
   }, []);
 
   const handleLogout = async () => {
-    const auth = getAuth();
+    // const auth = getAuth();
     await signOut(auth);
     window.location.href = "/";
   };
