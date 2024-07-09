@@ -55,7 +55,7 @@ export default function Footer() {
       className="bg-dark-chocolate opacity-50 mt-10"
       aria-labelledby="footer-heading"
     >
-      <div className="mx-auto max-w-7xl px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-32 opacity-100">
+      <div className="mx-auto max-w-7xl px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-20 opacity-100">
         <div className="xl:grid xl:grid-cols-3 xl:gap-8">
             <Link href='/' className="space-x-3 sm:flex text-xl rounded-md 
                 font-semibold cursor-pointer ease-linear duration-300">
@@ -143,7 +143,7 @@ export default function Footer() {
             </div>
           </div>
         </div>
-        <div className="mt-8 sm:mt-32 border-t border-gray-700 pt-8 md:flex md:items-center md:justify-between">
+        <div className="mt-8 sm:mt-12 border-t border-gray-700 pt-8 md:flex md:items-center md:justify-between">
           <div className="flex space-x-6 md:order-2">
             {navigation.social.map((item) => (
               <Link
