@@ -31,18 +31,32 @@ export default function Register() {
             state.email &&
             state.id &&
             state.key &&
-            validKeys.includes(state.key)
+            validKeys.includes(state.key) &&
+            state.email.includes(".fuhsd.org")
         );
     };
 
     const handleClick = async () => {
         if (!isFormValid()) {
-            setState({
-                ...state,
-                buttonText: "Invalid or missing fields",
-            });
+            if(!state.email.includes('.fuhsd.org') && state.email!=""){
+                setState({
+                    ...state,
+                    buttonText: "Please use an FUHSD Email",
+                });
+            }else if (!validKeys.includes(state.key) && state.key!=""){
+                setState({
+                    ...state,
+                    buttonText: "Please use a valid login key",
+                });
+            }else{
+                setState({
+                    ...state,
+                    buttonText: "Invalid or missing fields",
+                });
+            }
             return;
         }
+
 
         setState({
             ...state,
@@ -128,7 +142,7 @@ export default function Register() {
                     className="bg-transparent p-2 rounded-2x border-b placeholder:text-gray-300 outline-none"
                     type="text"
                     name="id"
-                    placeholder="6 Digit Student ID"
+                    placeholder="7 Digit Student ID"
                     onChange={handleInputChange}
                 />
                 <input
