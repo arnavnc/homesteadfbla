@@ -4,6 +4,10 @@ import React, { useEffect } from 'react';
 import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { getFirestore, collection, query, where, getDocs } from 'firebase/firestore';
 import firebase from 'src/app/firebase'; // Adjust the path as per your project structure
+import Image from 'next/image';
+import Nav from '@/components/nav';
+import Footer from '@/components/footer';
+import Arnav from '../../../public/static/officers.jpg';
 
 const auth = getAuth();
 const provider = new GoogleAuthProvider();
@@ -56,35 +60,73 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-md">
-        <h1 className="text-2xl font-bold text-center mb-6">Login Page</h1>
-        <button
-          onClick={handleGoogleSignIn}
-          className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg flex items-center justify-center shadow-md hover:bg-blue-600 transition-colors"
-        >
-          <svg className="w-5 h-5 mr-2" viewBox="0 0 48 48">
-            <path
-              fill="#4285F4"
-              d="M24 9.5c3.02 0 5.64 1.04 7.75 2.73l5.75-5.75C33.96 3.27 29.24 1 24 1 14.55 1 6.81 6.73 3.5 15h7.18c2.11-4.93 7-8.5 13.32-8.5z"
-            />
-            <path
-              fill="#34A853"
-              d="M9.92 24c0-1.61.3-3.17.84-4.59H3.5C2.53 20.58 2 22.23 2 24c0 1.77.53 3.42 1.5 4.59l7.27-7.27C10.22 21.17 9.92 22.39 9.92 24z"
-            />
-            <path
-              fill="#FBBC05"
-              d="M24 38.5c-3.03 0-5.8-1.05-7.96-2.78L9.3 41.96C13.02 45.45 18.28 47.5 24 47.5c5.23 0 9.96-2.27 13.3-5.77l-5.75-5.75c-2.11 1.69-4.73 2.73-7.75 2.73z"
-            />
-            <path
-              fill="#EA4335"
-              d="M41.99 20.27H24v7.46h10.33c-1.02 2.58-2.84 4.56-5.12 5.75l5.75 5.75c3.37-3.17 5.54-7.74 5.54-13.21 0-1.78-.27-3.47-.73-5z"
-            />
-          </svg>
-          Sign in with Google
-        </button>
-      </div>
-    </div>
+    <main>
+      <Image
+        src={Arnav}
+        className="fixed blur-sm bg-scroll object-cover opacity-10 h-[100vh] z-[-10]"
+        draggable={false}
+      />
+      <Nav />
+      <main className="lg:flex justify-evenly">
+        <div className="flex flex-col text-center items-center lg:items-center lg:text-center justify-center pt-7 lg:pt-0 lg:h-[45vh] py-2 px-5 md:px-20 space-y-[-25px]">
+          <h1 className="bg-watermelon-red p-5 rounded-2xl text-2xl lg:text-2xl font-semibold lg:mt-10 lg:w-full px-8 z-50">
+            Login to HHS FBLA!
+          </h1>
+          <div className="bg-watermelon-red p-10 rounded-2xl w-50 justify-center bg-opacity-75 space-y-4">
+            <button
+              onClick={handleGoogleSignIn}
+              className="border-2 mt-2 border-watermelon-red hover:bg-watermelon-red ease-linear duration-200 flex justify-center cursor-pointer p-3 rounded-xl w-full text-white py-2 px-10 shadow-md transition-colors"
+            >
+              <svg className="w-5 h-5 mr-2" viewBox="0 0 48 48">
+                <path
+                  fill="#4285F4"
+                  d="M24 9.5c3.02 0 5.64 1.04 7.75 2.73l5.75-5.75C33.96 3.27 29.24 1 24 1 14.55 1 6.81 6.73 3.5 15h7.18c2.11-4.93 7-8.5 13.32-8.5z"
+                />
+                <path
+                  fill="#34A853"
+                  d="M9.92 24c0-1.61.3-3.17.84-4.59H3.5C2.53 20.58 2 22.23 2 24c0 1.77.53 3.42 1.5 4.59l7.27-7.27C10.22 21.17 9.92 22.39 9.92 24z"
+                />
+                <path
+                  fill="#FBBC05"
+                  d="M24 38.5c-3.03 0-5.8-1.05-7.96-2.78L9.3 41.96C13.02 45.45 18.28 47.5 24 47.5c5.23 0 9.96-2.27 13.3-5.77l-5.75-5.75c-2.11 1.69-4.73 2.73-7.75 2.73z"
+                />
+                <path
+                  fill="#EA4335"
+                  d="M41.99 20.27H24v7.46h10.33c-1.02 2.58-2.84 4.56-5.12 5.75l5.75 5.75c3.37-3.17 5.54-7.74 5.54-13.21 0-1.78-.27-3.47-.73-5z"
+                />
+              </svg>
+              Member Login
+            </button>
+            <button
+              onClick={handleGoogleSignIn}
+              className="border-2 border-watermelon-red hover:bg-watermelon-red ease-linear duration-200 flex justify-center cursor-pointer p-3 rounded-xl w-full text-white 
+              py-2 px-10 shadow-md transition-colors"
+            >
+              <svg className="w-5 h-5 mr-2" viewBox="0 0 48 48">
+                <path
+                  fill="#4285F4"
+                  d="M24 9.5c3.02 0 5.64 1.04 7.75 2.73l5.75-5.75C33.96 3.27 29.24 1 24 1 14.55 1 6.81 6.73 3.5 15h7.18c2.11-4.93 7-8.5 13.32-8.5z"
+                />
+                <path
+                  fill="#34A853"
+                  d="M9.92 24c0-1.61.3-3.17.84-4.59H3.5C2.53 20.58 2 22.23 2 24c0 1.77.53 3.42 1.5 4.59l7.27-7.27C10.22 21.17 9.92 22.39 9.92 24z"
+                />
+                <path
+                  fill="#FBBC05"
+                  d="M24 38.5c-3.03 0-5.8-1.05-7.96-2.78L9.3 41.96C13.02 45.45 18.28 47.5 24 47.5c5.23 0 9.96-2.27 13.3-5.77l-5.75-5.75c-2.11 1.69-4.73 2.73-7.75 2.73z"
+                />
+                <path
+                  fill="#EA4335"
+                  d="M41.99 20.27H24v7.46h10.33c-1.02 2.58-2.84 4.56-5.12 5.75l5.75 5.75c3.37-3.17 5.54-7.74 5.54-13.21 0-1.78-.27-3.47-.73-5z"
+                />
+              </svg>
+              Admin Login
+            </button>
+          </div>
+        </div>
+      </main>
+      <Footer />
+    </main>
   );
 };
 
