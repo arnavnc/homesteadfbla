@@ -52,7 +52,7 @@ const navigation = {
 export default function Footer() {
   return (
     <footer
-      className="bg-dark-chocolate opacity-50 mt-10"
+      className="bg-dark-chocolate opacity-50 mt-10 border-t-4 border-rose-900 border-opacity-20"
       aria-labelledby="footer-heading"
     >
       <div className="mx-auto max-w-7xl px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-20 opacity-100">
