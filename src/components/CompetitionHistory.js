@@ -4,7 +4,7 @@ import {
   collection,
   getDocs,
 } from "firebase/firestore";
-import firebase from "src/app/firebase.js";
+import app from "../app/firebase";
 import { getAnalytics } from "firebase/analytics";
 
 const conferences = ["Bay", "State", "Nationals"];
@@ -34,7 +34,7 @@ const events = [
   "Visual Design", "Website Coding & Development", "Website Design", "Word Processing"
 ];
 
-const app = firebase;
+// const app = firebase;
 const analytics = getAnalytics(app);
 
 const CompetitionsHistory = () => {
