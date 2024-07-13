@@ -3,8 +3,19 @@
 import { useState } from 'react';
 import { db } from "src/app/firebase.js"; // Make sure the path is correct
 import { collection, query, where, getDocs, doc, setDoc } from "firebase/firestore";
+import TextField from '@mui/material/TextField';
+import { createTheme } from '@mui/material/styles';
+import { red } from '@mui/material/colors';
+// import { makeStyles } from '@mui/styles';
 
+
+
+
+  
 export default function Register() {
+
+
+
     const [state, setState] = useState({
         firstName: "",
         lastName: "",
@@ -115,14 +126,21 @@ export default function Register() {
     };
 
     return (
+
         <div>
             <div className="flex flex-col space-y-10 justify-center">
-                <input
+                {/* <input
                     className="bg-transparent p-2 rounded-2x border-b placeholder:text-gray-300 outline-none"
                     type="text"
                     name="firstName"
                     placeholder="First Name"
                     onChange={handleInputChange}
+                /> */}
+                <TextField 
+                // className={classes.whiteTextField}
+                 id="standard-basic" 
+                 label="First Name" 
+                 variant="standard"
                 />
                 <input
                     className="bg-transparent p-2 rounded-2x border-b placeholder:text-gray-300"

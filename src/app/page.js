@@ -58,7 +58,7 @@ export default function Home() {
             <Link
               href="/competitions"
               className="border-2  border-watermelon-red hover:bg-watermelon-red 
-                ease-linear duration-200 cursor-pointer w-fit p-3 lg:text-[15px] text-sm rounded-xl"
+              ease-linear duration-200 cursor-pointer w-fit p-3 lg:text-[15px] text-sm rounded-xl"
             >
               View Our Competitive History
             </Link>
