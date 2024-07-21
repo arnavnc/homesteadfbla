@@ -75,7 +75,8 @@ export default function Register() {
       state.id &&
       state.key &&
       validKeys.includes(state.key) &&
-      state.email.includes(".fuhsd.org")
+      state.email.includes(".fuhsd.org") &&
+      state.id.length == 7
     );
   };
 
@@ -91,7 +92,12 @@ export default function Register() {
           ...state,
           buttonText: "Please use a valid login key",
         });
-      } else {
+      } else if (!(state.id.length == 7)){
+        setState({
+          ...state,
+          buttonText: "Please use a valid student ID",
+        });
+      }else {
         setState({
           ...state,
           buttonText: "Invalid or missing fields",
@@ -159,13 +165,14 @@ export default function Register() {
   return (
     <ThemeProvider theme={theme}>
       <div>
-        <div className="flex flex-col space-y-10 justify-center px-4">
+        <div className="flex flex-col space-y-10 justify-center px-4 p-5">
           <TextField
             className='textfield'
             label="First Name"
             variant="standard"
             InputLabelProps={{ className: 'textfield__label' }}
             name="firstName"
+            style = {{width: 270}}
             onChange={handleInputChange}
           />
           <TextField
@@ -201,7 +208,7 @@ export default function Register() {
             onChange={handleInputChange}
           />
           <button
-            className="border-2 border-watermelon-red hover:bg-watermelon-red ease-linear duration-200 flex justify-center cursor-pointer p-3 rounded-xl"
+            className="border-2 border-watermelon-red hover:bg-watermelon-red ease-linear duration-200 flex justify-center cursor-pointer p-3 rounded-xl text-lg"
             onClick={handleClick}
           >
             {state.buttonText}

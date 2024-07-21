@@ -27,10 +27,10 @@ export default function RegisterPage() {
       <Nav />
       <main className="lg:flex justify-evenly">
         <div className="flex flex-col text-center items-center lg:items-center lg:text-center justify-center pt-7 lg:pt-0 lg:h-[70vh] py-2 px-5 md:px-20 space-y-[-25px]">
-          <h1 className="bg-watermelon-red p-5 rounded-2xl text-2xl lg:text-2xl font-semibold lg:mt-10 lg:w-full px-8 z-50">
+          <h1 className="bg-dark-chocolate p-5 rounded-3xl text-2xl lg:text-2xl font-semibold lg:mt-10 lg:w-auto px-8 z-50">
             Sign Up to HHS FBLA!
           </h1>
-          <div className="bg-watermelon-red p-10 rounded-2xl w-50 flex flex-col lg:flex-row justify-center bg-opacity-75 gap-10">
+          <div className="bg-red-violet p-5 rounded-3xl w-50 flex flex-col lg:flex-row justify-center bg-opacity-75 gap-10 w-96 h-dvh">
           <div>
             <Register />
           </div>
