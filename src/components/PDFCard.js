@@ -16,7 +16,7 @@ export default function PDFCard({ title, date, desc, link, image }) {
                     {date}
                     </div>
                     <div class="text-sm text-white my-3 font-light">
-                    {desc}
+                    {/* {desc} */}
                     </div>
                 </div>
                 <div className="bg-dark-chocolate rounded-md px-3 py-2 w-full text-center text-sm border-2 border-dark-chocolate hover:brightness-90 transition ease-linear duration-300">
