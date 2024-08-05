@@ -232,22 +232,6 @@
 
 
 
-//core components
-// import Header from "components/Header/Header.js";
-// import Footer from "components/Footer/Footer.js";
-// import GridContainer from "components/Grid/GridContainer.js";
-// import GridItem from "components/Grid/GridItem.js";
-// import Parallax from "components/Parallax/Parallax.js";
-//sections for this page
-// import HeaderLinks from "components/Header/HeaderLinks.js";
-// import Container from "react-bootstrap/Container";
-// import Row from "react-bootstrap/Row";
-// import Col from "react-bootstrap/Col";
-// import styles from "assets/jss/material-kit-react/views/components.js";
-// import { makeStyles } from '@mui/material/styles';
-
-
-
 import React from "react";
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -265,41 +249,6 @@ import Paper from "@mui/material/Paper";
 import LinearProgress from "@mui/material/LinearProgress";
 import { Box, styled, ThemeProvider, createTheme } from '@mui/system';
 
-// const conferences = ["Bay", "State", "Nationals"];
-// const years = [
-//   "1994", "1995", "1996", "1997", "1998", "1999", "2000", "2001",
-//   "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009",
-//   "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017",
-//   "2018", "2019", "2020", "2021", "2022", "2023","2024",
-// ];
-
-// const events = [
-//   "Accounting I", "Accounting II", "Advertising", "Agribusiness", "American Enterprise Project",
-//   "Banking & Financial Systems", "Broadcast Journalism", "Business Calculations", "Business Communication",
-//   "Business Ethics", "Business Law", "Business Management", "Business Plan", "Client Service", "Coding & Programming",
-//   "Community Service Project", "Computer Applications", "Computer Game & Simulation Programming", "Computer Problem Solving",
-//   "Cyber Security", "Data Analysis", "Database Design & Applications", "Digital Animation", "Digital Video Production", "Economics",
-//   "Electronic Career Portfolio", "Entrepreneurship", "Financial Statement Analysis", "Future Business Educator", "Future Business Leader",
-//   "Graphic Design", "Healthcare Administration", "Help Desk", "Hospitality & Event Management", "Human Resource Management", "Impromptu Speaking",
-//   "Insurance & Risk Management", "International Business", "Introduction to Business Communication", "Introduction to Business Concepts",
-//   "Introduction to Business Presentation", "Introduction to Business Procedures", "Introduction to Event Planning", "Introduction to FBLA",
-//   "Introduction to Financial Math", "Introduction to Information Technology", "Introduction to Marketing Concepts", "Introduction to Parliamentary Procedure",
-//   "Introduction to Programming", "Introduction to Public Speaking", "Introduction to Social Media Strategy", "Job Interview", "Journalism",
-//   "Local Chapter Annual Business Report", "Management Information Systems", "Marketing", "Mobile Application Development", "Network Design",
-//   "Networking Infrastructures", "Organizational Leadership", "Parliamentary Procedure", "Partnership with Business Project", "Personal Finance",
-//   "Public Policy & Advocacy", "Public Service Announcement", "Public Speaking", "Sales Presentation", "Securities & Investments",
-//   "Social Media Strategies", "Sports & Entertainment Management", "Spreadsheet Applications", "Supply Chain Management", "UX Design",
-//   "Visual Design", "Website Coding & Development", "Website Design", "Word Processing"
-// ];
-
-
-// const theme = createTheme({
-//   palette: {
-//     background: {
-//       paper:'#fff'
-//     },
-//   },
-// });
 
 const FormControlStyled = styled(FormControl)(({ theme }) => ({
   margin: theme.spacing(1),
@@ -360,7 +309,7 @@ for (let i = 0; i < props.conferences.length; i++) {
       document.getElementById("year").value,
       conf,
       event,
-      document.getElementById("place").value
+      // document.getElementById("place").value
     );
   };
 
@@ -390,8 +339,10 @@ for (let i = 0; i < props.conferences.length; i++) {
     if (!byYear.includes(tableRow)) toRender.push(tableRow);
   });
 
+
+
   return (
-    <div className="pt-2 text-white">
+    <div className="pt-2 text-white ">
       <Box display="flex" flexWrap="wrap" alignItems="center" mb={2}>
         <InputRootStyled>
           <form noValidate autoComplete="off"  onSubmit={handleFormSubmit}>
@@ -431,11 +382,11 @@ for (let i = 0; i < props.conferences.length; i++) {
           </Select>
           </FormControl>
         </FormControlStyled>
-        <InputRootStyled>
+        {/* <InputRootStyled>
         <form noValidate autoComplete="off" onSubmit={handleFormSubmit}>
           <TextField id="place" variant="standard" label="Place" />
         </form>
-        </InputRootStyled>
+        </InputRootStyled> */}
       </Box>
       <Box display="flex" justifyContent="center" mb={4}>
         <Button variant="outlined" color="primary" onClick={query}>
@@ -451,9 +402,8 @@ for (let i = 0; i < props.conferences.length; i++) {
           </div>
          )}
       </Box>
-
-      <Box sx={{boxShadow:4}}>
-        <TableContainer component={Paper} sx={{ maxHeight: 350}}>
+      <Box>
+        <TableContainer component={Paper} sx={{maxHeight: 350}}>
           <Table stickyHeader >
             <TableHead>
               <TableRow>
@@ -470,241 +420,6 @@ for (let i = 0; i < props.conferences.length; i++) {
           </Table>
         </TableContainer>
       </Box>
-    </div>
-
-
-
-
-
-
-    // <div>
-    //   <Header
-    //     brand="Homestead FBLA"
-    //     rightLinks={<HeaderLinks path="/competitions-history" />}
-    //     fixed
-    //     color="transparent"
-    //     changeColorOnScroll={{
-    //       height: 400,
-    //       color: "white",
-    //     }}
-    //     {...rest}
-    //   />
-    //   <Parallax
-    //     image={require("assets/img/competitionsCover.jpeg")}
-    //     class="makeStyles-parallax-184 makeStyles-filter-185"
-    //     style={{ height: "100vh" }}
-    //   >
-    //     <div className={classes.container}>
-    //       <GridContainer>
-    //         <GridItem>
-    //           <div className={classes.brand}>
-    //             <h1 className={classes.title} style={{ color: "white" }}>
-    //               Competitions History.
-    //             </h1>
-    //           </div>
-    //         </GridItem>
-    //       </GridContainer>
-    //     </div>
-    //   </Parallax>
-    //   <Container className="justify-content-md-center">
-    //     <Row className="justify-content-md-center">
-    //       <h2
-    //         className={classes.title}
-    //         style={{
-    //           marginTop: "25rem",
-    //           marginBottom: "3rem",
-    //           fontSize: "2.6rem",
-    //         }}
-    //       >
-    //         View Homestead FBLA's Competitive History Over the Years
-    //       </h2>
-    //     </Row>
-    //     <Row>
-    //       <Col>
-    //         <form className={inputClasses.root} noValidate autoComplete="off">
-    //           <TextField id="name" label="Name" />
-    //         </form>
-    //       </Col>
-    //       <Col>
-    //         <form className={inputClasses.root} noValidate autoComplete="off">
-    //           <TextField id="year" label="Year" />
-    //         </form>
-    //       </Col>
-    //       <Col>
-    //         <FormControl className={dropdownClasses.formControl}>
-    //           <InputLabel id="demo-simple-select-label">Conferences</InputLabel>
-    //           <Select
-    //             labelId="demo-simple-select-label"
-    //             id="demo-simple-select"
-    //             value={conf}
-    //             onChange={confChange}
-    //           >
-    //             {menuConf}
-    //           </Select>
-    //         </FormControl>
-    //       </Col>
-    //       <Col>
-    //         <FormControl className={dropdownClasses.formControl}>
-    //           <InputLabel id="demo-simple-select-label">Events</InputLabel>
-    //           <Select
-    //             labelId="demo-simple-select-label"
-    //             id="demo-simple-select"
-    //             value={event}
-    //             onChange={eventChange}
-    //           >
-    //             {menuEvents}
-    //           </Select>
-    //         </FormControl>
-    //       </Col>
-    //       <Col className="justify-content-md-center">
-    //         <form className={inputClasses.root} noValidate autoComplete="off">
-    //           <TextField id="place" label="Place" />
-    //         </form>
-    //       </Col>
-    //     </Row>
-    //     <Row
-    //       className="justify-content-md-center"
-    //       style={{ marginBottom: "40px" }}
-    //     >
-    //       <div className={classes.root}>
-    //         <Button variant="outlined" color="primary" onClick={query}>
-    //           Search
-    //         </Button>
-    //       </div>
-    //       {props.loading && (
-    //         <div
-    //           className={loaderClasses.root}
-    //           style={{ marginTop: "35px", marginBottom: "35px" }}
-    //         >
-    //           <LinearProgress variant="query" />
-    //           <LinearProgress variant="query" color="secondary" />
-    //         </div>
-    //       )}
-    //     </Row>
-    //     {props.nothingEntered && (
-    //       <Row className="justify-content-md-center">
-    //         <h5>
-    //           <i>You must enter in at least one field</i>
-    //         </h5>
-    //       </Row>
-    //     )}
-    //     <Row>
-    //       <TableContainer component={Paper}>
-    //         <Table className={classes.table} aria-label="simple table">
-    //           <TableHead>
-    //             <TableRow>
-    //               <TableCell>Name</TableCell>
-    //               <TableCell align="right">Year</TableCell>
-    //               <TableCell align="right">Conference</TableCell>
-    //               <TableCell align="right">Event</TableCell>
-    //               <TableCell align="right">Place</TableCell>
-    //             </TableRow>
-    //           </TableHead>
-    //           <TableBody>{toRender}</TableBody>
-    //         </Table>
-    //       </TableContainer>
-    //     </Row>
-    //   </Container>
-    //   <Footer />
-    // </div>
-
-
-
-
-
-
-
-
-    //   <div className="pt-2 text-white">
-    //   <div className="w-full space-x-3 mb-2 flex">
-    //     <form id="year">
-    //       <input
-    //         className="bg-transparent p-2 rounded-2x border-b placeholder:text-gray-300 text-white outline-none"
-    //         type="text"
-    //         id="year"
-    //         name="year"
-    //         placeholder="Search by Year"
-    //       />
-    //     </form>
-    //     <select
-    //       // className={`bg-transparent p-2 rounded-2x border-b placeholder:text-gray-300 outline-none ${
-    //       //   searchTerm.conference ? "text-white" : "text-gray-300"
-    //       // }`}
-    //       className="bg-transparent p-2 rounded-2x border-b placeholder:text-gray-300 outline-none"
-    //       name="conference"
-    //       onChange={confChange}
-    //     >
-    //       <option value="" className= "text-black">
-    //         Search by Conference
-    //       </option>
-    //       {conferences.map((conference, index) => (
-    //         <option key={index} value={conference} className="text-black">{conference}</option>
-    //       ))}
-    //     </select>
-    //     <select
-    //       // className={`bg-transparent p-2 rounded-2x border-b placeholder:text-gray-300 outline-none ${
-    //       //   searchTerm.event ? "text-white" : "text-gray-300"
-    //       // }`}
-    //       name="event"
-    //       // onChange={handleInputChange}
-    //     >
-    //       <option value="event" className= "text-black" onChange={eventChange}>
-    //         Search by Event
-
-    //       </option>
-    //       {menuEvents}
-    //       {/* {events.map((event, index) => (
-    //         <option key={index} value={event} className="text-black">{event}</option>
-    //       ))} */}
-    //     </select>
-    //     <input
-    //       className="bg-transparent p-2 rounded-2x border-b placeholder:text-gray-300 text-white outline-none"
-    //       type="text"
-    //       id="name"
-    //       name="name"
-    //       placeholder="Search by Name"
-    //       // onChange={handleInputChange}
-    //     />
-    //    <button
-    //       onClick={query}
-    //       className="bg-black w-12 p-2 rounded-md flex items-center justify-center" 
-    //       // disabled={loading}
-    //     >
-    //     </button> 
-    //   </div>
-    //   <div className="p-2 border border-red-950 border-opacity-30 shadow-lg rounded-md mt-4">
-    //     <div style={{ maxHeight: "300px", overflowY: "auto" }}>
-    //       <table className="w-full">
-    //         <thead>
-    //           <tr className="border-b border-red-950 border-opacity-30">
-    //             <th className="p-2 text-left">Year</th>
-    //             <th className="p-2 text-left">Conference</th>
-    //             <th className="p-2 text-left">Event</th>
-    //             <th className="p-2 text-left">Name</th>
-    //             <th className="p-2 text-left">Place</th>
-    //           </tr>
-    //         </thead>
-    //         {/* <tbody>
-    //           {filteredData.length > 0 ? (
-    //             filteredData.map((item, index) => (
-    //               <tr key={index} className="border-b border-red-950 border-opacity-30">
-    //                 <td className="p-3">{item.year}</td>
-    //                 <td className="p-2">{item.conference}</td>
-    //                 <td className="p-2">{item.event}</td>
-    //                 <td className="p-2">{item.name}</td>
-    //                 <td className="p-2">{item.place}</td>
-    //               </tr>
-    //             ))
-    //           ) : (
-    //             <tr>
-    //               <td colSpan="5" className="p-2 text-center">No results found</td>
-    //             </tr>
-    //           )}
-    //         </tbody> */}
-    //       </table>
-    //     </div>
-    //   </div>
-    // </div>
-
+      </div>
   );
 }
