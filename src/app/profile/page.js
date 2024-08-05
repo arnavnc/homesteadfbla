@@ -19,7 +19,7 @@ const page = () => {
       <Nav />
       <div>
 
-        <div>
+        <div className='py-10'>
           <ProfileCard/>
         </div>
       </div>

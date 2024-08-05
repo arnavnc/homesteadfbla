@@ -7,11 +7,11 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import TabPanel from '@mui/lab/TabPanel';
 import TabContext from '@mui/lab/TabContext';
-
 import Box from '@mui/material/Box';
 
 const ProfileCard = () => {
   const [user, setUser] = useState(null);
+  const [value, setValue] = useState("1");
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -25,50 +25,93 @@ const ProfileCard = () => {
     return () => unsubscribe();
   }, []);
 
-  const [value, setValue] = React.useState(0);
-
   const handleChange = (event, newValue) => {
-    setValue(newValue)
-  }
+    setValue(newValue);
+  };
+
+  const leaderboardData = [
+    { name: 'John Doe', points: 150 },
+    { name: 'Jane Smith', points: 140 },
+    { name: 'Bob Johnson', points: 130 },
+    { name: 'Alice Davis', points: 120 },
+    { name: 'Chris Brown', points: 110 },
+  ];
+
+  const eventsData = [
+    { title: 'Event 1', date: '2024-08-10', description: 'Description for event 1' },
+    { title: 'Event 2', date: '2024-08-15', description: 'Description for event 2' },
+    { title: 'Event 3', date: '2024-08-20', description: 'Description for event 3' },
+    { title: 'Event 4', date: '2024-08-25', description: 'Description for event 4' },
+  ];
+
+  const EventCard = ({ title, date, description }) => (
+    <div className="bg-melon p-4 rounded-lg shadow-md mb-4">
+      <h3 className="text-xl font-semibold text-dark-chocolate">{title}</h3>
+      <p className="text-sm text-red-violet">{date}</p>
+      <p className="text-gray-700">{description}</p>
+    </div>
+  );
 
   return (
-    <div className="flex flex-col items-center p-0 rounded-lg h-screen pb-0">
+    <div className="flex flex-col items-center p-0 rounded-lg pb-0">
       {user ? (
-        <>
-        <div className="flex flex-col items-center bg-white bg-opacity-50 w-9/12 h-5/6 rounded-lg pt-10 mt-14 drop-shadow-xl border-4">
+        <div className="flex flex-col items-center bg-warm-beige 
+        w-11/12 md:w-8/12 lg:w-6/12 xl:w-4/12 h-5/6 rounded-lg pt-10 mt-14 shadow-2xl border-4 
+        border-red-violet bg-watermelon-red bg-opacity-75">
           <div className="flex justify-center">
-            <img src={user.photoURL} alt="Profile" className="w-24 h-24 rounded-full"/>
+            <img src={user.photoURL} alt="Profile" className="w-24 h-24 rounded-full border-4 border-gray-300 shadow-md" />
           </div>
-          <div>
-            <h2 className="mt-4 text-2xl font-semibold text-center">{user.displayName}</h2>
-            <p className="text-gray-500 text-center">{user.email}</p>
-            {/* <p className="text-gray-500 text-center">Member</p> */}
+          <div className="text-center mt-4">
+            <h2 className="text-2xl font-semibold text-dark-chocolate">{user.displayName}</h2>
+            <p className="text-dark-chocolate">{user.email}</p>
           </div>
-          <div> 
-            <TabContext 
-              value={value} 
-              // sx = {{
-              //   "& button:hover": {backgroundColor: 'white'}
-              // }}
-            >
-              <Box alignItems="center">
-                <Tabs value = {value} onChange={handleChange} variant="scrollable" scrollButtons={true} allowScrollButtonsMobile>
-                  <Tab label= "Activity Points" value="1"/>
-                  <Tab label= "Upcoming Events" value="2"/>
-                  <Tab label= "Other" value="3"/>
+          <div className="w-full mt-6">
+            <TabContext value={value}>
+              <Box>
+                <Tabs 
+                  value={value} 
+                  onChange={handleChange} 
+                  variant="fullWidth" 
+                  textColor="primary" 
+                  indicatorColor="primary"
+                >
+                  <Tab label="Activity Points" value="1" />
+                  <Tab label="Upcoming Events" value="2" />
+                  <Tab label="Other" value="3" />
                 </Tabs>
               </Box>
-              <Box>
-                <TabPanel value="1">Item One</TabPanel>
-                <TabPanel value="2">Item Two</TabPanel>
-                <TabPanel value="3">Item Three</TabPanel>
+              <Box className="mt-4">
+                <TabPanel value="1">
+                  <div className="space-y-2">
+                    {leaderboardData.map((item, index) => (
+                      <div key={index} className="flex justify-between p-2 bg-red-violet text-warm-beige rounded-lg shadow-md">
+                        <span>{item.name}</span>
+                        <span>{item.points} pts</span>
+                      </div>
+                    ))}
+                  </div>
+                </TabPanel>
+                <TabPanel value="2">
+                  <div className="space-y-4">
+                    {eventsData.map((event, index) => (
+                      <EventCard 
+                        key={index}
+                        title={event.title}
+                        date={event.date}
+                        description={event.description}
+                      />
+                    ))}
+                  </div>
+                </TabPanel>
+                <TabPanel value="3">
+                  <p>Other user information here.</p>
+                </TabPanel>
               </Box>
             </TabContext>
           </div>
         </div>
-        </>
       ) : (
-        <p className="text-gray-500">No user is logged in</p>
+        <p className="text-warm-beige text-lg">No user is logged in</p>
       )}
     </div>
   );

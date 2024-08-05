@@ -1,4 +1,4 @@
-const { redirect } = require('next/dist/server/api-utils')
+const { redirect } = require('next/dist/server/api-utils');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -15,7 +15,6 @@ module.exports = {
         'watermelon-red': '#B23A48',
         'melon': '#FCB9B2',
         'warm-beige': '#FEDOBB',
-  
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
@@ -25,4 +24,4 @@ module.exports = {
     },
   },
   plugins: [],
-}
+};
