@@ -100,7 +100,7 @@ export default function PointsPage() {
               placeholder="Enter secret code"
               value={secretCode}
               onChange={(e) => setSecretCode(e.target.value)}
-              className="border p-2 rounded"
+              className="border p-2 rounded text-black focus:outline-none"
             />
             <button onClick={verifyCode} className="ml-2 p-2 bg-blue-500 text-white rounded">
               Verify Code
