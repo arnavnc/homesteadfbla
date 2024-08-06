@@ -5,6 +5,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../firebase';
 import Nav from '@/components/nav';
 import Footer from '@/components/footer';
+import { reload } from 'firebase/auth';
 
 export default function PointsPage() {
   const [user, loading, error] = useAuthState(auth);
@@ -29,7 +30,7 @@ export default function PointsPage() {
   const verifyCode = () => {
     if (usedCodes.includes(secretCode)) {
       setErrorMessage('This code has been exhausted.');
-    } else if (secretCode === 'Arhan') {
+    } else if (secretCode === '11') {
       setCodeVerified(true);
       setErrorMessage('');
     } else {
@@ -39,29 +40,53 @@ export default function PointsPage() {
 
   const addActivityPoint = async () => {
     if (user) {
-      const userRef = doc(getFirestore(), 'Users', user.uid);
-      const activityPointsRef = doc(getFirestore(), 'activityPoints', user.uid);
-      
-      // Update user's activity points
-      await updateDoc(userRef, {
-        activityPoints: increment(1),
-        usedCodes: [...usedCodes, secretCode],
-      });
+      const db = getFirestore();
+      const userRef = doc(db, 'Users', user.uid);
+      const activityPointsRef = doc(db, 'activityPoints', user.uid);
 
-      // Add activity point to activityPoints collection
-      await setDoc(activityPointsRef, {
-        name: user.displayName,
-        email: user.email,
-        points: increment(1),
-      }, { merge: true });
-      
-      setCodeVerified(false);
-      setSecretCode('');
+      try {
+        // Check if the user document exists
+        const userSnap = await getDoc(userRef);
+        if (!userSnap.exists()) {
+          // Create the document if it doesn't exist
+          await setDoc(userRef, {
+            activityPoints: 0,
+            usedCodes: [],
+            // Add any other initial fields you might need
+          });
+        }
+
+        // Update user's activity points
+        await updateDoc(userRef, {
+          activityPoints: increment(1),
+          usedCodes: [...usedCodes, secretCode],
+        });
+
+        // Check if the activityPoints document exists
+        const activityPointsSnap = await getDoc(activityPointsRef);
+        if (!activityPointsSnap.exists()) {
+          // Create the document if it doesn't exist
+          await setDoc(activityPointsRef, {
+            name: user.displayName,
+            email: user.email,
+            points: 0,
+          });
+        }
+
+        // Add activity point to activityPoints collection
+        await updateDoc(activityPointsRef, {
+          points: increment(1),
+        });
+
+        console.log("Activity point added successfully.");
+        setCodeVerified(false);
+        setSecretCode('');
+      } catch (e) {
+        console.error("Error adding activity point: ", e);
+      }
     }
+    window.location.reload(); // Reload the page
   };
-
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
 
   return (
     <div>
@@ -83,8 +108,8 @@ export default function PointsPage() {
             {errorMessage && <p className="text-red-500">{errorMessage}</p>}
           </div>
         ) : (
-          <button onClick={addActivityPoint} className="p-2 bg-green-500 text-white rounded">
-            +1 Activity Point
+          <button onClick={addActivityPoint} className="p-2 bg-indigo-500 text-white rounded">
+            Add Activity Point
           </button>
         )}
       </div>
