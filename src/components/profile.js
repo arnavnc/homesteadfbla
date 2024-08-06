@@ -1,8 +1,8 @@
 "use client";
 
-import { getFirestore, collection, query, orderBy, limit, getDocs } from 'firebase/firestore';
 import React, { useState, useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
+import { getFirestore, collection, query, orderBy, limit, getDocs, where } from 'firebase/firestore';
 import { auth } from '@/app/firebase';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -14,6 +14,7 @@ const ProfileCard = () => {
   const [user, setUser] = useState(null);
   const [value, setValue] = useState("1");
   const [leaderboardData, setLeaderboardData] = useState([]);
+  const [userPlacement, setUserPlacement] = useState(null);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -27,34 +28,49 @@ const ProfileCard = () => {
     return () => unsubscribe();
   }, []);
 
+  useEffect(() => {
+    const fetchLeaderboardData = async () => {
+      const db = getFirestore();
+      const topUsersQuery = query(collection(db, 'activityPoints'), orderBy('points', 'desc'), limit(5));
+      const topUsersSnapshot = await getDocs(topUsersQuery);
+      
+      const topUsers = topUsersSnapshot.docs.map(doc => ({
+        name: doc.data().name,
+        points: doc.data().points,
+        email: doc.data().email
+      }));
+      
+      setLeaderboardData(topUsers);
+
+      if (user && !topUsers.some(u => u.email === user.email)) {
+        const userQuery = query(collection(db, 'activityPoints'), where('email', '==', user.email));
+        const userSnapshot = await getDocs(userQuery);
+        
+        if (!userSnapshot.empty) {
+          const userDoc = userSnapshot.docs[0];
+          const userData = {
+            name: userDoc.data().name,
+            points: userDoc.data().points,
+            email: userDoc.data().email
+          };
+
+          const allUsersQuery = query(collection(db, 'activityPoints'), orderBy('points', 'desc'));
+          const allUsersSnapshot = await getDocs(allUsersQuery);
+          const allUsers = allUsersSnapshot.docs.map(doc => doc.data().email);
+          const userRank = allUsers.indexOf(userData.email) + 1;
+
+          setUserPlacement({ ...userData, rank: userRank });
+        }
+      }
+    };
+
+    fetchLeaderboardData();
+  }, [user]);
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
-  // const leaderboardData = [
-  //   { name: 'John Doe', points: 150 },
-  //   { name: 'Jane Smith', points: 140 },
-  //   { name: 'Bob Johnson', points: 130 },
-  //   { name: 'Alice Davis', points: 120 },
-  //   { name: 'Chris Brown', points: 110 },
-  // ];
-  
-  useEffect(() => {
-    const fetchLeaderboardData = async () => {
-      const db = getFirestore();
-      const q = query(collection(db, 'activityPoints'), orderBy('points', 'desc'), limit(5));
-      const querySnapshot = await getDocs(q);
-      
-      const data = querySnapshot.docs.map(doc => ({
-        name: doc.data().name,
-        points: doc.data().points
-      }));
-      setLeaderboardData(data);
-    };
-
-    fetchLeaderboardData();
-  }, []);
-  
   const eventsData = [
     { title: 'Event 1', date: '2024-08-10', description: 'Description for event 1' },
     { title: 'Event 2', date: '2024-08-15', description: 'Description for event 2' },
@@ -103,10 +119,19 @@ const ProfileCard = () => {
                   <div className="space-y-2">
                     {leaderboardData.map((item, index) => (
                       <div key={index} className="flex justify-between p-2 bg-red-violet text-warm-beige rounded-lg shadow-md">
-                        <span>{item.name}</span>
+                        <span> {item.name}</span>
                         <span>{item.points} pts</span>
                       </div>
                     ))}
+                    <div>
+                      <p>...</p>
+                    </div>
+                    {userPlacement && (
+                      <div className="flex justify-between p-2 bg-red-violet text-warm-beige rounded-lg shadow-md">
+                        <span>{userPlacement.rank} - {userPlacement.name}</span>
+                        <span>{userPlacement.points} pts</span>
+                      </div>
+                    )}
                   </div>
                 </TabPanel>
                 <TabPanel value="2">
