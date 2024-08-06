@@ -155,7 +155,7 @@ for (let i = 0; i < props.conferences.length; i++) {
         </InputRootStyled> */}
       </Box>
       <Box display="flex" justifyContent="center" mb={4}>
-        <Button variant="outlined" color="primary" onClick={query}>
+        <Button variant="contained" disableElevation color="primary" onClick={query}>
           Search
         </Button>
       </Box>

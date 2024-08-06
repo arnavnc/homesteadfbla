@@ -6,6 +6,9 @@ import { BiRightArrowAlt } from "react-icons/bi";
 import Footer from "@/components/footer"
 import ProfileCard from "@/components/profile";
 import Arnav from "../../../public/static/officers.jpg";
+
+
+
 const page = () => {
   return (
    

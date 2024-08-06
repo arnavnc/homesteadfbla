@@ -2,9 +2,7 @@
 import Image from "next/image";
 import Nav from "@/components/nav";
 import Footer from "@/components/footer";
-import { useState, useEffect } from "react";
-// import Timeline from "@/components/CompetitionHistory";
-// import CompetitionsHistory from '@/components/CompetitionHistory';
+import { useState, useEffect } from "react";;
 import Arnav from "../../public/static/officers.jpg";
 import Link from "next/link";
 import firebase from "./firebase";

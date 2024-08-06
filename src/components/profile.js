@@ -1,5 +1,6 @@
 "use client";
 
+import { getFirestore, collection, query, orderBy, limit, getDocs } from 'firebase/firestore';
 import React, { useState, useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '@/app/firebase';
@@ -12,6 +13,7 @@ import Box from '@mui/material/Box';
 const ProfileCard = () => {
   const [user, setUser] = useState(null);
   const [value, setValue] = useState("1");
+  const [leaderboardData, setLeaderboardData] = useState([]);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -29,14 +31,30 @@ const ProfileCard = () => {
     setValue(newValue);
   };
 
-  const leaderboardData = [
-    { name: 'John Doe', points: 150 },
-    { name: 'Jane Smith', points: 140 },
-    { name: 'Bob Johnson', points: 130 },
-    { name: 'Alice Davis', points: 120 },
-    { name: 'Chris Brown', points: 110 },
-  ];
+  // const leaderboardData = [
+  //   { name: 'John Doe', points: 150 },
+  //   { name: 'Jane Smith', points: 140 },
+  //   { name: 'Bob Johnson', points: 130 },
+  //   { name: 'Alice Davis', points: 120 },
+  //   { name: 'Chris Brown', points: 110 },
+  // ];
+  
+  useEffect(() => {
+    const fetchLeaderboardData = async () => {
+      const db = getFirestore();
+      const q = query(collection(db, 'activityPoints'), orderBy('points', 'desc'), limit(5));
+      const querySnapshot = await getDocs(q);
+      
+      const data = querySnapshot.docs.map(doc => ({
+        name: doc.data().name,
+        points: doc.data().points
+      }));
+      setLeaderboardData(data);
+    };
 
+    fetchLeaderboardData();
+  }, []);
+  
   const eventsData = [
     { title: 'Event 1', date: '2024-08-10', description: 'Description for event 1' },
     { title: 'Event 2', date: '2024-08-15', description: 'Description for event 2' },

@@ -117,6 +117,12 @@ const Nav = () => {
                         >
                           My Profile
                         </Link>
+                        <Link
+                          href="/points"
+                          className="block w-full text-left px-4 py-1 text-gray-700 hover:bg-gray-100"
+                        >
+                          Activity Points
+                        </Link>
                         <button
                           onClick={handleLogout}
                           className="block w-full text-left px-4 py-1 text-gray-700 hover:bg-gray-100"
