@@ -93,7 +93,7 @@ const ProfileCard = () => {
         w-11/12 md:w-8/12 lg:w-6/12 xl:w-4/12 h-5/6 rounded-lg pt-10 mt-14 shadow-2xl border-4 
         border-red-violet bg-watermelon-red bg-opacity-75">
           <div className="flex justify-center">
-            <img src={user.photoURL} alt="Profile" className="w-24 h-24 rounded-full border-4 border-gray-300 shadow-md" />
+            <img src={user.photoURL} alt="Profile" className="w-24 h-24 rounded-full border-2 border-dark-chocolate shadow-md" />
           </div>
           <div className="text-center mt-4">
             <h2 className="text-2xl font-semibold text-dark-chocolate">{user.displayName}</h2>
@@ -115,22 +115,28 @@ const ProfileCard = () => {
                 </Tabs>
               </Box>
               <Box className="mt-4">
+
                 <TabPanel value="1">
                   <div className="space-y-2">
                     {leaderboardData.map((item, index) => (
+                      <>
                       <div key={index} className="flex justify-between p-2 bg-red-violet text-warm-beige rounded-lg shadow-md">
-                        <span> {item.name}</span>
+                        <span><strong>{index +1}</strong> - {item.name}</span>
                         <span>{item.points} pts</span>
                       </div>
+                      </>
                     ))}
-                    <div>
-                      <p>...</p>
-                    </div>
+
                     {userPlacement && (
+                      <>
+                      <div className="flex justify-center">
+                        <span>...</span>
+                      </div>
                       <div className="flex justify-between p-2 bg-red-violet text-warm-beige rounded-lg shadow-md">
-                        <span>{userPlacement.rank} - {userPlacement.name}</span>
+                        <span ><strong>{userPlacement.rank}</strong> - {userPlacement.name}</span>
                         <span>{userPlacement.points} pts</span>
                       </div>
+                      </>
                     )}
                   </div>
                 </TabPanel>

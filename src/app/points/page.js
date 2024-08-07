@@ -1,6 +1,8 @@
 "use client";
+import Arnav from "../../../public/static/officers.jpg";
+import Image from 'next/image'
 import { useState, useEffect } from 'react';
-import { getFirestore, doc, updateDoc, getDoc, setDoc, increment } from 'firebase/firestore';
+import { getFirestore, doc, updateDoc, getDoc, setDoc, collection, getDocs, increment } from 'firebase/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../firebase';
 import Nav from '@/components/nav';
@@ -13,6 +15,7 @@ export default function PointsPage() {
   const [codeVerified, setCodeVerified] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [usedCodes, setUsedCodes] = useState([]);
+  const [pointCodes, setPointCodes] = useState([]);
 
   useEffect(() => {
     const fetchUsedCodes = async () => {
@@ -24,13 +27,23 @@ export default function PointsPage() {
         }
       }
     };
+
+    const fetchPointCodes = async () => {
+      const db = getFirestore();
+      const pointCodesCollection = collection(db, 'pointCodes');
+      const pointCodesSnapshot = await getDocs(pointCodesCollection);
+      const codes = pointCodesSnapshot.docs.map(doc => doc.data().code);
+      setPointCodes(codes);
+    };
+
     fetchUsedCodes();
+    fetchPointCodes();
   }, [user]);
 
   const verifyCode = () => {
     if (usedCodes.includes(secretCode)) {
       setErrorMessage('This code has been exhausted.');
-    } else if (secretCode === '11') {
+    } else if (pointCodes.includes(secretCode)) {
       setCodeVerified(true);
       setErrorMessage('');
     } else {
@@ -89,6 +102,12 @@ export default function PointsPage() {
   };
 
   return (
+    <>
+    <Image 
+    src={Arnav} 
+    className="fixed blur-sm bg-scroll object-cover opacity-10 h-[100vh] z-[-10]"
+    draggable={false}
+  />
     <div>
       <Nav />
       <div className="container mx-auto p-4">
@@ -115,5 +134,6 @@ export default function PointsPage() {
       </div>
       <Footer />
     </div>
+    </>
   );
 }
