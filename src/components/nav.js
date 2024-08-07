@@ -162,7 +162,7 @@ const Nav = () => {
               leaveTo="transform scale-95 opacity-0"
               className="relative"
             >
-              <div className="my-2 border-t border-gray-800/40 sm:hidden mr-4 ml-[-7px] h-[240px]">
+              <div className="my-2 border-t border-gray-800/40 sm:hidden mr-4 ml-[-7px] h-[280px]">
                 <div className="mt-2 flex flex-col space-y-4">
                   <div className="mt-[3px] mb-[-9px]">
                     <div
@@ -190,7 +190,14 @@ const Nav = () => {
                       Press Releases
                     </Disclosure.Button>
                   </Link>
-
+                  <Link href="/mentors" passHref>
+                    <Disclosure.Button
+                      as="a"
+                      className="rounded-md p-2 font-semibold text-gray-300 hover:bg-gray-900/50"
+                    >
+                      Mentors
+                    </Disclosure.Button>
+                  </Link>
                   <Link href="/officers" passHref>
                     <Disclosure.Button
                       as="a"
@@ -214,7 +221,19 @@ const Nav = () => {
                           />
                         </button>
                         {menuOpen && (
-                          <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-2">
+                          <div className="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg py-2">
+                            <Link
+                              href="/profile"
+                              className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
+                            >
+                              My Profile
+                            </Link>
+                            <Link
+                              href="/points"
+                              className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
+                            >
+                              Activity Points
+                            </Link>
                             <button
                               onClick={handleLogout}
                               className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"

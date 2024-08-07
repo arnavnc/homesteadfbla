@@ -100,8 +100,13 @@ export default function PointsPage() {
     let result = '';
     for (let i = 0; i < 5; i++) {
       result += characters.charAt(Math.floor(Math.random() * characters.length));
+      if(!pastCodesSnap.includes(result)){
+        return result;
+      }else{
+        generateRandomCode();
+      }
     }
-    return result;
+
   };
 
   const addNewCodeToFirestore = async () => {
@@ -149,51 +154,56 @@ export default function PointsPage() {
 
   return (
     <>
-    <main>
-      <Image 
+  <main>
+    <Image 
       src={Arnav} 
       className="fixed blur-sm bg-scroll object-cover opacity-10 h-[100vh] z-[-10]"
       draggable={false}
-      />
-      <Nav />
-      <div className="flex flex-col text-center items-center lg:items-center lg:text-center justify-center pt-7 lg:pt-0 lg:h-[45vh] py-2 px-5 md:px-20 space-y-[-25px]">
-        <div className="container flex flex-col items-center mx-auto p-4 lg:m-24 bg-red-violet/50 rounded-lg w-3/12 h-36 border-2 border-red-700">
-          <h1 className="text-2xl font-bold mb-4">Get Activity Points!</h1>
-          {!codeVerified ? (
-            <div>
-              <input
-                type="text"
-                placeholder="Enter code"
-                value={secretCode}
-                onChange={(e) => setSecretCode(e.target.value)}
-                className="border p-2 rounded text-black focus:outline-none"
-              />
-              <button onClick={verifyCode} className="ml-2 p-2 bg-dark-chocolate text-white rounded-lg border-2 border-red-900 lg:mt-0">
-                Verify Code
-              </button>
-              {errorMessage && <p className=" text-red-500">{errorMessage}</p>}
-            </div>
-          ) : (
-            <button onClick={addActivityPoint} className="p-2 bg-watermelon-red text-white rounded-lg border-2 border-red-200">
-              Click this to Revieve Activity Point!
+    />
+    <Nav />
+    <div className="flex flex-col text-center items-center justify-center pt-7 lg:pt-0 lg:h-[45vh] py-2 px-5 md:px-20 space-y-4 lg:space-y-[-25px]">
+      <div className="container flex flex-col items-center mx-auto p-4 lg:m-24 bg-red-violet/50 rounded-lg w-full sm:w-3/4 md:w-1/2 lg:w-3/12 h-auto lg:h-36 border-2 border-red-700">
+        <h1 className="text-xl sm:text-2xl font-bold mb-4">Get Activity Points!</h1>
+        {!codeVerified ? (
+          <div className="flex flex-col sm:flex-row items-center">
+            <input
+              type="text"
+              placeholder="Enter code"
+              value={secretCode}
+              onChange={(e) => setSecretCode(e.target.value)}
+              className="border p-2 rounded text-black focus:outline-none mb-2 sm:mb-0 sm:mr-2 w-full sm:w-auto"
+            />
+            <button 
+              onClick={verifyCode} 
+              className="p-2 bg-dark-chocolate text-white rounded-lg border-2 border-red-900 lg:mt-0 w-full sm:w-auto">
+              Verify Code
             </button>
-          )}
-        </div>
-        <div className="">
-          {(authType === 'officer' || authType === 'tech')  && (
-              <div className="">
-                <button onClick={addNewCodeToFirestore} className="p-2 bg-green-500 text-white rounded">
-                  Generate new code
-                </button>
-                {generatedCode && (
-                  <p className="text-green-500 mt-2">New code generated: {generatedCode}</p>
-                )}
-              </div>
-          )}
-        </div>
+          </div>
+        ) : (
+          <button 
+            onClick={addActivityPoint} 
+            className="p-2 bg-watermelon-red text-white rounded-lg border-2 border-red-200 w-full sm:w-auto">
+            Click this to Receive Activity Point!
+          </button>
+        )}
+        {errorMessage && <p className="text-red-500 mt-2">{errorMessage}</p>}
       </div>
-      <Footer />
-    </main>
-    </>
+      {(authType === 'officer' || authType === 'tech')  && (
+        <div className="mt-4">
+          <button 
+            onClick={addNewCodeToFirestore} 
+            className="p-2 bg-green-500 text-white rounded w-full sm:w-auto">
+            Generate new code
+          </button>
+          {generatedCode && (
+            <p className="text-green-500 mt-2">New code generated: {generatedCode}</p>
+          )}
+        </div>
+      )}
+    </div>
+    <Footer />
+  </main>
+</>
+
   );
 }
