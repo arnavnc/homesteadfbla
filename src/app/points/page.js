@@ -2,7 +2,7 @@
 import Arnav from "../../../public/static/officers.jpg";
 import Image from 'next/image'
 import { useState, useEffect } from 'react';
-import { getFirestore, doc, updateDoc, getDoc, setDoc, collection, getDocs, increment } from 'firebase/firestore';
+import { getFirestore, doc, updateDoc, getDoc, setDoc, increment } from 'firebase/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../firebase';
 import Nav from '@/components/nav';
@@ -17,41 +17,38 @@ export default function PointsPage() {
   const [usedCodes, setUsedCodes] = useState([]);
   const [pointCodes, setPointCodes] = useState([]);
   const [authType, setAuthType] = useState('');
+  const [generatedCode, setGeneratedCode] = useState('');
 
+  const fetchUsedCodes = async () => {
+    if (user) {
+      const userRef = doc(getFirestore(), 'activityPoints', user.uid);
+
+      const userData = doc(getFirestore(), 'users', user.displayName);
+
+      const userDataSnap = await getDoc(userData);
+      const userSnap = await getDoc(userRef);
+      if (userSnap.exists()) {
+        const generalUserData = userDataSnap.data();
+        setAuthType(generalUserData.authType);
+        setUsedCodes(userSnap.data().usedCodes || []);
+        console.log(generalUserData.authType);
+      }
+    }
+  };
+
+  const fetchPointCodes = async () => {
+    const db = getFirestore();
+    const pointCodesCollection = doc(db, 'pointCodes', 'Current Codes');
+    const pointCodesSnapshot = await getDoc(pointCodesCollection);
+    if(pointCodesSnapshot.exists()){
+      const codesData = pointCodesSnapshot.data();
+      setPointCodes(codesData.codes);
+    }else{
+      console.log("No document found");
+    }
+  };
 
   useEffect(() => {
-    const fetchUsedCodes = async () => {
-      if (user) {
-        const userRef = doc(getFirestore(), 'activityPoints', user.uid);
-
-        const userData = doc(getFirestore(), 'users', user.displayName);
-
-        const userDataSnap = await getDoc(userData);
-        const userSnap = await getDoc(userRef);
-        if (userSnap.exists()) {
-          const generalUserData = userDataSnap.data();
-          setAuthType(generalUserData.authType);
-          setUsedCodes(userSnap.data().usedCodes || []);
-          console.log(generalUserData.authType);
-        }
-      }
-    };
-
-    const fetchPointCodes = async () => {
-      const db = getFirestore();
-      const pointCodesCollection = doc(db, 'pointCodes', 'Current Codes');
-      const pointCodesSnapshot = await getDoc(pointCodesCollection);
-      if(pointCodesSnapshot.exists()){
-        const codesData = pointCodesSnapshot.data();
-        setPointCodes(codesData.codes);
-        // console.log(codesData.codes);
-      }else{
-        console.log("No document found");
-      }
-      // const codes = pointCodesSnapshot.docs.map(doc => doc.data().codes);
-      // setPointCodes(codes);
-    };
-
     fetchUsedCodes();
     fetchPointCodes();
   }, [user]);
@@ -71,23 +68,18 @@ export default function PointsPage() {
     if (user) {
       const db = getFirestore();
       const userRef = doc(db, 'activityPoints', user.uid);
-      // const activityPointsRef = doc(db, 'activityPoints', user.uid);
 
       try {
-        // Check if the user document exists
         const userSnap = await getDoc(userRef);
         if (!userSnap.exists()) {
-          // Create the document if it doesn't exist
           await setDoc(userRef, {
             name: user.displayName,
             activityPoints: 0,
             email: user.email,
             usedCodes: [],
-            // Add any other initial fields you might need
           });
         }
 
-        // Update user's activity points
         await updateDoc(userRef, {
           activityPoints: increment(1),
           usedCodes: [...usedCodes, secretCode],
@@ -100,7 +92,59 @@ export default function PointsPage() {
         console.error("Error adding activity point: ", e);
       }
     }
-    window.location.reload(); // Reload the page
+    window.location.reload();
+  };
+
+  const generateRandomCode = () => {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+    for (let i = 0; i < 5; i++) {
+      result += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    return result;
+  };
+
+  const addNewCodeToFirestore = async () => {
+    const newCode = generateRandomCode();
+    const db = getFirestore();
+    const pointCodesRef = doc(db, 'pointCodes', 'Current Codes');
+    const pastCodesRef = doc(db, 'pointCodes', 'Past Codes (Do not use again)');
+
+    try {
+      const pointCodesSnap = await getDoc(pointCodesRef);
+      if (pointCodesSnap.exists()) {
+        const currentCodes = pointCodesSnap.data().codes;
+        let newCurrentCodes = [...currentCodes, newCode];
+        let newPastCodes = [];
+
+        if (newCurrentCodes.length > 4) {
+          const removedCode = newCurrentCodes.shift();
+          console.log("Removed code:", removedCode);
+          const pastCodesSnap = await getDoc(pastCodesRef);
+          if (pastCodesSnap.exists()) {
+            newPastCodes = pastCodesSnap.data()["past codes"] || [];
+            newPastCodes.push(removedCode);
+          } else {
+            newPastCodes = [removedCode];
+          }
+          await setDoc(pastCodesRef, {
+            "past codes": newPastCodes
+          }, { merge: true });
+          console.log("Updated past codes:", newPastCodes);
+        }
+
+        await updateDoc(pointCodesRef, {
+          codes: newCurrentCodes
+        });
+        console.log("Updated current codes:", newCurrentCodes);
+
+        setGeneratedCode(newCode);
+        console.log("New code generated:", newCode);
+      }
+    } catch (e) {
+      console.error("Error adding new code: ", e);
+    }
+    fetchPointCodes(); // Refresh the point codes
   };
 
   return (
@@ -124,23 +168,26 @@ export default function PointsPage() {
                 onChange={(e) => setSecretCode(e.target.value)}
                 className="border p-2 rounded text-black focus:outline-none"
               />
-              <button onClick={verifyCode} className="ml-2 p-2 bg-dark-chocolate text-white rounded-lg border-2 border-red-900">
+              <button onClick={verifyCode} className="ml-2 p-2 bg-dark-chocolate text-white rounded-lg border-2 border-red-900 lg:mt-0">
                 Verify Code
               </button>
               {errorMessage && <p className=" text-red-500">{errorMessage}</p>}
             </div>
           ) : (
             <button onClick={addActivityPoint} className="p-2 bg-watermelon-red text-white rounded-lg border-2 border-red-200">
-              Receive Activity Point
+              Click this to Revieve Activity Point!
             </button>
           )}
         </div>
         <div className="">
           {(authType === 'officer' || authType === 'tech')  && (
               <div className="">
-                <button className="p-2 bg-green-500 text-white rounded">
-                  Officer Only Button
+                <button onClick={addNewCodeToFirestore} className="p-2 bg-green-500 text-white rounded">
+                  Generate new code
                 </button>
+                {generatedCode && (
+                  <p className="text-green-500 mt-2">New code generated: {generatedCode}</p>
+                )}
               </div>
           )}
         </div>
