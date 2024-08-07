@@ -108,6 +108,14 @@ const ProfileCard = () => {
                   variant="fullWidth" 
                   textColor="primary" 
                   indicatorColor="primary"
+                  sx={{
+                    '& .MuiTabs-indicator': {
+                      backgroundColor: 'white',
+                    },
+                    '& .Mui-selected': {
+                      color: 'white !important',
+                    },
+                  }}
                 >
                   <Tab label="Activity Points" value="1" />
                   <Tab label="Upcoming Events" value="2" />
