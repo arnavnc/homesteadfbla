@@ -16,14 +16,23 @@ export default function PointsPage() {
   const [errorMessage, setErrorMessage] = useState('');
   const [usedCodes, setUsedCodes] = useState([]);
   const [pointCodes, setPointCodes] = useState([]);
+  const [authType, setAuthType] = useState('');
+
 
   useEffect(() => {
     const fetchUsedCodes = async () => {
       if (user) {
         const userRef = doc(getFirestore(), 'activityPoints', user.uid);
+
+        const userData = doc(getFirestore(), 'users', user.displayName);
+
+        const userDataSnap = await getDoc(userData);
         const userSnap = await getDoc(userRef);
         if (userSnap.exists()) {
+          const generalUserData = userDataSnap.data();
+          setAuthType(generalUserData.authType);
           setUsedCodes(userSnap.data().usedCodes || []);
+          console.log(generalUserData.authType);
         }
       }
     };
@@ -35,7 +44,7 @@ export default function PointsPage() {
       if(pointCodesSnapshot.exists()){
         const codesData = pointCodesSnapshot.data();
         setPointCodes(codesData.codes);
-        console.log(codesData.codes);
+        // console.log(codesData.codes);
       }else{
         console.log("No document found");
       }
@@ -49,7 +58,7 @@ export default function PointsPage() {
 
   const verifyCode = () => {
     if (usedCodes.includes(secretCode)) {
-      setErrorMessage('This code has been exhausted');
+      setErrorMessage('This code has been used already');
     } else if (pointCodes.includes(secretCode)) {
       setCodeVerified(true);
       setErrorMessage('');
@@ -104,8 +113,8 @@ export default function PointsPage() {
       />
       <Nav />
       <div className="flex flex-col text-center items-center lg:items-center lg:text-center justify-center pt-7 lg:pt-0 lg:h-[45vh] py-2 px-5 md:px-20 space-y-[-25px]">
-        <div className="container flex flex-col items-center mx-auto p-4">
-          <h1 className="text-2xl font-bold mb-4">Add Activity Point</h1>
+        <div className="container flex flex-col items-center mx-auto p-4 lg:m-24 bg-red-violet/50 rounded-lg w-3/12 h-36 border-2 border-red-700">
+          <h1 className="text-2xl font-bold mb-4">Get Activity Points!</h1>
           {!codeVerified ? (
             <div>
               <input
@@ -115,15 +124,24 @@ export default function PointsPage() {
                 onChange={(e) => setSecretCode(e.target.value)}
                 className="border p-2 rounded text-black focus:outline-none"
               />
-              <button onClick={verifyCode} className="ml-2 p-2 bg-blue-500 text-white rounded">
+              <button onClick={verifyCode} className="ml-2 p-2 bg-dark-chocolate text-white rounded-lg border-2 border-red-900">
                 Verify Code
               </button>
               {errorMessage && <p className=" text-red-500">{errorMessage}</p>}
             </div>
           ) : (
-            <button onClick={addActivityPoint} className="p-2 bg-indigo-500 text-white rounded">
+            <button onClick={addActivityPoint} className="p-2 bg-watermelon-red text-white rounded-lg border-2 border-red-200">
               Receive Activity Point
             </button>
+          )}
+        </div>
+        <div className="">
+          {(authType === 'officer' || authType === 'tech')  && (
+              <div className="">
+                <button className="p-2 bg-green-500 text-white rounded">
+                  Officer Only Button
+                </button>
+              </div>
           )}
         </div>
       </div>

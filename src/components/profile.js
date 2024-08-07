@@ -115,7 +115,6 @@ const ProfileCard = () => {
                 </Tabs>
               </Box>
               <Box className="mt-4">
-
                 <TabPanel value="1">
                   <div className="space-y-3">
                     {leaderboardData.map((item, index) => (
