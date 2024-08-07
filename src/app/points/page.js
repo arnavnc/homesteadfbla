@@ -30,10 +30,18 @@ export default function PointsPage() {
 
     const fetchPointCodes = async () => {
       const db = getFirestore();
-      const pointCodesCollection = collection(db, 'pointCodes');
-      const pointCodesSnapshot = await getDocs(pointCodesCollection);
-      const codes = pointCodesSnapshot.docs.map(doc => doc.data().code);
-      setPointCodes(codes);
+      const pointCodesCollection = doc(db, 'pointCodes', 'Current Codes');
+      const pointCodesSnapshot = await getDoc(pointCodesCollection);
+      console.log("HMMM")
+      if(pointCodesSnapshot.exists()){
+        const codesData = pointCodesSnapshot.data();
+        setPointCodes(codesData.codes);
+        console.log(codesData.codes);
+      }else{
+        console.log("No document found");
+      }
+      // const codes = pointCodesSnapshot.docs.map(doc => doc.data().codes);
+      // setPointCodes(codes);
     };
 
     fetchUsedCodes();
@@ -42,12 +50,12 @@ export default function PointsPage() {
 
   const verifyCode = () => {
     if (usedCodes.includes(secretCode)) {
-      setErrorMessage('This code has been exhausted.');
+      setErrorMessage('This code has been exhausted');
     } else if (pointCodes.includes(secretCode)) {
       setCodeVerified(true);
       setErrorMessage('');
     } else {
-      setErrorMessage('Invalid secret code.');
+      setErrorMessage('Invalid code');
     }
   };
 
@@ -103,37 +111,39 @@ export default function PointsPage() {
 
   return (
     <>
-    <Image 
-    src={Arnav} 
-    className="fixed blur-sm bg-scroll object-cover opacity-10 h-[100vh] z-[-10]"
-    draggable={false}
-  />
-    <div>
+    <main>
+      <Image 
+      src={Arnav} 
+      className="fixed blur-sm bg-scroll object-cover opacity-10 h-[100vh] z-[-10]"
+      draggable={false}
+      />
       <Nav />
-      <div className="container mx-auto p-4">
-        <h1 className="text-2xl font-bold mb-4">Add Activity Point</h1>
-        {!codeVerified ? (
-          <div>
-            <input
-              type="text"
-              placeholder="Enter secret code"
-              value={secretCode}
-              onChange={(e) => setSecretCode(e.target.value)}
-              className="border p-2 rounded text-black focus:outline-none"
-            />
-            <button onClick={verifyCode} className="ml-2 p-2 bg-blue-500 text-white rounded">
-              Verify Code
+      <div className="flex flex-col text-center items-center lg:items-center lg:text-center justify-center pt-7 lg:pt-0 lg:h-[45vh] py-2 px-5 md:px-20 space-y-[-25px]">
+        <div className="container flex flex-col items-center mx-auto p-4">
+          <h1 className="text-2xl font-bold mb-4">Add Activity Point</h1>
+          {!codeVerified ? (
+            <div>
+              <input
+                type="text"
+                placeholder="Enter code"
+                value={secretCode}
+                onChange={(e) => setSecretCode(e.target.value)}
+                className="border p-2 rounded text-black focus:outline-none"
+              />
+              <button onClick={verifyCode} className="ml-2 p-2 bg-blue-500 text-white rounded">
+                Verify Code
+              </button>
+              {errorMessage && <p className=" text-red-500">{errorMessage}</p>}
+            </div>
+          ) : (
+            <button onClick={addActivityPoint} className="p-2 bg-indigo-500 text-white rounded">
+              Receive Activity Point
             </button>
-            {errorMessage && <p className="text-red-500">{errorMessage}</p>}
-          </div>
-        ) : (
-          <button onClick={addActivityPoint} className="p-2 bg-indigo-500 text-white rounded">
-            Add Activity Point
-          </button>
-        )}
+          )}
+        </div>
       </div>
       <Footer />
-    </div>
+    </main>
     </>
   );
 }
