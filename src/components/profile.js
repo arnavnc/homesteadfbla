@@ -33,19 +33,19 @@ const ProfileCard = () => {
       const db = getFirestore();
       const topUsersQuery = query(collection(db, 'activityPoints'), orderBy('activityPoints', 'desc'), limit(5));
       const topUsersSnapshot = await getDocs(topUsersQuery);
-      
+
       const topUsers = topUsersSnapshot.docs.map(doc => ({
         name: doc.data().name,
         activityPoints: doc.data().activityPoints,
         email: doc.data().email
       }));
-      
+
       setLeaderboardData(topUsers);
 
       if (user && !topUsers.some(u => u.email === user.email)) {
         const userQuery = query(collection(db, 'activityPoints'), where('email', '==', user.email));
         const userSnapshot = await getDocs(userQuery);
-        
+
         if (!userSnapshot.empty) {
           const userDoc = userSnapshot.docs[0];
           const userData = {
@@ -79,7 +79,7 @@ const ProfileCard = () => {
   ];
 
   const EventCard = ({ title, date, description }) => (
-    <div className="bg-melon p-4 rounded-lg shadow-md mb-4">
+    <div className="bg-melon p-4 rounded-lg hover:animate-pulse ease-linear duration-150 shadow-md mb-4">
       <h3 className="text-xl font-semibold text-dark-chocolate">{title}</h3>
       <p className="text-sm text-red-violet">{date}</p>
       <p className="text-gray-700">{description}</p>
@@ -93,11 +93,11 @@ const ProfileCard = () => {
         w-11/12 md:w-8/12 lg:w-6/12 xl:w-4/12 h-5/6 rounded-lg pt-10 mt-14 shadow-2xl border-4 
         border-red-violet bg-watermelon-red bg-opacity-75">
           <div className="flex justify-center">
-            <img src={user.photoURL} alt="Profile" className="w-24 h-24 rounded-full border-2 border-dark-chocolate shadow-md" />
+            <img src={user.photoURL} alt="Profile" className="w-24 h-24 rounded-full border-2 border-dark-chocolate border-opacity-30 shadow-md" />
           </div>
           <div className="text-center mt-4">
-            <h2 className="text-2xl font-semibold text-dark-chocolate">{user.displayName}</h2>
-            <p className="text-dark-chocolate">{user.email}</p>
+            <h2 className="text-2xl font-semibold text-gray-200">{user.displayName}</h2>
+            <p className="text-gray-300">{user.email}</p>
           </div>
           <div className="w-full mt-6">
             <TabContext value={value}>
@@ -117,31 +117,33 @@ const ProfileCard = () => {
               <Box className="mt-4">
 
                 <TabPanel value="1">
-                  <div className="space-y-2">
+                  <div className="space-y-3">
                     {leaderboardData.map((item, index) => (
-                      <>
-                      <div key={index} className="flex justify-between p-2 bg-red-violet text-warm-beige rounded-lg shadow-md">
-                        <span><strong>{index +1}</strong> - {item.name}</span>
+                      <div 
+                        key={index} 
+                        className={`flex justify-between p-2 ${item.email === user.email ? 'bg-red-400 bg-opacity-30' : 'bg-red-violet'} text-warm-beige rounded-lg 
+                        shadow-lg border border-dark-chocolate border-opacity-25`}>
+                        <span><strong>{index + 1}</strong> - {item.name}</span>
                         <span>{item.activityPoints} pts</span>
                       </div>
-                      </>
                     ))}
 
-                    {userPlacement && (
+                    {userPlacement && !leaderboardData.some(u => u.email === user.email) && (
                       <>
-                      <div className="flex justify-center">
-                        <span>...</span>
-                      </div>
-                      <div className="flex justify-between p-2 bg-red-violet text-warm-beige rounded-lg shadow-md">
-                        <span ><strong>{userPlacement.rank}</strong> - {userPlacement.name}</span>
-                        <span>{userPlacement.activityPoints} pts</span>
-                      </div>
+                        <div className="flex justify-center">
+                          <span>...</span>
+                        </div>
+                        <div className="flex justify-between p-2 bg-red-400 bg-opacity-30 text-warm-beige rounded-lg shadow-lg
+                         border border-dark-chocolate border-opacity-25">
+                          <span ><strong>{userPlacement.rank}</strong> - {userPlacement.name}</span>
+                          <span>{userPlacement.activityPoints} pts</span>
+                        </div>
                       </>
                     )}
                   </div>
                 </TabPanel>
                 <TabPanel value="2">
-                  <div className="space-y-4">
+                  <div className="space-y-6">
                     {eventsData.map((event, index) => (
                       <EventCard 
                         key={index}
