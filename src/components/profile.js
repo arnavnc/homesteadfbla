@@ -31,12 +31,12 @@ const ProfileCard = () => {
   useEffect(() => {
     const fetchLeaderboardData = async () => {
       const db = getFirestore();
-      const topUsersQuery = query(collection(db, 'activityPoints'), orderBy('points', 'desc'), limit(5));
+      const topUsersQuery = query(collection(db, 'activityPoints'), orderBy('activityPoints', 'desc'), limit(5));
       const topUsersSnapshot = await getDocs(topUsersQuery);
       
       const topUsers = topUsersSnapshot.docs.map(doc => ({
         name: doc.data().name,
-        points: doc.data().points,
+        activityPoints: doc.data().activityPoints,
         email: doc.data().email
       }));
       
@@ -50,11 +50,11 @@ const ProfileCard = () => {
           const userDoc = userSnapshot.docs[0];
           const userData = {
             name: userDoc.data().name,
-            points: userDoc.data().points,
+            activityPoints: userDoc.data().activityPoints,
             email: userDoc.data().email
           };
 
-          const allUsersQuery = query(collection(db, 'activityPoints'), orderBy('points', 'desc'));
+          const allUsersQuery = query(collection(db, 'activityPoints'), orderBy('activityPoints', 'desc'));
           const allUsersSnapshot = await getDocs(allUsersQuery);
           const allUsers = allUsersSnapshot.docs.map(doc => doc.data().email);
           const userRank = allUsers.indexOf(userData.email) + 1;
@@ -122,7 +122,7 @@ const ProfileCard = () => {
                       <>
                       <div key={index} className="flex justify-between p-2 bg-red-violet text-warm-beige rounded-lg shadow-md">
                         <span><strong>{index +1}</strong> - {item.name}</span>
-                        <span>{item.points} pts</span>
+                        <span>{item.activityPoints} pts</span>
                       </div>
                       </>
                     ))}
@@ -134,7 +134,7 @@ const ProfileCard = () => {
                       </div>
                       <div className="flex justify-between p-2 bg-red-violet text-warm-beige rounded-lg shadow-md">
                         <span ><strong>{userPlacement.rank}</strong> - {userPlacement.name}</span>
-                        <span>{userPlacement.points} pts</span>
+                        <span>{userPlacement.activityPoints} pts</span>
                       </div>
                       </>
                     )}

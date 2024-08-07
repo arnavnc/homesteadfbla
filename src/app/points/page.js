@@ -20,7 +20,7 @@ export default function PointsPage() {
   useEffect(() => {
     const fetchUsedCodes = async () => {
       if (user) {
-        const userRef = doc(getFirestore(), 'Users', user.uid);
+        const userRef = doc(getFirestore(), 'activityPoints', user.uid);
         const userSnap = await getDoc(userRef);
         if (userSnap.exists()) {
           setUsedCodes(userSnap.data().usedCodes || []);
@@ -32,7 +32,6 @@ export default function PointsPage() {
       const db = getFirestore();
       const pointCodesCollection = doc(db, 'pointCodes', 'Current Codes');
       const pointCodesSnapshot = await getDoc(pointCodesCollection);
-      console.log("HMMM")
       if(pointCodesSnapshot.exists()){
         const codesData = pointCodesSnapshot.data();
         setPointCodes(codesData.codes);
@@ -62,8 +61,8 @@ export default function PointsPage() {
   const addActivityPoint = async () => {
     if (user) {
       const db = getFirestore();
-      const userRef = doc(db, 'Users', user.uid);
-      const activityPointsRef = doc(db, 'activityPoints', user.uid);
+      const userRef = doc(db, 'activityPoints', user.uid);
+      // const activityPointsRef = doc(db, 'activityPoints', user.uid);
 
       try {
         // Check if the user document exists
@@ -71,7 +70,9 @@ export default function PointsPage() {
         if (!userSnap.exists()) {
           // Create the document if it doesn't exist
           await setDoc(userRef, {
+            name: user.displayName,
             activityPoints: 0,
+            email: user.email,
             usedCodes: [],
             // Add any other initial fields you might need
           });
@@ -81,22 +82,6 @@ export default function PointsPage() {
         await updateDoc(userRef, {
           activityPoints: increment(1),
           usedCodes: [...usedCodes, secretCode],
-        });
-
-        // Check if the activityPoints document exists
-        const activityPointsSnap = await getDoc(activityPointsRef);
-        if (!activityPointsSnap.exists()) {
-          // Create the document if it doesn't exist
-          await setDoc(activityPointsRef, {
-            name: user.displayName,
-            email: user.email,
-            points: 0,
-          });
-        }
-
-        // Add activity point to activityPoints collection
-        await updateDoc(activityPointsRef, {
-          points: increment(1),
         });
 
         console.log("Activity point added successfully.");
