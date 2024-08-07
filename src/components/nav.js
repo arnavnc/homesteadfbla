@@ -162,7 +162,7 @@ const Nav = () => {
               leaveTo="transform scale-95 opacity-0"
               className="relative"
             >
-              <div className="my-2 border-t border-gray-800/40 sm:hidden mr-4 ml-[-7px] h-[280px]">
+              <div className="my-2 border-t border-gray-800/40 sm:hidden mr-4 ml-[-7px] h-[340px]">
                 <div className="mt-2 flex flex-col space-y-4">
                   <div className="mt-[3px] mb-[-9px]">
                     <div
@@ -201,50 +201,46 @@ const Nav = () => {
                   <Link href="/officers" passHref>
                     <Disclosure.Button
                       as="a"
-                      className="rounded-md p-2 font-semibold text-gray-300 hover:bg-gray-900/50"
+                      className="rounded-md p-2 pb-0 font-semibold text-gray-300 hover:bg-gray-900/50"
                     >
                       Meet the Team
                     </Disclosure.Button>
                   </Link>
 
-                  <div className="flex justify-between mx-10 mr-12 pt-4">
+                  
+
+                  <div className="">
                     {user ? (
-                      <div className="relative">
-                        <button
-                          onClick={() => setMenuOpen(!menuOpen)}
-                          className="flex items-center space-x-2"
+                      <div className="flex flex-col space-y-4">
+                      <hr className="border-white border-opacity-25 mx-2" />
+
+                      <Link href="/profile" passHref>
+                        <Disclosure.Button
+                          as="a"
+                          className="rounded-md p-2 font-semibold text-gray-300 hover:bg-gray-900/50"
                         >
-                          <img
-                            src={user.photoURL}
-                            alt="Profile"
-                            className="w-10 h-10 rounded-full"
-                          />
-                        </button>
-                        {menuOpen && (
-                          <div className="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg py-2">
-                            <Link
-                              href="/profile"
-                              className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
-                            >
-                              My Profile
-                            </Link>
-                            <Link
-                              href="/points"
-                              className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
-                            >
-                              Activity Points
-                            </Link>
-                            <button
-                              onClick={handleLogout}
-                              className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
-                            >
-                              Logout
-                            </button>
-                          </div>
-                        )}
+                          View Profile
+                        </Disclosure.Button>
+                      </Link>
+                      <Link href="/points" passHref>
+                        <Disclosure.Button
+                          as="a"
+                          className="rounded-md p-2 pb-0 font-semibold text-gray-300 hover:bg-gray-900/50"
+                        >
+                          Activity Points
+                        </Disclosure.Button>
+                      </Link>
+                      <div>
+                        <Disclosure.Button
+                          onClick={handleLogout}
+                          className="rounded-md p-2 pt-0 font-semibold text-red-400 hover:bg-gray-900/50 justify-start"
+                          >
+                            Logout
+                        </Disclosure.Button>
+                      </div>
                       </div>
                     ) : (
-                      <>
+                      <div className="flex justify-between mx-10 mr-12 pt-4">
                         <Link href="/login" passHref>
                           <Disclosure.Button
                             as="a"
@@ -263,7 +259,7 @@ const Nav = () => {
                             Register
                           </Disclosure.Button>
                         </Link>
-                      </>
+                      </div>
                     )}
                   </div>
                 </div>
