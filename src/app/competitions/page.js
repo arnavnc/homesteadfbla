@@ -216,9 +216,8 @@ export default class CompetitionsHistory extends React.Component {
             }
           }else{
             for (let k = 0; k < myYears.length; k++) {
-              for (let q = 0; q < myConf.length; q++) {
                 tRef = query(
-                  collection(db, "confQuery", myConf[q], String(myYears[k])),
+                  collection(db, "confQuery", conf, String(myYears[k])),
                   where("event", "==", event),
                 );
                 promises.push(
@@ -238,7 +237,6 @@ export default class CompetitionsHistory extends React.Component {
                     });
                   }).catch((error) => {})
                 );
-              }
             }
           }
         }else if(name && !conf && !year){
@@ -247,6 +245,32 @@ export default class CompetitionsHistory extends React.Component {
               tRef = query(
                 collection(db, "confQuery", myConf[q], String(myYears[k])),
                 where("name", "==", name),
+                where("event", "==", event)
+              );
+              promises.push(
+                getDocs(tRef).then((querySnapshot) => {
+                  querySnapshot.forEach((doc) => {
+                    var event = doc.data()["event"];
+                    var name = doc.data()["name"];
+                    var place = doc.data()["place"];
+        
+                    results.push({
+                      name: name,
+                      place: place,
+                      conference: myConf[q],
+                      year: myYears[k],
+                      event: event,
+                    });
+                  });
+                }).catch((error) => {})
+              );
+            }
+          }
+        }else{
+          for (let k = 0; k < myYears.length; k++) {
+            for (let q = 0; q < myConf.length; q++) {
+              tRef = query(
+                collection(db, "confQuery", myConf[q], String(myYears[k])),
                 where("event", "==", event)
               );
               promises.push(
