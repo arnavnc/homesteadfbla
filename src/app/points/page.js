@@ -17,7 +17,6 @@ export default function PointsPage() {
   const [pointCodes, setPointCodes] = useState([]);
   const [authType, setAuthType] = useState('');
   const [generatedCode, setGeneratedCode] = useState('');
-  const [showCurrentCodes, setShowCurrentCodes] = useState(false);
   const [showFullText, setShowFullText] = useState(false); // New state for text visibility
 
   const fetchUsedCodes = async () => {
@@ -155,10 +154,6 @@ export default function PointsPage() {
     fetchPointCodes(); // Refresh the point codes
   };
 
-  const toggleCurrentCodes = () => {
-    setShowCurrentCodes(!showCurrentCodes);
-  };
-
   const toggleText = () => {
     setShowFullText(!showFullText);
   };
@@ -168,74 +163,75 @@ export default function PointsPage() {
       <main className="flex flex-col min-h-screen">
         <Image 
           src={Arnav} 
-          className="fixed blur-sm bg-scroll object-cover opacity-10 h-[100vh] z-[-10]"
+          className="fixed bg-scroll object-cover opacity-10 h-[100vh] z-[-10]"
           draggable={false}
           alt="Background Image"
         />
         <Nav />
-        <div className="flex flex-col text-center items-center justify-center flex-grow pt-7 lg:pt-0 py-2 px-5 md:px-20 space-y-4 lg:space-y-[-25px]">
-          <div className="container flex flex-col items-center mx-auto p-4 lg:m-24 bg-red-violet/50 rounded-lg w-full sm:w-3/4 md:w-1/2 lg:w-3/12 h-auto lg:h-36 border-2 border-red-700 mb-14">
-            <h1 className="text-xl sm:text-2xl font-bold mb-4">Get Activity Points!</h1>
+        <div className="flex flex-col text-center items-center justify-center flex-grow py-12 px-5 md:px-20 space-y-6 lg:space-y-12">
+          <div className="container flex flex-col items-center mx-auto p-6 bg-red-violet/60 rounded-lg w-full sm:w-3/4 md:w-1/2 lg:w-1/3 border-2 border-watermelon-red/40 shadow-2xl">
+            <h1 className="text-2xl sm:text-3xl font-bold mb-6 text-white">Get Activity Points!</h1>
             {!codeVerified ? (
-              <div className="flex-row items-center">
+              <div className="flex flex-col items-center space-y-4 w-full">
                 <input
                   type="text"
                   placeholder="Enter code"
                   value={secretCode}
                   onChange={(e) => setSecretCode(e.target.value)}
-                  className="border p-2 rounded text-black focus:outline-none mb-2 sm:mb-0 sm:mr-2 w-full sm:w-auto"
+                  className="border p-2 rounded text-black placeholder:text-gray-700 focus:outline-none w-full bg-red-100/90"
                 />
                 <button 
                   onClick={verifyCode} 
-                  className="p-2 bg-dark-chocolate text-white rounded-lg border-2 border-red-900 lg:mt-2 w-full sm:w-auto">
+                  className="p-2 bg-watermelon-red/75 text-white rounded-lg border border-red-900 
+                  border-opacity-15 w-full hover:bg-watermelon-red/90 hover:brightness-110 duration-200">
                   Verify Code
                 </button>
               </div>
             ) : (
               <button 
                 onClick={addActivityPoint} 
-                className="p-2 bg-watermelon-red text-white rounded-lg w-full sm:w-auto">
+                className="p-2 bg-watermelon-red text-white rounded-lg w-full hover:bg-red-700">
                 Click this to Receive Activity Point!
               </button>
             )}
             {errorMessage && <p className="text-red-500 mt-2">{errorMessage}</p>}
-          </div>
-          {(authType === 'officer' || authType === 'tech') && (
-            <div className="container flex flex-col bg-melon/50 lg:w-3/12 h-auto px-5 py-8 rounded-lg border-2 border-red-300 my-20 pt-4">
-              <h1 className="text-center mb-1 text-xl sm:text-2xl font-bold">For Officers</h1>
-              <p>
-                {showFullText 
-                  ? `Use this to generate activity point codes. There is a limit of 4 active codes at one time. Please do not generate codes if you do not need them. Codes are case sensitive. Codes are shared among all officers, so only use codes you generated. Do not reuse codes for multiple events.` 
-                  : ``}
-              </p>
-              {!showFullText && (
-                <button 
-                  onClick={toggleText} 
-                  className="text-red-500">
-                  Click to Expand
-                </button>
-              )}
-              {showFullText && (
-                <button 
-                  onClick={toggleText} 
-                  className="text-red-500">
-                  Hide
-                </button>
-              )}
-              <div className="flex justify-center space-x-6 w-full mt-4">
-                <div className="text-center">
+            {(authType === 'officer' || authType === 'tech') && (
+              <div className="container flex flex-col bg-red-violet/40 border border-opacity-15 border-watermelon-red mt-8 px-5 py-6 rounded-lg shadow-xl">
+                <h1 className="text-center mb-1 text-2xl sm:text-3xl font-bold text-white">For Officers</h1>
+                <p className="text-white mt-2">
+                  {showFullText 
+                    ? `Use this to generate activity point codes. There is a limit of 4 active codes at one time. Please do not generate codes if you do not need them. Codes are case sensitive. Codes are shared among all officers, so only use codes you generated. Do not reuse codes for multiple events.` 
+                    : ``}
+                </p>
+                {!showFullText && (
                   <button 
-                    onClick={addNewCodeToFirestore} 
-                    className="p-2 bg-red-violet text-white rounded w-full sm:w-auto shadow-xl">
-                    Generate new code
+                    onClick={toggleText} 
+                    className="text-red-200 hover:underline ease-linear duration-100 mt-2">
+                    Click to Expand
                   </button>
-                  {generatedCode && (
-                    <p className="text-white mt-2">New code generated: <strong>{generatedCode}</strong></p>
-                  )}
+                )}
+                {showFullText && (
+                  <button 
+                    onClick={toggleText} 
+                    className="text-red-200 hover:underline ease-linear duration-100 mt-2">
+                    Hide
+                  </button>
+                )}
+                <div className="flex justify-center space-x-6 w-full mt-4">
+                  <div className="text-center">
+                    <button 
+                      onClick={addNewCodeToFirestore} 
+                      className="p-2 bg-red-violet text-white rounded w-full shadow-lg hover:scale-105 hover:brightness-105 duration-150">
+                      Generate new code
+                    </button>
+                    {generatedCode && (
+                      <p className="text-white mt-2">New code generated: <strong>{generatedCode}</strong></p>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
         <Footer />
       </main>
