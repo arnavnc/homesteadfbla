@@ -72,10 +72,10 @@ const LoginPage = () => {
           <h1 className="bg-watermelon-red p-5 rounded-2xl text-2xl lg:text-2xl font-semibold lg:mt-10 lg:w-full px-8 z-50">
             Login to HHS FBLA!
           </h1>
-          <div className="bg-watermelon-red p-10 rounded-2xl w-50 justify-center bg-opacity-75 space-y-4">
+          <div className="bg-watermelon-red p-10 rounded-2xl w-50 justify-center bg-opacity-75">
             <button
               onClick={handleGoogleSignIn}
-              className="border-2 mt-2 border-watermelon-red hover:bg-watermelon-red ease-linear duration-200 flex justify-center cursor-pointer p-3 rounded-xl w-full text-white py-2 px-10 shadow-md transition-colors"
+              className="border-2 mt-2 border-watermelon-red hover:bg-watermelon-red ease-linear duration-200 flex justify-center cursor-pointer p-3 rounded-xl w-full text-white px-10 shadow-xl transition-colors"
             >
               <svg className="w-5 h-5 mr-2" viewBox="0 0 48 48">
                 <path
@@ -95,9 +95,9 @@ const LoginPage = () => {
                   d="M41.99 20.27H24v7.46h10.33c-1.02 2.58-2.84 4.56-5.12 5.75l5.75 5.75c3.37-3.17 5.54-7.74 5.54-13.21 0-1.78-.27-3.47-.73-5z"
                 />
               </svg>
-              Member Login
+               Login with Google
             </button>
-            <button
+            {/* <button
               onClick={handleGoogleSignIn}
               className="border-2 border-watermelon-red hover:bg-watermelon-red ease-linear duration-200 flex justify-center cursor-pointer p-3 rounded-xl w-full text-white 
               py-2 px-10 shadow-md transition-colors"
@@ -121,7 +121,7 @@ const LoginPage = () => {
                 />
               </svg>
               Admin Login
-            </button>
+            </button> */}
           </div>
         </div>
       </main>
