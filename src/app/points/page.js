@@ -21,7 +21,6 @@ export default function PointsPage() {
   const [showFullText, setShowFullText] = useState(false); // New state for text visibility
 
   const fetchUsedCodes = async () => {
-    console.log(start);
     if (user) {
       console.log(user)
       const userRef = doc(getFirestore(), 'activityPoints', user.uid);
