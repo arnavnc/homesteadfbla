@@ -123,7 +123,7 @@ export default function Home() {
             <Link
               href="/officers"
               className="border-2 border-red-300 hover:bg-red-300 
-                hover:text-red-500 hover:font-semibold ease-linear duration-200 
+                hover:text-white ease-linear duration-200 
                 cursor-pointer w-fit p-3 lg:text-[15px] text-sm rounded-xl"
             >
               Meet our Officer Team

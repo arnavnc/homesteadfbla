@@ -14,7 +14,7 @@ module.exports = {
         'red-violet': '#8C2F39',
         'watermelon-red': '#B23A48',
         'melon': '#FCB9B2',
-        'warm-beige': '#FEDOBB',
+        'warm-beige': '#FED0BB',
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

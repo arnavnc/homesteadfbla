@@ -128,7 +128,7 @@ const ProfileCard = () => {
                     {leaderboardData.map((item, index) => (
                       <div 
                         key={index} 
-                        className={`flex justify-between p-2 ${item.email === user.email ? 'bg-red-400 bg-opacity-30' : 'bg-red-violet'} text-warm-beige rounded-lg 
+                        className={`flex justify-between p-2 ${item.email === user.email ? 'bg-red-400 bg-opacity-30' : 'bg-red-violet'} text-white rounded-lg 
                         shadow-lg border border-dark-chocolate border-opacity-25`}>
                         <span><strong>{index + 1}</strong> - {item.name}</span>
                         <span>{item.activityPoints} pts</span>
@@ -140,7 +140,7 @@ const ProfileCard = () => {
                         <div className="flex justify-center">
                           <span>...</span>
                         </div>
-                        <div className="flex justify-between p-2 bg-red-400 bg-opacity-30 text-warm-beige rounded-lg shadow-lg
+                        <div className="flex justify-between p-2 bg-red-400 bg-opacity-30 text-white rounded-lg shadow-lg
                          border border-dark-chocolate border-opacity-25">
                           <span ><strong>{userPlacement.rank}</strong> - {userPlacement.name}</span>
                           <span>{userPlacement.activityPoints} pts</span>

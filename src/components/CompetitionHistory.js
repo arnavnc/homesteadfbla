@@ -13,22 +13,63 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import LinearProgress from "@mui/material/LinearProgress";
-import { Box, styled, ThemeProvider, createTheme } from '@mui/system';
-
+import { Box, styled } from '@mui/system';
 
 const FormControlStyled = styled(FormControl)(({ theme }) => ({
   margin: theme.spacing(1),
   minWidth: 200,
 }));
 
-const SelectEmptyStyled = styled(Select)(({ theme }) => ({
+const SelectStyled = styled(Select)(({ theme }) => ({
   marginTop: theme.spacing(2),
+  color: 'white', // Text color for Select
+  '& .MuiSelect-icon': {
+    color: 'white', // Icon color for Select
+  },
+  '& .MuiOutlinedInput-root': {
+    '& fieldset': {
+      borderColor: 'white', // Border color for Select
+    },
+    '&:hover fieldset': {
+      borderColor: 'white', // Border color on hover for Select
+    },
+    '&.Mui-focused fieldset': {
+      borderColor: 'white', // Border color when focused for Select
+    },                    
+    '& .Mui-selected': {
+      color: 'white !important',
+    },
+  },
 }));
 
 const InputRootStyled = styled(Box)(({ theme }) => ({
   '& > *': {
     margin: theme.spacing(1),
     width: 200,
+  },
+}));
+
+const TextFieldStyled = styled(TextField)(({ theme }) => ({
+  '& .MuiInputBase-input': {
+    color: 'white', // Text color for TextField
+  },
+  '& .MuiInputLabel-root': {
+    color: 'white', // Label color for TextField
+  },
+  '& .MuiInput-underline:before': {
+    borderBottomColor: 'white', // Bottom border color for TextField
+  },
+  '& .MuiInput-underline:hover:before': {
+    borderBottomColor: 'white', // Bottom border color on hover
+  },
+  '& .MuiInput-underline:after': {
+    borderBottomColor: 'white', // Bottom border color when focused for TextField
+  },
+  '& .MuiInput-underline.Mui-focused:after': {
+    borderBottomColor: 'white', // Bottom border color when focused
+  },  
+  '& .Mui-selected': {
+    color: 'white !important',
   },
 }));
 
@@ -41,22 +82,21 @@ const LoaderRootStyled = styled(Box)(({ theme }) => ({
 
 export default function CompetitionsHistoryComponent(props) {
   
-let menuEvents = [];
-let menuConf = [];
+  let menuEvents = [];
+  let menuConf = [];
 
-menuEvents.push(<MenuItem value="">None</MenuItem>);
-for (let i = 0; i < props.events.length; i++) {
-  menuEvents.push(
-    <MenuItem value={props.events[i]}>{props.events[i]}</MenuItem>
-  );
-}
-menuConf.push(<MenuItem value="">None</MenuItem>);
-for (let i = 0; i < props.conferences.length; i++) {
-  menuConf.push(
-    <MenuItem value={props.conferences[i]}>{props.conferences[i]}</MenuItem>
-  );
-}
-
+  menuEvents.push(<MenuItem value="" key="none-events">None</MenuItem>);
+  for (let i = 0; i < props.events.length; i++) {
+    menuEvents.push(
+      <MenuItem value={props.events[i]} key={props.events[i]}>{props.events[i]}</MenuItem>
+    );
+  }
+  menuConf.push(<MenuItem value="" key="none-conf">None</MenuItem>);
+  for (let i = 0; i < props.conferences.length; i++) {
+    menuConf.push(
+      <MenuItem value={props.conferences[i]} key={props.conferences[i]}>{props.conferences[i]}</MenuItem>
+    );
+  }
 
   const [conf, setConf] = React.useState("");
   const [event, setEvent] = React.useState("");
@@ -92,7 +132,7 @@ for (let i = 0; i < props.conferences.length; i++) {
 
   byYear.map((row) => {
     let tableRow = (
-      <TableRow key={row.name} >
+      <TableRow key={row.name}>
         <TableCell component="th" scope="row">
           {row.name} 
         </TableCell>
@@ -102,28 +142,30 @@ for (let i = 0; i < props.conferences.length; i++) {
         <TableCell align="right">{row.place}</TableCell>
       </TableRow>
     );
-    if (!byYear.includes(tableRow)) toRender.push(tableRow);
+    if (!toRender.includes(tableRow)) toRender.push(tableRow);
   });
 
-
-
   return (
-    <div className="pt-2 text-white ">
+    <div className="pt-2 text-white px-2 sm:px-4 md:px-6 lg:px-8">
       <Box display="flex" flexWrap="wrap" alignItems="center" mb={2}>
-        <InputRootStyled>
-          <form noValidate autoComplete="off"  onSubmit={handleFormSubmit}>
-            <TextField id="name" variant="standard" label="Name" />
+        <InputRootStyled className="w-full sm:w-auto mb-2 sm:mb-0">
+          <form noValidate autoComplete="off" onSubmit={handleFormSubmit}>
+            <TextFieldStyled id="name" variant="standard" label="Name"sx={{
+                    '& .Mui-selected': {
+                      color: 'white !important',
+                    },
+                  }} fullWidth />
           </form>
         </InputRootStyled>
-        <InputRootStyled>
-        <form noValidate autoComplete="off"  onSubmit={handleFormSubmit}>
-          <TextField id="year" variant="standard" label="Year" />
-        </form>
+        <InputRootStyled className="w-full sm:w-auto mb-2 sm:mb-0">
+          <form noValidate autoComplete="off" onSubmit={handleFormSubmit}>
+            <TextFieldStyled id="year" variant="standard" label="Year" fullWidth />
+          </form>
         </InputRootStyled>
-        <FormControlStyled>
-        <FormControl variant="standard">
-          <InputLabel id="conf-select-label">Conferences</InputLabel>
-            <Select
+        <FormControlStyled className="w-full sm:w-auto mb-2 sm:mb-0">
+          <FormControl variant="standard" fullWidth>
+            <InputLabel id="conf-select-label">Conferences</InputLabel>
+            <SelectStyled
               labelId="conf-select-label"
               id="conf-select"
               variant="standard"
@@ -131,46 +173,41 @@ for (let i = 0; i < props.conferences.length; i++) {
               onChange={confChange}
             >
               {menuConf}
-            </Select>
+            </SelectStyled>
           </FormControl>
         </FormControlStyled>
-        <FormControlStyled>
-          <FormControl variant="standard">
-          <InputLabel id="event-select-label">Events</InputLabel>
-          <Select
-            labelId="event-select-label"
-            id="event-select"
-            variant="standard"
-            value={event}
-            onChange={eventChange}
-          >
-            {menuEvents}
-          </Select>
+        <FormControlStyled className="w-full sm:w-auto mb-2 sm:mb-0">
+          <FormControl variant="standard" fullWidth>
+            <InputLabel id="event-select-label">Events</InputLabel>
+            <SelectStyled
+              labelId="event-select-label"
+              id="event-select"
+              variant="standard"
+              value={event}
+              onChange={eventChange}
+            >
+              {menuEvents}
+            </SelectStyled>
           </FormControl>
         </FormControlStyled>
-        {/* <InputRootStyled>
-        <form noValidate autoComplete="off" onSubmit={handleFormSubmit}>
-          <TextField id="place" variant="standard" label="Place" />
-        </form>
-        </InputRootStyled> */}
       </Box>
       <Box display="flex" justifyContent="center" mb={4}>
-        <Button variant="contained" disableElevation color="primary" onClick={query}>
+        <Button variant="contained" disableElevation color="primary" onClick={query} className="w-full sm:w-auto">
           Search
         </Button>
       </Box>
       <Box display="flex" justifyContent="center">
-      {props.nothingEntered && (
-           <div className="justify-content-md-center">
-             <h2 className="text-xl">
-               <i>You must enter in at least one field</i>
+        {props.nothingEntered && (
+          <div className="justify-content-md-center">
+            <h2 className="text-xl">
+              <i>You must enter in at least one field</i>
             </h2>
           </div>
-         )}
+        )}
       </Box>
       <Box>
-        <TableContainer component={Paper} sx={{maxHeight: 350}}>
-          <Table stickyHeader >
+        <TableContainer component={Paper} sx={{ maxHeight: 350 }}>
+          <Table stickyHeader>
             <TableHead>
               <TableRow>
                 <TableCell>Name</TableCell>
@@ -180,12 +217,12 @@ for (let i = 0; i < props.conferences.length; i++) {
                 <TableCell align="right">Place</TableCell>
               </TableRow>
             </TableHead>
-            <TableBody >
+            <TableBody>
               {toRender}
             </TableBody>
           </Table>
         </TableContainer>
       </Box>
-      </div>
+    </div>
   );
 }

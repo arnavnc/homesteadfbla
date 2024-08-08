@@ -162,7 +162,7 @@ const Nav = () => {
               leaveTo="transform scale-95 opacity-0"
               className="relative"
             >
-              <div className="my-2 border-t border-gray-800/40 sm:hidden mr-4 ml-[-7px] h-[340px]">
+              <div className="my-2 border-t border-gray-800/40 sm:hidden mr-4 ml-[-7px] h-[345px] rounded-lg">
                 <div className="mt-2 flex flex-col space-y-4">
                   <div className="mt-[3px] mb-[-9px]">
                     <div
