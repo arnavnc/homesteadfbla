@@ -17,6 +17,7 @@ export default function PointsPage() {
   const [pointCodes, setPointCodes] = useState([]);
   const [authType, setAuthType] = useState('');
   const [generatedCode, setGeneratedCode] = useState('');
+  const [activityName, setActivityName] = useState('');
   const [showFullText, setShowFullText] = useState(false); // New state for text visibility
 
   const fetchUsedCodes = async () => {
@@ -92,7 +93,7 @@ export default function PointsPage() {
         console.error("Error adding activity point: ", e);
       }
     }
-    window.location.reload();
+    window.location.href = '/profile';
   };
 
   const generateRandomCode = async () => {
@@ -105,7 +106,7 @@ export default function PointsPage() {
 
     do {
       result = '';
-      for (let i = 0; i < 5; i++) {
+      for (let i = 0; i < 4; i++) {
         result += characters.charAt(Math.floor(Math.random() * characters.length));
       }
     } while (pastCodes.includes(result));
@@ -114,7 +115,13 @@ export default function PointsPage() {
   };
 
   const addNewCodeToFirestore = async () => {
+    if (!activityName.trim()) {
+      setErrorMessage('Activity name is required');
+      return;
+    }
+
     const newCode = await generateRandomCode();
+    const combinedCode = `${activityName.toUpperCase()}${newCode}`;
     const db = getFirestore();
     const pointCodesRef = doc(db, 'pointCodes', 'Current Codes');
     const pastCodesRef = doc(db, 'pointCodes', 'Past Codes (Do not use again)');
@@ -123,7 +130,7 @@ export default function PointsPage() {
       const pointCodesSnap = await getDoc(pointCodesRef);
       if (pointCodesSnap.exists()) {
         const currentCodes = pointCodesSnap.data().codes;
-        let newCurrentCodes = [...currentCodes, newCode];
+        let newCurrentCodes = [...currentCodes, combinedCode];
         let newPastCodes = [];
 
         if (newCurrentCodes.length > 4) {
@@ -147,8 +154,8 @@ export default function PointsPage() {
         });
         console.log("Updated current codes:", newCurrentCodes);
 
-        setGeneratedCode(newCode);
-        console.log("New code generated:", newCode);
+        setGeneratedCode(combinedCode);
+        console.log("New code generated:", combinedCode);
       }
     } catch (e) {
       console.error("Error adding new code: ", e);
@@ -192,7 +199,7 @@ export default function PointsPage() {
             ) : (
               <button 
                 onClick={addActivityPoint} 
-                className="p-2 bg-watermelon-red text-white rounded-lg w-full hover:bg-red-700">
+                className="p-2 bg-watermelon-red text-white rounded-lg w-full hover:scale-105 duration-200">
                 Click this to Receive Activity Point!
               </button>
             )}
@@ -202,14 +209,20 @@ export default function PointsPage() {
                 <h1 className="text-center mb-1 text-2xl sm:text-3xl font-bold text-white">For Officers</h1>
                 <p className="text-white mt-2">
                   {showFullText 
-                    ? `Use this to generate activity point codes. There is a limit of 4 active codes at one time. Please do not generate codes if you do not need them. Codes are case sensitive. Codes are shared among all officers, so only use codes you generated. Do not reuse codes for multiple events.` 
+                    ? `Use this to generate activity point codes.
+                      Below you will need to first enter an activity name in an abbreviated form.
+                      For example, Community Serivce Project Meeting 1 would be abbreviated as CSPM1. 
+                      There is a limit of 4 active codes at one time. 
+                      Please do not generate codes if you do not need them. 
+                      Codes are case sensitive. 
+                      Do not reuse codes for multiple events.` 
                     : ``}
                 </p>
                 {!showFullText && (
                   <button 
                     onClick={toggleText} 
                     className="text-red-200 hover:underline ease-linear duration-100 mt-2">
-                    Click to Expand
+                    Click to Read Instructions
                   </button>
                 )}
                 {showFullText && (
@@ -219,17 +232,25 @@ export default function PointsPage() {
                     Hide
                   </button>
                 )}
-                <div className="flex justify-center space-x-6 w-full mt-4">
-                  <div className="text-center">
+                <div className="flex flex-col items-center space-y-4 w-full mt-4">
+                  <input
+                    type="text"
+                    placeholder="ex. CSPM1 or GM1"
+                    value={activityName}
+                    onChange={(e) => setActivityName(e.target.value.replace(/\s/g, ''))}
+                    className="border p-2 rounded text-black placeholder:text-gray-700 focus:outline-none w-full bg-red-100/90"
+                  />
+                  {/* <div className=""> */}
                     <button 
                       onClick={addNewCodeToFirestore} 
-                      className="p-2 bg-red-violet text-white rounded w-full shadow-lg hover:scale-105 hover:brightness-105 duration-150">
+                      className="p-2 bg-red-violet text-white rounded w-full shadow-lg hover:scale-105 
+                      hover:brightness-105 duration-150">
                       Generate new code
                     </button>
                     {generatedCode && (
                       <p className="text-white mt-2">New code generated: <strong>{generatedCode}</strong></p>
                     )}
-                  </div>
+                  {/* </div> */}
                 </div>
               </div>
             )}
