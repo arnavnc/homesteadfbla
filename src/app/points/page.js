@@ -28,14 +28,10 @@ export default function PointsPage() {
       const userDataSnap = await getDoc(userData);
       const userSnap = await getDoc(userRef);
       if (userSnap.exists()) {
-        console.log("userSnap exists");
         const generalUserData = userDataSnap.data();
         console.log(generalUserData);
-        console.log(generalUserData.authType);
         setAuthType(generalUserData.authType);
-
         setUsedCodes(userSnap.data().usedCodes || []);
-        console.log(generalUserData.authType);
       }
     }
   };
