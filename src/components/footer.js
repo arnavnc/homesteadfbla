@@ -22,8 +22,8 @@ const navigation = {
     { name: "Software Ventures", href: "/projects/software-ventures" },
   ],
   legal: [
-    { name: "Privacy", href: "/" },
-    { name: "Terms", href: "/" },
+    { name: "Privacy", href: "" },
+    { name: "Terms", href: "https://docs.google.com/document/d/1LGgHYpsjV6DTUM9SwC1AwicCohDghe7O5T5hhwb71sI/edit?usp=sharing" },
   ],
   social: [
     // {
