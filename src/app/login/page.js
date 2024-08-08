@@ -69,9 +69,12 @@ const LoginPage = () => {
       <Nav />
       <main className="lg:flex justify-evenly">
         <div className="flex flex-col text-center items-center lg:items-center lg:text-center justify-center pt-7 lg:pt-0 lg:h-[45vh] py-2 px-5 md:px-20 space-y-[-25px]">
-          <h1 className="bg-watermelon-red p-5 rounded-2xl text-2xl lg:text-2xl font-semibold lg:mt-10 lg:w-full px-8 z-50">
+          <div className="bg-watermelon-red p-5 rounded-2xl text-2xl lg:text-2xl font-semibold lg:mt-10 lg:w-full px-8 z-10">
+          <h1 className="mb-2" >
             Login to HHS FBLA!
           </h1>
+          <p className="text-base text-gray-300 mb-0">*Use you school email</p>
+          </div>
           <div className="bg-watermelon-red p-10 rounded-2xl w-50 justify-center bg-opacity-75">
             <button
               onClick={handleGoogleSignIn}
