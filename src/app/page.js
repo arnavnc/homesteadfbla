@@ -34,8 +34,8 @@ export default function Home() {
             <BiRightArrowAlt className="mt-[5px] scale-[1.25] ml-1 group-hover:translate-x-1 ease-linear duration-150" />
           </Link>
         </div>
-        <div className="rounded-lg hidden w-1/3 lg:flex flex-col text-center lg:text-left justify-center h-[50vh] lg:min-h-[80vh] py-2 gap-x-10 pr-10">
-          <Image src={Arnav} className="object-cover h-full my-10 rounded-lg" />
+        <div className="rounded-lg hidden w-[46%] lg:flex flex-col text-center lg:text-left justify-center h-[50vh] lg:min-h-[80vh] py-2 gap-x-10 pr-10">
+          <Image src={Arnav} className="object-cover h-full my-16 rounded-lg" />
         </div>
       </main>
       <section className="py-10 px-10 lg:px-16 bg-red-violet bg-opacity-20">
