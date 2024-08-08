@@ -21,11 +21,13 @@ export default function PointsPage() {
 
   const fetchUsedCodes = async () => {
     if (user) {
+      console.log(user)
       const userRef = doc(getFirestore(), 'activityPoints', user.uid);
       const userData = doc(getFirestore(), 'users', user.displayName);
       const userDataSnap = await getDoc(userData);
       const userSnap = await getDoc(userRef);
       if (userSnap.exists()) {
+        console.log("userSnap exists");
         const generalUserData = userDataSnap.data();
         setAuthType(generalUserData.authType);
         setUsedCodes(userSnap.data().usedCodes || []);
