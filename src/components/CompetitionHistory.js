@@ -35,10 +35,19 @@ const SelectStyled = styled(Select)(({ theme }) => ({
     },
     '&.Mui-focused fieldset': {
       borderColor: 'white', // Border color when focused for Select
-    },                    
-    '& .Mui-selected': {
-      color: 'white !important',
     },
+  },
+  '& .MuiInput-underline:before': {
+    borderBottomColor: 'white', // Bottom border color for Select
+  },
+  '&:hover:not(.Mui-disabled):before': {
+    borderBottomColor: 'white', // Bottom border color on hover for Select
+  },
+  '&.Mui-focused:after': {
+    borderBottomColor: 'white', // Bottom border color when focused for Select
+  },
+  '& .MuiFormHelperText-root': {
+    color: 'white', // Helper text color for TextField
   },
 }));
 
@@ -67,9 +76,9 @@ const TextFieldStyled = styled(TextField)(({ theme }) => ({
   },
   '& .MuiInput-underline.Mui-focused:after': {
     borderBottomColor: 'white', // Bottom border color when focused
-  },  
-  '& .Mui-selected': {
-    color: 'white !important',
+  },
+  '& .MuiFormHelperText-root': {
+    color: 'white', // Helper text color for TextField
   },
 }));
 
@@ -150,11 +159,7 @@ export default function CompetitionsHistoryComponent(props) {
       <Box display="flex" flexWrap="wrap" alignItems="center" mb={2}>
         <InputRootStyled className="w-full sm:w-auto mb-2 sm:mb-0">
           <form noValidate autoComplete="off" onSubmit={handleFormSubmit}>
-            <TextFieldStyled id="name" variant="standard" label="Name"sx={{
-                    '& .Mui-selected': {
-                      color: 'white !important',
-                    },
-                  }} fullWidth />
+            <TextFieldStyled id="name" variant="standard" label="Name" fullWidth />
           </form>
         </InputRootStyled>
         <InputRootStyled className="w-full sm:w-auto mb-2 sm:mb-0">
@@ -164,7 +169,7 @@ export default function CompetitionsHistoryComponent(props) {
         </InputRootStyled>
         <FormControlStyled className="w-full sm:w-auto mb-2 sm:mb-0">
           <FormControl variant="standard" fullWidth>
-            <InputLabel id="conf-select-label">Conferences</InputLabel>
+            <InputLabel id="conf-select-label" sx={{ color: "white" }}>Conferences</InputLabel>
             <SelectStyled
               labelId="conf-select-label"
               id="conf-select"
@@ -178,7 +183,7 @@ export default function CompetitionsHistoryComponent(props) {
         </FormControlStyled>
         <FormControlStyled className="w-full sm:w-auto mb-2 sm:mb-0">
           <FormControl variant="standard" fullWidth>
-            <InputLabel id="event-select-label">Events</InputLabel>
+            <InputLabel id="event-select-label" sx={{ color: "white" }}>Events</InputLabel>
             <SelectStyled
               labelId="event-select-label"
               id="event-select"

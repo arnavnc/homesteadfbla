@@ -170,13 +170,14 @@ export default function PointsPage() {
           src={Arnav} 
           className="fixed blur-sm bg-scroll object-cover opacity-10 h-[100vh] z-[-10]"
           draggable={false}
+          alt="Background Image"
         />
         <Nav />
         <div className="flex flex-col text-center items-center justify-center flex-grow pt-7 lg:pt-0 py-2 px-5 md:px-20 space-y-4 lg:space-y-[-25px]">
           <div className="container flex flex-col items-center mx-auto p-4 lg:m-24 bg-red-violet/50 rounded-lg w-full sm:w-3/4 md:w-1/2 lg:w-3/12 h-auto lg:h-36 border-2 border-red-700 mb-14">
             <h1 className="text-xl sm:text-2xl font-bold mb-4">Get Activity Points!</h1>
             {!codeVerified ? (
-              <div className="flex flex-col sm:flex-row items-center">
+              <div className="flex-row items-center">
                 <input
                   type="text"
                   placeholder="Enter code"
@@ -186,7 +187,7 @@ export default function PointsPage() {
                 />
                 <button 
                   onClick={verifyCode} 
-                  className="p-2 bg-dark-chocolate text-white rounded-lg border-2 border-red-900 lg:mt-0 w-full sm:w-auto">
+                  className="p-2 bg-dark-chocolate text-white rounded-lg border-2 border-red-900 lg:mt-2 w-full sm:w-auto">
                   Verify Code
                 </button>
               </div>
@@ -230,23 +231,6 @@ export default function PointsPage() {
                   </button>
                   {generatedCode && (
                     <p className="text-white mt-2">New code generated: <strong>{generatedCode}</strong></p>
-                  )}
-                </div>
-                <div className="text-center">
-                  <button 
-                    onClick={toggleCurrentCodes}
-                    className="p-2 bg-dark-chocolate shadow-xl text-white rounded w-full sm:w-auto">
-                    View Current Codes
-                  </button>
-                  {showCurrentCodes && (
-                    <div className="mt-2 text-white">
-                      <h3 className="text-lg font-bold">Current Codes:</h3>
-                      <ul>
-                        {pointCodes.map((code, index) => (
-                          <li key={index}>{code}</li>
-                        ))}
-                      </ul>
-                    </div>
                   )}
                 </div>
               </div>
