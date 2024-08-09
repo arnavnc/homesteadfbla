@@ -165,7 +165,7 @@ export default function Register() {
   return (
     <main className="flex justify-center">
     <ThemeProvider theme={theme}>
-      <div className="bg-red-violet p-5 rounded-3xl w-50 flex flex-col justify-center bg-opacity-60 gap-y-0 w-96 h-[650px] border-4 border-red-800 border-opacity-60 py-0 px-8">
+      <div className="bg-red-violet p-5 rounded-3xl w-50 flex flex-col justify-center bg-opacity-60 gap-y-0 w-96 h-[650px] border-4 border-red-800 border-opacity-60 py-0 px-8 mt-8">
         <h1 className="text-center pb-3 text-4xl lg:text-4xl font-semibold lg:w-auto px-8 z-50 my-0 bg-transparent">
             Register
         </h1>
