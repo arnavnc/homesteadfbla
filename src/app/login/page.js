@@ -69,62 +69,42 @@ const LoginPage = () => {
       <Nav />
       <main className="lg:flex justify-evenly">
         <div className="flex flex-col text-center items-center lg:items-center lg:text-center justify-center pt-7 lg:pt-0 lg:h-[45vh] py-2 px-5 md:px-20 space-y-[-25px]">
-          <div className="bg-watermelon-red p-5 rounded-2xl text-2xl lg:text-2xl font-semibold lg:mt-10 lg:w-full px-8 z-10">
-          <h1 className="mb-2" >
-            Login to HHS FBLA!
-          </h1>
-          <p className="text-base text-gray-300 mb-0">*Use you school email</p>
-          </div>
-          <div className="bg-watermelon-red p-10 rounded-2xl w-50 justify-center bg-opacity-75">
-            <button
-              onClick={handleGoogleSignIn}
-              className="border-2 mt-2 border-watermelon-red hover:bg-watermelon-red ease-linear duration-200 flex justify-center cursor-pointer p-3 rounded-xl w-full text-white px-10 shadow-xl transition-colors"
-            >
-              <svg className="w-5 h-5 mr-2" viewBox="0 0 48 48">
-                <path
-                  fill="#4285F4"
-                  d="M24 9.5c3.02 0 5.64 1.04 7.75 2.73l5.75-5.75C33.96 3.27 29.24 1 24 1 14.55 1 6.81 6.73 3.5 15h7.18c2.11-4.93 7-8.5 13.32-8.5z"
-                />
-                <path
-                  fill="#34A853"
-                  d="M9.92 24c0-1.61.3-3.17.84-4.59H3.5C2.53 20.58 2 22.23 2 24c0 1.77.53 3.42 1.5 4.59l7.27-7.27C10.22 21.17 9.92 22.39 9.92 24z"
-                />
-                <path
-                  fill="#FBBC05"
-                  d="M24 38.5c-3.03 0-5.8-1.05-7.96-2.78L9.3 41.96C13.02 45.45 18.28 47.5 24 47.5c5.23 0 9.96-2.27 13.3-5.77l-5.75-5.75c-2.11 1.69-4.73 2.73-7.75 2.73z"
-                />
-                <path
-                  fill="#EA4335"
-                  d="M41.99 20.27H24v7.46h10.33c-1.02 2.58-2.84 4.56-5.12 5.75l5.75 5.75c3.37-3.17 5.54-7.74 5.54-13.21 0-1.78-.27-3.47-.73-5z"
-                />
-              </svg>
-               Login with Google
-            </button>
-            {/* <button
-              onClick={handleGoogleSignIn}
-              className="border-2 border-watermelon-red hover:bg-watermelon-red ease-linear duration-200 flex justify-center cursor-pointer p-3 rounded-xl w-full text-white 
-              py-2 px-10 shadow-md transition-colors"
-            >
-              <svg className="w-5 h-5 mr-2" viewBox="0 0 48 48">
-                <path
-                  fill="#4285F4"
-                  d="M24 9.5c3.02 0 5.64 1.04 7.75 2.73l5.75-5.75C33.96 3.27 29.24 1 24 1 14.55 1 6.81 6.73 3.5 15h7.18c2.11-4.93 7-8.5 13.32-8.5z"
-                />
-                <path
-                  fill="#34A853"
-                  d="M9.92 24c0-1.61.3-3.17.84-4.59H3.5C2.53 20.58 2 22.23 2 24c0 1.77.53 3.42 1.5 4.59l7.27-7.27C10.22 21.17 9.92 22.39 9.92 24z"
-                />
-                <path
-                  fill="#FBBC05"
-                  d="M24 38.5c-3.03 0-5.8-1.05-7.96-2.78L9.3 41.96C13.02 45.45 18.28 47.5 24 47.5c5.23 0 9.96-2.27 13.3-5.77l-5.75-5.75c-2.11 1.69-4.73 2.73-7.75 2.73z"
-                />
-                <path
-                  fill="#EA4335"
-                  d="M41.99 20.27H24v7.46h10.33c-1.02 2.58-2.84 4.56-5.12 5.75l5.75 5.75c3.37-3.17 5.54-7.74 5.54-13.21 0-1.78-.27-3.47-.73-5z"
-                />
-              </svg>
-              Admin Login
-            </button> */}
+          <div className="bg-watermelon-red p-10 rounded-2xl w-50 justify-center bg-opacity-50 pt-6 border-4 border-watermelon-red border-opacity-50">
+            <h1 className="mb-2 text-3xl font-semibold mt-0" >
+              Login to Homestead FBLA!
+            </h1>
+            <p className="text-base text-gray-300 mb-6">*You must use your school email</p> {/* Adjusted margin here */}
+            <div className="flex justify-center">
+              <button
+                onClick={handleGoogleSignIn}
+                className="mt-2 hover:bg-watermelon-red border-2 bg-red-violet bg-opacity-80 border-watermelon-red ease-linear duration-200 flex justify-center cursor-pointer p-3 rounded-xl w-full max-w-xs text-white shadow-2xl transition-colors"
+              >
+                <svg className="w-5 h-5 mr-2" viewBox="0 0 48 48">
+                  <path
+                    fill="#4285F4"
+                    d="M24 9.5c3.02 0 5.64 1.04 7.75 2.73l5.75-5.75C33.96 3.27 29.24 1 24 1 14.55 1 6.81 6.73 3.5 15h7.18c2.11-4.93 7-8.5 13.32-8.5z"
+                  />
+                  <path
+                    fill="#34A853"
+                    d="M9.92 24c0-1.61.3-3.17.84-4.59H3.5C2.53 20.58 2 22.23 2 24c0 1.77.53 3.42 1.5 4.59l7.27-7.27C10.22 21.17 9.92 22.39 9.92 24z"
+                  />
+                  <path
+                    fill="#FBBC05"
+                    d="M24 38.5c-3.03 0-5.8-1.05-7.96-2.78L9.3 41.96C13.02 45.45 18.28 47.5 24 47.5c5.23 0 9.96-2.27 13.3-5.77l-5.75-5.75c-2.11 1.69-4.73 2.73-7.75 2.73z"
+                  />
+                  <path
+                    fill="#EA4335"
+                    d="M41.99 20.27H24v7.46h10.33c-1.02 2.58-2.84 4.56-5.12 5.75l5.75 5.75c3.37-3.17 5.54-7.74 5.54-13.21 0-1.78-.27-3.47-.73-5z"
+                  />
+                </svg>
+                 Login with Google
+              </button>
+            </div>
+            <div className="flex flex-row justify-center mt-4 mb-0">
+              <p className=""> Don&apos;t have an account?</p>
+              <p className="text-transparent">l</p>
+              <a href="/register" className=" text-red-300 underline">Sign up here!</a>
+            </div>
           </div>
         </div>
       </main>

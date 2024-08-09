@@ -163,16 +163,22 @@ export default function Register() {
   };
 
   return (
+    <main className="flex justify-center">
     <ThemeProvider theme={theme}>
-      <div>
-        <div className="flex flex-col space-y-10 justify-center px-4 p-5">
+      <div className="bg-red-violet p-5 rounded-3xl w-50 flex flex-col justify-center bg-opacity-60 gap-y-0 w-96 h-[650px] border-4 border-red-800 border-opacity-60 py-0 px-8">
+        <h1 className="text-center pb-3 text-4xl lg:text-4xl font-semibold lg:w-auto px-8 z-50 my-0 bg-transparent">
+            Register
+        </h1>
+        <p className="mt-0 text-center text-gray-300 text-base mb-4">
+          Sign up for Homestead FBLA!
+        </p>
+        <div className="flex flex-col space-y-8 justify-center px-4 p-2">
           <TextField
             className='textfield'
             label="First Name"
             variant="standard"
             InputLabelProps={{ className: 'textfield__label' }}
             name="firstName"
-            style = {{width: 270}}
             onChange={handleInputChange}
           />
           <TextField
@@ -208,13 +214,19 @@ export default function Register() {
             onChange={handleInputChange}
           />
           <button
-            className="border-2 border-watermelon-red hover:bg-watermelon-red ease-linear duration-200 flex justify-center cursor-pointer p-3 rounded-xl text-lg"
+            className=" bg-red-violet/70 font-semibold flex justify-center cursor-pointer p-3 rounded-xl text-lg hover:bg-watermelon-red ease-linear duration-200 border-2 border-watermelon-red "
             onClick={handleClick}
           >
             {state.buttonText}
           </button>
         </div>
+        <div className="flex flex-row justify-center text-sm mt-2">
+          <p className="">Already have an account?  </p>
+          <p className="text-transparent">l</p>
+          <a href="/login" className="text-red-400 underline">Login here!</a>
+        </div>
       </div>
     </ThemeProvider>
+    </main>
   );
 }
