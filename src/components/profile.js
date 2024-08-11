@@ -2,24 +2,47 @@
 
 import React, { useState, useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
-import { getFirestore, collection, query, orderBy, limit, getDocs, where } from 'firebase/firestore';
+import { getFirestore, collection, query, orderBy, limit, getDocs, where, addDoc, updateDoc, doc } from 'firebase/firestore';
 import { auth } from '@/app/firebase';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import TabPanel from '@mui/lab/TabPanel';
 import TabContext from '@mui/lab/TabContext';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Modal from '@mui/material/Modal';
 
 const ProfileCard = () => {
   const [user, setUser] = useState(null);
+  const [authType, setAuthType] = useState(null);
   const [value, setValue] = useState("1");
   const [leaderboardData, setLeaderboardData] = useState([]);
   const [userPlacement, setUserPlacement] = useState(null);
+  const [eventsData, setEventsData] = useState([
+    { title: 'Event 1', date: '2024-08-10', description: 'Description for event 1' },
+    { title: 'Event 2', date: '2024-08-15', description: 'Description for event 2' },
+    { title: 'Event 3', date: '2024-08-20', description: 'Description for event 3' },
+    { title: 'Event 4', date: '2024-08-25', description: 'Description for event 4' },
+  ]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [newEvent, setNewEvent] = useState({ title: '', date: '', description: '' });
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
+        // Assuming authType is stored in the user object, you may need to fetch it from Firestore if not.
+        // setAuthType(user.authType);
+        // Fetch authType from Firestore
+        const fetchAuthType = async () => {
+          const db = getFirestore();
+          const userDoc = await getDocs(query(collection(db, 'users'), where('email', '==', user.email)));
+          if (!userDoc.empty) {
+            setAuthType(userDoc.docs[0].data().authType);
+          }
+        };
+        fetchAuthType();
       } else {
         setUser(null);
       }
@@ -71,12 +94,35 @@ const ProfileCard = () => {
     setValue(newValue);
   };
 
-  const eventsData = [
-    { title: 'Event 1', date: '2024-08-10', description: 'Description for event 1' },
-    { title: 'Event 2', date: '2024-08-15', description: 'Description for event 2' },
-    { title: 'Event 3', date: '2024-08-20', description: 'Description for event 3' },
-    { title: 'Event 4', date: '2024-08-25', description: 'Description for event 4' },
-  ];
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleInputChange = (e) => {
+    setNewEvent({
+      ...newEvent,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleSubmit = async () => {
+    if (authType === "officer" || authType === "tech") {
+      const updatedEvents = [...eventsData];
+      updatedEvents.pop(); // Remove the last event
+      updatedEvents.unshift(newEvent); // Add the new event at the start
+      setEventsData(updatedEvents);
+
+      // Update Firestore or any other database accordingly
+      const db = getFirestore();
+      await addDoc(collection(db, 'events'), newEvent);
+
+      handleCloseModal();
+    }
+  };
 
   const EventCard = ({ title, date, description }) => (
     <div className="bg-melon p-4 rounded-lg hover:animate-pulse ease-linear duration-150 shadow-md mb-4">
@@ -150,7 +196,68 @@ const ProfileCard = () => {
                   </div>
                 </TabPanel>
                 <TabPanel value="2">
-                  <div className="space-y-6">
+                  {(authType === "officer" || authType === "tech") && (
+                    <>
+                      <Button variant="contained" color="primary" onClick={handleOpenModal}>
+                        Create New Event
+                      </Button>
+                      <Modal
+                        open={isModalOpen}
+                        onClose={handleCloseModal}
+                        aria-labelledby="simple-modal-title"
+                        aria-describedby="simple-modal-description"
+                      >
+                        <Box
+                          sx={{
+                            position: 'absolute',
+                            top: '50%',
+                            left: '50%',
+                            transform: 'translate(-50%, -50%)',
+                            width: 400,
+                            bgcolor: 'background.paper',
+                            border: '2px solid #000',
+                            boxShadow: 24,
+                            p: 4,
+                          }}
+                        >
+                          <h2>Create New Event</h2>
+                          <TextField
+                            fullWidth
+                            label="Title"
+                            name="title"
+                            value={newEvent.title}
+                            onChange={handleInputChange}
+                            margin="normal"
+                          />
+                          <TextField
+                            fullWidth
+                            label="Date"
+                            name="date"
+                            value={newEvent.date}
+                            onChange={handleInputChange}
+                            margin="normal"
+                            type="date"
+                            InputLabelProps={{
+                              shrink: true,
+                            }}
+                          />
+                          <TextField
+                            fullWidth
+                            label="Description"
+                            name="description"
+                            value={newEvent.description}
+                            onChange={handleInputChange}
+                            margin="normal"
+                          />
+                          <Button variant="contained" color="primary" onClick={handleSubmit}>
+                            Submit
+                          </Button>
+                        </Box>
+                      </Modal>
+                    </>
+                  )}
+                  
+                  <div className="space-y-6 mt-4">
                     {eventsData.map((event, index) => (
                       <EventCard 
                         key={index}
@@ -169,7 +276,7 @@ const ProfileCard = () => {
           </div>
         </div>
       ) : (
-        <p className="text-warm-beige text-lg">No user is logged in</p>
+        <p className="text-warm-beige text-lg">...</p>
       )}
     </div>
   );
