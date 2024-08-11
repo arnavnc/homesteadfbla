@@ -120,7 +120,7 @@ export default function PointsPage() {
     }
 
     const newCode = await generateRandomCode();
-    const combinedCode = `${activityName.toUpperCase()}${newCode}`;
+    const combinedCode = `${activityName.toUpperCase()}-${newCode}`;
     const db = getFirestore();
     const pointCodesRef = doc(db, 'pointCodes', 'Current Codes');
     const pastCodesRef = doc(db, 'pointCodes', 'Past Codes (Do not use again)');
@@ -247,7 +247,7 @@ export default function PointsPage() {
                       Generate new code
                     </button>
                     {generatedCode && (
-                      <p className="text-white mt-2">New code generated: <strong>{generatedCode}</strong></p>
+                      <p className="text-white mt-2 flex flex-col">New code generated: <strong>{generatedCode}</strong></p>
                     )}
                   {/* </div> */}
                 </div>
