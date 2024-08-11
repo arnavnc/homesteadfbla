@@ -345,22 +345,22 @@ const ProfileCard = () => {
                 <TabPanel value="3">
                   <div className="space-y-3">
                     <div className="flex justify-between p-2 bg-red-violet text-white rounded-lg shadow-lg border border-dark-chocolate border-opacity-25">
-                      <span><strong>President:</strong> <a href="mailto:president@club.com" target="_blank" rel="noopener noreferrer">president@club.com</a></span>
+                      <span><strong>President:</strong> <a href="mailto:sanghyuk.eric@gmail.com" target="_blank" rel="noopener noreferrer">sanghyuk.eric@gmail.com</a></span>
                     </div>
                     <div className="flex justify-between p-2 bg-red-violet text-white rounded-lg shadow-lg border border-dark-chocolate border-opacity-25">
-                      <span><strong>General Email:</strong> <a href="mailto:general@club.com" target="_blank" rel="noopener noreferrer">general@club.com</a></span>
+                      <span><strong>General Email:</strong> <a href="mailto:homesteadhighschool.fbla@gmail.com" target="_blank" rel="noopener noreferrer">homesteadhighschool.fbla@gmail.com</a></span>
                     </div>
                     <div className="flex justify-between p-2 bg-red-violet text-white rounded-lg shadow-lg border border-dark-chocolate border-opacity-25">
-                      <span><strong>Community Service:</strong> <a href="mailto:community@club.com" target="_blank" rel="noopener noreferrer">community@club.com</a></span>
+                      <span><strong>Community Service:</strong> <a href="mailto:--" target="_blank" rel="noopener noreferrer">--</a></span>
                     </div>
                     <div className="flex justify-between p-2 bg-red-violet text-white rounded-lg shadow-lg border border-dark-chocolate border-opacity-25">
-                      <span><strong>American Enterprise:</strong> <a href="mailto:enterprise@club.com" target="_blank" rel="noopener noreferrer">enterprise@club.com</a></span>
+                      <span><strong>American Enterprise:</strong> <a href="mailto:--" target="_blank" rel="noopener noreferrer">--</a></span>
                     </div>
                     <div className="flex justify-between p-2 bg-red-violet text-white rounded-lg shadow-lg border border-dark-chocolate border-opacity-25">
-                      <span><strong>Partnership with Business:</strong> <a href="mailto:partnership@club.com" target="_blank" rel="noopener noreferrer">partnership@club.com</a></span>
+                      <span><strong>Partnership with Business:</strong> <a href="mailto:--" target="_blank" rel="noopener noreferrer">--</a></span>
                     </div>
                     <div className="flex justify-between p-2 bg-red-violet text-white rounded-lg shadow-lg border border-dark-chocolate border-opacity-25">
-                      <span><strong>Software Ventures:</strong> <a href="mailto:software@club.com" target="_blank" rel="noopener noreferrer">software@club.com</a></span>
+                      <span><strong>Software Ventures:</strong> <a href="mailto:--" target="_blank" rel="noopener noreferrer">--</a></span>
                     </div>
                   </div>
                 </TabPanel>
