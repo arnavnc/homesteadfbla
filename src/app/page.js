@@ -68,10 +68,10 @@ export default function Home() {
           >
             <h1 className="text-xl font-semibold">Projects</h1>
             <p className="text-gray-300 mt-2 mb-9">
-              Homestead FBLA currently has 4 projects. The projects consist of
-              the American Enterprise Project, the Community Service Project,
-              the Partnership with Business Project, and the Software Ventures
-              Project.
+              Homestead FBLA currently has 4 projects; American Enterprise, 
+              Community Service, Partnership with Business, and 
+              Software Ventures Project. Each of them aims to develop valuable business and 
+              leadership skills among students.
             </p>
 
             <div className="lg:grid-cols-4 lg:gap-x-3 gap-x-3 gap-y-3 lg:justify-between grid grid-cols-2 lg:gap-0">

@@ -125,7 +125,7 @@ const ProfileCard = () => {
   };
 
   const EventCard = ({ title, date, description }) => (
-    <div className="bg-melon p-4 rounded-lg hover:animate-pulse ease-linear duration-150 shadow-md mb-4">
+    <div className="bg-melon p-4 rounded-lg hover:scale-[1.01] ease-linear duration-150 shadow-md mb-4">
       <h3 className="text-xl font-semibold text-dark-chocolate">{title}</h3>
       <p className="text-sm text-red-violet">{date}</p>
       <p className="text-gray-700">{description}</p>
@@ -135,9 +135,8 @@ const ProfileCard = () => {
   return (
     <div className="flex flex-col items-center p-0 rounded-lg pb-0">
       {user ? (
-        <div className="flex flex-col items-center bg-warm-beige 
-        w-11/12 md:w-8/12 lg:w-6/12 xl:w-4/12 h-5/6 rounded-lg pt-10 mt-5 shadow-2xl border-4 
-        border-red-violet bg-watermelon-red bg-opacity-70">
+        <div className="flex flex-col items-center w-11/12 md:w-8/12 lg:w-6/12 xl:w-4/12 h-5/6 
+        rounded-lg pt-10 mt-5 shadow-2xl border-4 border-red-violet bg-watermelon-red bg-opacity-70">
           <div className="flex justify-center">
             <img src={user.photoURL} alt="Profile" className="w-24 h-24 rounded-full border-2 border-dark-chocolate border-opacity-30 shadow-md" />
           </div>
