@@ -2,11 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
-import { 
-  getFirestore, collection, query, orderBy, limit, 
-  getDocs, where, addDoc, updateDoc, doc, deleteDoc, 
-  setDoc } 
-  from 'firebase/firestore';
+import { getFirestore, collection, query, limit, orderBy, getDocs, where, addDoc, updateDoc, doc, deleteDoc, setDoc } from 'firebase/firestore';
 import { auth } from '@/app/firebase';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -25,9 +21,11 @@ const ProfileCard = () => {
   const [leaderboardData, setLeaderboardData] = useState([]);
   const [userPlacement, setUserPlacement] = useState(null);
   const [eventsData, setEventsData] = useState([]);
+  const [pastEventsData, setPastEventsData] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newEvent, setNewEvent] = useState({ title: '', date: '', description: '' });
   const [editingEvent, setEditingEvent] = useState(null);
+  const [showPastEvents, setShowPastEvents] = useState(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -91,20 +89,35 @@ const ProfileCard = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       const db = getFirestore();
+
+      // Fetch upcoming events
       const upcomingEventsRef = query(collection(db, 'upcomingEvents', 'upcoming', 'events'), orderBy('date', 'asc'));
-      const querySnapshot = await getDocs(upcomingEventsRef);
+      const upcomingQuerySnapshot = await getDocs(upcomingEventsRef);
+      const upcomingEvents = upcomingQuerySnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
 
-      const events = [];
-      querySnapshot.forEach((doc) => {
-        const eventData = doc.data();
-        events.push({ ...eventData, id: doc.id });
-      });
-
-      setEventsData(events);
+      setEventsData(upcomingEvents);
     };
 
     fetchEvents();
   }, []);
+
+  const fetchPastEvents = async () => {
+    const db = getFirestore();
+
+    // Fetch past events
+    const pastEventsRef = query(collection(db, 'upcomingEvents', 'past', 'events'), orderBy('date', 'asc'));
+    const pastQuerySnapshot = await getDocs(pastEventsRef);
+    const pastEvents = pastQuerySnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
+
+    setPastEventsData(pastEvents);
+  };
+
+  const handleTogglePastEvents = () => {
+    if (!showPastEvents) {
+      fetchPastEvents();
+    }
+    setShowPastEvents(!showPastEvents);
+  };
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -175,7 +188,10 @@ const ProfileCard = () => {
 
       eventsData.forEach(async (event) => {
         const eventDate = new Date(event.date);
-        if (eventDate < currentDate) {
+        const eventDatePlusOne = new Date(eventDate);
+        eventDatePlusOne.setDate(eventDate.getDate() + 1);
+
+        if (eventDatePlusOne <= currentDate) {
           await moveEventToPast(event);
         }
       });
@@ -190,14 +206,14 @@ const ProfileCard = () => {
       <p className="text-sm text-red-violet">{event.date}</p>
       <p className="text-gray-700">{event.description}</p>
       {(authType === "officer" || authType === "tech") && (
-        <div className="absolute top-3 right-3 flex space-x-2 lg:opacity-0 group-hover:opacity-100 transition-opacity duration-150">
+        <div className="absolute top-3 right-3 flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-150">
           <BiPencil 
-            className="text-dark-chocolate hover:text-red-violet hover:scale-110 cursor-pointer duration-200" 
+            className="text-dark-chocolate hover:text-red-violet cursor-pointer hover:scale-110 duration-200" 
             size={20} 
             onClick={() => handleOpenModal(event)} 
           />
           <BiTrash 
-            className="text-dark-chocolate hover:text-red-violet hover:scale-110 cursor-pointer duration-200" 
+            className="text-dark-chocolate hover:text-red-violet cursor-pointer hover:scale-110 duration-200" 
             size={20} 
             onClick={() => handleDelete(event.id)} 
           />
@@ -274,7 +290,17 @@ const ProfileCard = () => {
                 <TabPanel value="2">
                   {(authType === "officer" || authType === "tech") && (
                     <>
-                      <Button variant="contained" color="primary" onClick={() => handleOpenModal()}>
+                      <Button 
+                        variant="contained" 
+                        sx={{
+                          backgroundColor: '#B23A48', 
+                          color: 'white',
+                          '&:hover': {
+                            backgroundColor: '#B23A48',
+                          },
+                        }}  
+                        onClick={() => handleOpenModal()}
+                      >
                         Create New Event
                       </Button>
                       <Modal
@@ -325,7 +351,16 @@ const ProfileCard = () => {
                             onChange={handleInputChange}
                             margin="normal"
                           />
-                          <Button variant="contained" color="primary" onClick={handleSubmit}>
+                          <Button variant="contained" 
+                          sx={{
+                            backgroundColor: '#B23A48', 
+                            color: 'white',
+                            '&:hover': {
+                              backgroundColor: '#B23A48',
+                            },
+                          }} 
+                          color="primary" 
+                          onClick={handleSubmit}>
                             {editingEvent ? "Update Event" : "Submit"}
                           </Button>
                         </Box>
@@ -333,36 +368,63 @@ const ProfileCard = () => {
                     </>
                   )}
                   
+                  <div className="space-y-6 mt-4 mb-6">
+                    {eventsData.length === 0 ? (
+                      <p>No upcoming events.</p>
+                    ) : (
+                      eventsData.map((event, index) => (
+                        <EventCard key={index} event={event} />
+                      ))
+                    )}
+                  </div>
                   <div className="space-y-6 mt-4">
-                    {eventsData.map((event, index) => (
-                      <EventCard 
-                        key={index}
-                        event={event}
-                      />
-                    ))}
+                  <Button 
+                    variant="contained" 
+                    sx={{
+                      backgroundColor: '#B23A48', 
+                      color: 'white',
+                      '&:hover': {
+                        backgroundColor: '#B23A48',
+                      },
+                    }} 
+                    onClick={handleTogglePastEvents}
+                  >
+                    {showPastEvents ? "Hide Past Events" : "Show Past Events"}
+                  </Button>
+                    {showPastEvents && (
+                      <>
+                        {pastEventsData.length === 0 ? (
+                          <p>No past events.</p>
+                        ) : (
+                          pastEventsData.map((event, index) => (
+                            <EventCard key={index} event={event} />
+                          ))
+                        )}
+                      </>
+                    )}
                   </div>
                 </TabPanel>
                 <TabPanel value="3">
-                  <div className="space-y-3">
-                    <div className="flex justify-between p-2 bg-red-violet text-white rounded-lg shadow-lg border border-dark-chocolate border-opacity-25">
-                      <span><strong>President:</strong> <a href="mailto:sanghyuk.eric@gmail.com" target="_blank" rel="noopener noreferrer">sanghyuk.eric@gmail.com</a></span>
-                    </div>
-                    <div className="flex justify-between p-2 bg-red-violet text-white rounded-lg shadow-lg border border-dark-chocolate border-opacity-25">
-                      <span><strong>General Email:</strong> <a href="mailto:homesteadhighschool.fbla@gmail.com" target="_blank" rel="noopener noreferrer">homesteadhighschool.fbla@gmail.com</a></span>
-                    </div>
-                    <div className="flex justify-between p-2 bg-red-violet text-white rounded-lg shadow-lg border border-dark-chocolate border-opacity-25">
-                      <span><strong>Community Service:</strong> <a href="mailto:--" target="_blank" rel="noopener noreferrer">--</a></span>
-                    </div>
-                    <div className="flex justify-between p-2 bg-red-violet text-white rounded-lg shadow-lg border border-dark-chocolate border-opacity-25">
-                      <span><strong>American Enterprise:</strong> <a href="mailto:--" target="_blank" rel="noopener noreferrer">--</a></span>
-                    </div>
-                    <div className="flex justify-between p-2 bg-red-violet text-white rounded-lg shadow-lg border border-dark-chocolate border-opacity-25">
-                      <span><strong>Partnership with Business:</strong> <a href="mailto:--" target="_blank" rel="noopener noreferrer">--</a></span>
-                    </div>
-                    <div className="flex justify-between p-2 bg-red-violet text-white rounded-lg shadow-lg border border-dark-chocolate border-opacity-25">
-                      <span><strong>Software Ventures:</strong> <a href="mailto:--" target="_blank" rel="noopener noreferrer">--</a></span>
-                    </div>
+                <div className="space-y-3">
+                  <div className="flex justify-between p-2 bg-red-violet text-white rounded-lg shadow-lg border border-dark-chocolate border-opacity-25">
+                    <span><strong>President:</strong> <a href="mailto:sanghyuk.eric@gmail.com" target="_blank" rel="noopener noreferrer">sanghyuk.eric@gmail.com</a></span>
                   </div>
+                  <div className="flex justify-between p-2 bg-red-violet text-white rounded-lg shadow-lg border border-dark-chocolate border-opacity-25">
+                    <span><strong>General Email:</strong> <a href="mailto:homesteadhighschool.fbla@gmail.com" target="_blank" rel="noopener noreferrer">homesteadhighschool.fbla@gmail.com</a></span>
+                  </div>
+                  <div className="flex justify-between p-2 bg-red-violet text-white rounded-lg shadow-lg border border-dark-chocolate border-opacity-25">
+                    <span><strong>Community Service:</strong> <a href="mailto:--" target="_blank" rel="noopener noreferrer">--</a></span>
+                  </div>
+                  <div className="flex justify-between p-2 bg-red-violet text-white rounded-lg shadow-lg border border-dark-chocolate border-opacity-25">
+                    <span><strong>American Enterprise:</strong> <a href="mailto:--" target="_blank" rel="noopener noreferrer">--</a></span>
+                  </div>
+                  <div className="flex justify-between p-2 bg-red-violet text-white rounded-lg shadow-lg border border-dark-chocolate border-opacity-25">
+                    <span><strong>Partnership with Business:</strong> <a href="mailto:--" target="_blank" rel="noopener noreferrer">--</a></span>
+                  </div>
+                  <div className="flex justify-between p-2 bg-red-violet text-white rounded-lg shadow-lg border border-dark-chocolate border-opacity-25">
+                    <span><strong>Software Ventures:</strong> <a href="mailto:--" target="_blank" rel="noopener noreferrer">--</a></span>
+                  </div>
+                </div>
                 </TabPanel>
               </Box>
             </TabContext>
