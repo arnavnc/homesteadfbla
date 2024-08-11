@@ -2,7 +2,11 @@
 
 import React, { useState, useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
-import { getFirestore, collection, query, orderBy, limit, getDocs, where, addDoc, updateDoc, doc } from 'firebase/firestore';
+import { 
+  getFirestore, collection, query, orderBy, limit, 
+  getDocs, where, addDoc, updateDoc, doc, deleteDoc, 
+  setDoc } 
+  from 'firebase/firestore';
 import { auth } from '@/app/firebase';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -12,6 +16,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Modal from '@mui/material/Modal';
+import { BiPencil, BiTrash } from "react-icons/bi";
 
 const ProfileCard = () => {
   const [user, setUser] = useState(null);
@@ -19,22 +24,15 @@ const ProfileCard = () => {
   const [value, setValue] = useState("1");
   const [leaderboardData, setLeaderboardData] = useState([]);
   const [userPlacement, setUserPlacement] = useState(null);
-  const [eventsData, setEventsData] = useState([
-    { title: 'Event 1', date: '2024-08-10', description: 'Description for event 1' },
-    { title: 'Event 2', date: '2024-08-15', description: 'Description for event 2' },
-    { title: 'Event 3', date: '2024-08-20', description: 'Description for event 3' },
-    { title: 'Event 4', date: '2024-08-25', description: 'Description for event 4' },
-  ]);
+  const [eventsData, setEventsData] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newEvent, setNewEvent] = useState({ title: '', date: '', description: '' });
+  const [editingEvent, setEditingEvent] = useState(null);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
-        // Assuming authType is stored in the user object, you may need to fetch it from Firestore if not.
-        // setAuthType(user.authType);
-        // Fetch authType from Firestore
         const fetchAuthType = async () => {
           const db = getFirestore();
           const userDoc = await getDocs(query(collection(db, 'users'), where('email', '==', user.email)));
@@ -90,11 +88,36 @@ const ProfileCard = () => {
     fetchLeaderboardData();
   }, [user]);
 
+  useEffect(() => {
+    const fetchEvents = async () => {
+      const db = getFirestore();
+      const upcomingEventsRef = query(collection(db, 'upcomingEvents', 'upcoming', 'events'), orderBy('date', 'asc'));
+      const querySnapshot = await getDocs(upcomingEventsRef);
+
+      const events = [];
+      querySnapshot.forEach((doc) => {
+        const eventData = doc.data();
+        events.push({ ...eventData, id: doc.id });
+      });
+
+      setEventsData(events);
+    };
+
+    fetchEvents();
+  }, []);
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
-  const handleOpenModal = () => {
+  const handleOpenModal = (event = null) => {
+    if (event) {
+      setEditingEvent(event);
+      setNewEvent({ title: event.title, date: event.date, description: event.description });
+    } else {
+      setEditingEvent(null);
+      setNewEvent({ title: '', date: '', description: '' });
+    }
     setIsModalOpen(true);
   };
 
@@ -110,25 +133,76 @@ const ProfileCard = () => {
   };
 
   const handleSubmit = async () => {
-    if (authType === "officer" || authType === "tech") {
-      const updatedEvents = [...eventsData];
-      updatedEvents.pop(); // Remove the last event
-      updatedEvents.unshift(newEvent); // Add the new event at the start
-      setEventsData(updatedEvents);
+    const db = getFirestore();
 
-      // Update Firestore or any other database accordingly
-      const db = getFirestore();
-      await addDoc(collection(db, 'events'), newEvent);
+    if (editingEvent) {
+      const eventRef = doc(db, 'upcomingEvents', 'upcoming', 'events', editingEvent.id);
+      await updateDoc(eventRef, newEvent);
 
-      handleCloseModal();
+      setEventsData(prev => prev.map(e => (e.id === editingEvent.id ? { ...newEvent, id: editingEvent.id } : e)));
+    } else {
+      if (authType === "officer" || authType === "tech") {
+        const newEventRef = await addDoc(collection(db, 'upcomingEvents', 'upcoming', 'events'), newEvent);
+        setEventsData(prev => [{ ...newEvent, id: newEventRef.id }, ...prev]);
+      }
     }
+
+    handleCloseModal();
   };
 
-  const EventCard = ({ title, date, description }) => (
-    <div className="bg-melon p-4 rounded-lg hover:scale-[1.01] ease-linear duration-150 shadow-md mb-4">
-      <h3 className="text-xl font-semibold text-dark-chocolate">{title}</h3>
-      <p className="text-sm text-red-violet">{date}</p>
-      <p className="text-gray-700">{description}</p>
+  const handleDelete = async (eventId) => {
+    const db = getFirestore();
+    await deleteDoc(doc(db, 'upcomingEvents', 'upcoming', 'events', eventId));
+    setEventsData(prev => prev.filter(e => e.id !== eventId));
+  };
+
+  const moveEventToPast = async (event) => {
+    const db = getFirestore();
+    const pastEventsRef = doc(db, 'upcomingEvents', 'past', 'events', event.id);
+
+    // Add the event to the past document
+    await setDoc(pastEventsRef, event);
+
+    // Delete the event from the upcoming document
+    await deleteDoc(doc(db, 'upcomingEvents', 'upcoming', 'events', event.id));
+
+    setEventsData(prev => prev.filter(e => e.id !== event.id));
+  };
+
+  useEffect(() => {
+    const checkAndMoveEvents = () => {
+      const currentDate = new Date();
+
+      eventsData.forEach(async (event) => {
+        const eventDate = new Date(event.date);
+        if (eventDate < currentDate) {
+          await moveEventToPast(event);
+        }
+      });
+    };
+
+    checkAndMoveEvents();
+  }, [eventsData]);
+
+  const EventCard = ({ event }) => (
+    <div className="bg-melon p-4 rounded-lg hover:scale-[1.02] ease-linear duration-150 shadow-md mb-4 relative group">
+      <h3 className="text-xl font-semibold text-dark-chocolate">{event.title}</h3>
+      <p className="text-sm text-red-violet">{event.date}</p>
+      <p className="text-gray-700">{event.description}</p>
+      {(authType === "officer" || authType === "tech") && (
+        <div className="absolute top-3 right-3 flex space-x-2 lg:opacity-0 group-hover:opacity-100 transition-opacity duration-150">
+          <BiPencil 
+            className="text-dark-chocolate hover:text-red-violet hover:scale-110 cursor-pointer duration-200" 
+            size={20} 
+            onClick={() => handleOpenModal(event)} 
+          />
+          <BiTrash 
+            className="text-dark-chocolate hover:text-red-violet hover:scale-110 cursor-pointer duration-200" 
+            size={20} 
+            onClick={() => handleDelete(event.id)} 
+          />
+        </div>
+      )}
     </div>
   );
 
@@ -157,14 +231,17 @@ const ProfileCard = () => {
                     '& .MuiTabs-indicator': {
                       backgroundColor: 'white',
                     },
+                    '& .MuiTab-root': {
+                      color: '#a0aec0', // Set the default color to gray
+                    },
                     '& .Mui-selected': {
-                      color: 'white !important',
+                      color: 'white !important', // Set the color of the selected tab to white
                     },
                   }}
                 >
                   <Tab label="Activity Points" value="1" />
                   <Tab label="Upcoming Events" value="2" />
-                  <Tab label="Other" value="3" />
+                  <Tab label="Contact" value="3" />
                 </Tabs>
               </Box>
               <Box className="mt-4">
@@ -197,7 +274,7 @@ const ProfileCard = () => {
                 <TabPanel value="2">
                   {(authType === "officer" || authType === "tech") && (
                     <>
-                      <Button variant="contained" color="primary" onClick={handleOpenModal}>
+                      <Button variant="contained" color="primary" onClick={() => handleOpenModal()}>
                         Create New Event
                       </Button>
                       <Modal
@@ -219,7 +296,7 @@ const ProfileCard = () => {
                             p: 4,
                           }}
                         >
-                          <h2>Create New Event</h2>
+                          <h2>{editingEvent ? "Edit Event" : "Create New Event"}</h2>
                           <TextField
                             fullWidth
                             label="Title"
@@ -249,7 +326,7 @@ const ProfileCard = () => {
                             margin="normal"
                           />
                           <Button variant="contained" color="primary" onClick={handleSubmit}>
-                            Submit
+                            {editingEvent ? "Update Event" : "Submit"}
                           </Button>
                         </Box>
                       </Modal>
@@ -260,15 +337,32 @@ const ProfileCard = () => {
                     {eventsData.map((event, index) => (
                       <EventCard 
                         key={index}
-                        title={event.title}
-                        date={event.date}
-                        description={event.description}
+                        event={event}
                       />
                     ))}
                   </div>
                 </TabPanel>
                 <TabPanel value="3">
-                  <p>Other user information here.</p>
+                  <div className="space-y-3">
+                    <div className="flex justify-between p-2 bg-red-violet text-white rounded-lg shadow-lg border border-dark-chocolate border-opacity-25">
+                      <span><strong>President:</strong> <a href="mailto:president@club.com" target="_blank" rel="noopener noreferrer">president@club.com</a></span>
+                    </div>
+                    <div className="flex justify-between p-2 bg-red-violet text-white rounded-lg shadow-lg border border-dark-chocolate border-opacity-25">
+                      <span><strong>General Email:</strong> <a href="mailto:general@club.com" target="_blank" rel="noopener noreferrer">general@club.com</a></span>
+                    </div>
+                    <div className="flex justify-between p-2 bg-red-violet text-white rounded-lg shadow-lg border border-dark-chocolate border-opacity-25">
+                      <span><strong>Community Service:</strong> <a href="mailto:community@club.com" target="_blank" rel="noopener noreferrer">community@club.com</a></span>
+                    </div>
+                    <div className="flex justify-between p-2 bg-red-violet text-white rounded-lg shadow-lg border border-dark-chocolate border-opacity-25">
+                      <span><strong>American Enterprise:</strong> <a href="mailto:enterprise@club.com" target="_blank" rel="noopener noreferrer">enterprise@club.com</a></span>
+                    </div>
+                    <div className="flex justify-between p-2 bg-red-violet text-white rounded-lg shadow-lg border border-dark-chocolate border-opacity-25">
+                      <span><strong>Partnership with Business:</strong> <a href="mailto:partnership@club.com" target="_blank" rel="noopener noreferrer">partnership@club.com</a></span>
+                    </div>
+                    <div className="flex justify-between p-2 bg-red-violet text-white rounded-lg shadow-lg border border-dark-chocolate border-opacity-25">
+                      <span><strong>Software Ventures:</strong> <a href="mailto:software@club.com" target="_blank" rel="noopener noreferrer">software@club.com</a></span>
+                    </div>
+                  </div>
                 </TabPanel>
               </Box>
             </TabContext>
