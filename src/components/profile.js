@@ -276,7 +276,7 @@ const ProfileCard = () => {
           </div>
         </div>
       ) : (
-        <p className="text-warm-beige text-lg">...</p>
+        <p className="text-black text-opacity-5 text-lg">...</p>
       )}
     </div>
   );
