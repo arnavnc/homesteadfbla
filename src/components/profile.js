@@ -1,12 +1,11 @@
 "use client";
 
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { getFirestore, collection, query, limit, orderBy, getDocs, where, addDoc, updateDoc, doc, deleteDoc, setDoc } from 'firebase/firestore';
 import { auth } from '@/app/firebase';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import { useMediaQuery } from '@mui/material';
 import TabPanel from '@mui/lab/TabPanel';
 import TabContext from '@mui/lab/TabContext';
 import Box from '@mui/material/Box';
@@ -16,6 +15,7 @@ import Modal from '@mui/material/Modal';
 import { BiPencil, BiTrash } from "react-icons/bi";
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
+import { useMediaQuery } from '@mui/material'; // Import useMediaQuery
 
 const ProfileCard = () => {
   const [user, setUser] = useState(null);
@@ -28,8 +28,9 @@ const ProfileCard = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newEvent, setNewEvent] = useState({ title: '', date: '', description: '' });
   const [editingEvent, setEditingEvent] = useState(null);
-  const isMobile = useMediaQuery('(max-width:600px)');
   const [showPastEvents, setShowPastEvents] = useState(false);
+
+  const isMobile = useMediaQuery('(max-width:600px)'); // Determine if the screen is mobile
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -233,11 +234,11 @@ const ProfileCard = () => {
   );
 
   return (
-      <div className="flex flex-col items-center p-0 rounded-lg pb-0">
+    <div className="flex flex-col items-center p-0 rounded-lg pb-0">
       {user ? (
         <div className="
           flex flex-col items-center 
-          w-11/12 md:w-8/12 lg:w-6/12 xl:w-5/12 2xl:w-4/12  /* Updated width classes for different screen sizes */
+          w-11/12 md:w-8/12 lg:w-7/12 xl:w-5/12 2xl:w-4/12  /* Updated width classes for different screen sizes */
           h-5/6 rounded-lg pt-10 mt-5 shadow-2xl 
           border-4 border-red-violet bg-watermelon-red bg-opacity-70">
           <div className="flex justify-center">
@@ -249,7 +250,7 @@ const ProfileCard = () => {
           </div>
           <div className="w-full mt-6">
             <TabContext value={value}>
-              <Box>
+              <Box className="relative"> {/* Add a relative positioning container */}
                 <Tabs 
                   value={value} 
                   onChange={handleChange} 
@@ -269,12 +270,21 @@ const ProfileCard = () => {
                     '& .Mui-selected': {
                       color: 'white !important', // Set the color of the selected tab to white
                     },
+                    position: 'relative',
+                    overflow: 'visible', // Ensure overflow is visible to show the gradient
                   }}
                 >
-                <Tab label="Activity Points" value="1"/>
-                <Tab label="Upcoming Events" value="2" />
-                <Tab label="Contact Info" value="3" />
-              </Tabs>
+                  <Tab label="Activity Points" value="1"/>
+                  <Tab label="Upcoming Events" value="2" />
+                  <Tab label="Contact Info" value="3" />
+                </Tabs>
+
+                {/* Gradient overlay for mobile screens */}
+                {/* {isMobile && (
+                  <div className="absolute right-0 top-0 bottom-0 w-12 pointer-events-none bg-gradient-to-l from-watermelon-red to-transparent">
+                    
+                  </div>
+                )} */}
               </Box>
               <Box className="mt-4">
                 <TabPanel value="1">
