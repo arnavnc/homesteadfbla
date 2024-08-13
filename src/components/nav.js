@@ -69,30 +69,30 @@ const Nav = () => {
 
               {/* Desktop Links */}
               <div className="hidden space-x-4 sm:flex text-sm my-auto">
-                <div className="rounded-md p-2 font-semibold text-dimWhite hover:text-gray-400 ease-linear duration-300 cursor-pointer">
+                <div className="rounded-md p-2 font-semibold text-dimWhite hover:text-watermelon-red ease-linear duration-300 cursor-pointer">
                   <Dropdown />
                 </div>
                 <Link
                   href="/competitions"
-                  className="rounded-md p-2 font-semibold text-dimWhite hover:text-gray-400 ease-linear duration-300"
+                  className="rounded-md p-2 font-semibold text-dimWhite hover:text-watermelon-red ease-linear duration-150"
                 >
                   Competitions History
                 </Link>
                 <Link
                   href="/press"
-                  className="rounded-md p-2 font-semibold text-dimWhite hover:text-gray-400 ease-linear duration-300"
+                  className="rounded-md p-2 font-semibold text-dimWhite hover:text-watermelon-red ease-linear duration-300"
                 >
                   Press Releases
                 </Link>
                 <Link
                   href="/mentors"
-                  className="rounded-md p-2 font-semibold text-dimWhite hover:text-gray-400 ease-linear duration-300"
+                  className="rounded-md p-2 font-semibold text-dimWhite hover:text-watermelon-red ease-linear duration-300"
                 >
                   Mentors (Soon!)
                 </Link>
                 <Link
                   href="/officers"
-                  className="rounded-md p-2 font-semibold text-dimWhite hover:text-gray-400 ease-linear duration-300"
+                  className="rounded-md p-2 font-semibold text-dimWhite hover:text-watermelon-red ease-linear duration-300"
                 >
                   Meet the Team
                 </Link>

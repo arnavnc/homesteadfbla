@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { getFirestore, collection, query, limit, orderBy, getDocs, where, addDoc, updateDoc, doc, deleteDoc, setDoc } from 'firebase/firestore';
 import { auth } from '@/app/firebase';
@@ -13,6 +13,8 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Modal from '@mui/material/Modal';
 import { BiPencil, BiTrash } from "react-icons/bi";
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 
 const ProfileCard = () => {
   const [user, setUser] = useState(null);
@@ -31,14 +33,6 @@ const ProfileCard = () => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
-        const fetchAuthType = async () => {
-          const db = getFirestore();
-          const userDoc = await getDocs(query(collection(db, 'users'), where('email', '==', user.email)));
-          if (!userDoc.empty) {
-            setAuthType(userDoc.docs[0].data().authType);
-          }
-        };
-        fetchAuthType();
       } else {
         setUser(null);
       }
@@ -48,60 +42,74 @@ const ProfileCard = () => {
   }, []);
 
   useEffect(() => {
-    const fetchLeaderboardData = async () => {
+    const fetchAuthType = async () => {
+      if (!user) return;
       const db = getFirestore();
-      const topUsersQuery = query(collection(db, 'activityPoints'), orderBy('activityPoints', 'desc'), limit(5));
-      const topUsersSnapshot = await getDocs(topUsersQuery);
-
-      const topUsers = topUsersSnapshot.docs.map(doc => ({
-        name: doc.data().name,
-        activityPoints: doc.data().activityPoints,
-        email: doc.data().email
-      }));
-
-      setLeaderboardData(topUsers);
-
-      if (user && !topUsers.some(u => u.email === user.email)) {
-        const userQuery = query(collection(db, 'activityPoints'), where('email', '==', user.email));
-        const userSnapshot = await getDocs(userQuery);
-
-        if (!userSnapshot.empty) {
-          const userDoc = userSnapshot.docs[0];
-          const userData = {
-            name: userDoc.data().name,
-            activityPoints: userDoc.data().activityPoints,
-            email: userDoc.data().email
-          };
-
-          const allUsersQuery = query(collection(db, 'activityPoints'), orderBy('activityPoints', 'desc'));
-          const allUsersSnapshot = await getDocs(allUsersQuery);
-          const allUsers = allUsersSnapshot.docs.map(doc => doc.data().email);
-          const userRank = allUsers.indexOf(userData.email) + 1;
-
-          setUserPlacement({ ...userData, rank: userRank });
-        }
+      const userDoc = await getDocs(query(collection(db, 'users'), where('email', '==', user.email)));
+      if (!userDoc.empty) {
+        setAuthType(userDoc.docs[0].data().authType);
       }
     };
 
-    fetchLeaderboardData();
+    fetchAuthType();
+  }, [user]);
+
+  const fetchLeaderboardData = useCallback(async () => {
+    if (!user) return;
+    const db = getFirestore();
+    const topUsersQuery = query(collection(db, 'activityPoints'), orderBy('activityPoints', 'desc'), limit(5));
+    const topUsersSnapshot = await getDocs(topUsersQuery);
+
+    const topUsers = topUsersSnapshot.docs.map(doc => ({
+      name: doc.data().name,
+      activityPoints: doc.data().activityPoints,
+      email: doc.data().email
+    }));
+
+    setLeaderboardData(topUsers);
+
+    if (!topUsers.some(u => u.email === user.email)) {
+      const userQuery = query(collection(db, 'activityPoints'), where('email', '==', user.email));
+      const userSnapshot = await getDocs(userQuery);
+
+      if (!userSnapshot.empty) {
+        const userDoc = userSnapshot.docs[0];
+        const userData = {
+          name: userDoc.data().name,
+          activityPoints: userDoc.data().activityPoints,
+          email: userDoc.data().email
+        };
+
+        const allUsersQuery = query(collection(db, 'activityPoints'), orderBy('activityPoints', 'desc'));
+        const allUsersSnapshot = await getDocs(allUsersQuery);
+        const allUsers = allUsersSnapshot.docs.map(doc => doc.data().email);
+        const userRank = allUsers.indexOf(userData.email) + 1;
+
+        setUserPlacement({ ...userData, rank: userRank });
+      }
+    }
   }, [user]);
 
   useEffect(() => {
-    const fetchEvents = async () => {
-      const db = getFirestore();
+    fetchLeaderboardData();
+  }, [fetchLeaderboardData]);
 
-      // Fetch upcoming events
-      const upcomingEventsRef = query(collection(db, 'upcomingEvents', 'upcoming', 'events'), orderBy('date', 'asc'));
-      const upcomingQuerySnapshot = await getDocs(upcomingEventsRef);
-      const upcomingEvents = upcomingQuerySnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
+  const fetchEvents = useCallback(async () => {
+    const db = getFirestore();
 
-      setEventsData(upcomingEvents);
-    };
+    // Fetch upcoming events
+    const upcomingEventsRef = query(collection(db, 'upcomingEvents', 'upcoming', 'events'), orderBy('date', 'asc'));
+    const upcomingQuerySnapshot = await getDocs(upcomingEventsRef);
+    const upcomingEvents = upcomingQuerySnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
 
-    fetchEvents();
+    setEventsData(upcomingEvents);
   }, []);
 
-  const fetchPastEvents = async () => {
+  useEffect(() => {
+    fetchEvents();
+  }, [fetchEvents]);
+
+  const fetchPastEvents = useCallback(async () => {
     const db = getFirestore();
 
     // Fetch past events
@@ -110,7 +118,7 @@ const ProfileCard = () => {
     const pastEvents = pastQuerySnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
 
     setPastEventsData(pastEvents);
-  };
+  }, []);
 
   const handleTogglePastEvents = () => {
     if (!showPastEvents) {
@@ -169,7 +177,7 @@ const ProfileCard = () => {
     setEventsData(prev => prev.filter(e => e.id !== eventId));
   };
 
-  const moveEventToPast = async (event) => {
+  const moveEventToPast = useCallback(async (event) => {
     const db = getFirestore();
     const pastEventsRef = doc(db, 'upcomingEvents', 'past', 'events', event.id);
 
@@ -180,7 +188,7 @@ const ProfileCard = () => {
     await deleteDoc(doc(db, 'upcomingEvents', 'upcoming', 'events', event.id));
 
     setEventsData(prev => prev.filter(e => e.id !== event.id));
-  };
+  }, []);
 
   useEffect(() => {
     const checkAndMoveEvents = () => {
@@ -198,14 +206,14 @@ const ProfileCard = () => {
     };
 
     checkAndMoveEvents();
-  }, [eventsData]);
+  }, [eventsData, moveEventToPast]);
 
-  const EventCard = ({ event }) => (
+  const EventCard = ({ event, isPastEvent }) => (
     <div className="bg-melon p-4 rounded-lg hover:scale-[1.02] ease-linear duration-150 shadow-md mb-4 relative group">
       <h3 className="text-xl font-semibold text-dark-chocolate">{event.title}</h3>
       <p className="text-sm text-red-violet">{event.date}</p>
       <p className="text-gray-700">{event.description}</p>
-      {(authType === "officer" || authType === "tech") && (
+      {(authType === "officer" || authType === "tech") && !isPastEvent && (
         <div className="absolute top-3 right-3 flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-150">
           <BiPencil 
             className="text-dark-chocolate hover:text-red-violet cursor-pointer hover:scale-110 duration-200" 
@@ -255,7 +263,7 @@ const ProfileCard = () => {
                     },
                   }}
                 >
-                  <Tab label="Activity Points" value="1" />
+                  <Tab label="Activity Points" value="1"/>
                   <Tab label="Upcoming Events" value="2" />
                   <Tab label="Contact" value="3" />
                 </Tabs>
@@ -320,8 +328,21 @@ const ProfileCard = () => {
                             border: '2px solid #000',
                             boxShadow: 24,
                             p: 4,
+                            position: 'relative' // Added relative positioning for the X button
                           }}
                         >
+                          <IconButton
+                            aria-label="close"
+                            onClick={handleCloseModal} // Added onClick handler to close the modal
+                            sx={{
+                              position: 'absolute',
+                              right: 13,
+                              top: 15,
+                              color: (theme) => theme.palette.grey[500],
+                            }}
+                          >
+                            <CloseIcon />
+                          </IconButton>
                           <h2>{editingEvent ? "Edit Event" : "Create New Event"}</h2>
                           <TextField
                             fullWidth
@@ -351,7 +372,7 @@ const ProfileCard = () => {
                             onChange={handleInputChange}
                             margin="normal"
                           />
-                          <Button variant="contained" 
+                          <Button variant="contained"
                           sx={{
                             backgroundColor: '#B23A48', 
                             color: 'white',
@@ -373,10 +394,11 @@ const ProfileCard = () => {
                       <p>No upcoming events.</p>
                     ) : (
                       eventsData.map((event, index) => (
-                        <EventCard key={index} event={event} />
+                        <EventCard key={index} event={event} isPastEvent={false} /> // Passed isPastEvent={false} for upcoming events
                       ))
                     )}
                   </div>
+
                   <div className="space-y-6 mt-4">
                   <Button 
                     variant="contained" 
@@ -391,17 +413,17 @@ const ProfileCard = () => {
                   >
                     {showPastEvents ? "Hide Past Events" : "Show Past Events"}
                   </Button>
-                    {showPastEvents && (
-                      <>
-                        {pastEventsData.length === 0 ? (
-                          <p>No past events.</p>
-                        ) : (
-                          pastEventsData.map((event, index) => (
-                            <EventCard key={index} event={event} />
-                          ))
-                        )}
-                      </>
-                    )}
+                  {showPastEvents && (
+                    <>
+                      {pastEventsData.length === 0 ? (
+                        <p>No past events.</p>
+                      ) : (
+                        pastEventsData.map((event, index) => (
+                          <EventCard key={index} event={event} isPastEvent={true} /> // Passed isPastEvent={true} for past events
+                        ))
+                      )}
+                    </>
+                  )}
                   </div>
                 </TabPanel>
                 <TabPanel value="3">
@@ -410,7 +432,7 @@ const ProfileCard = () => {
                     <span><strong>President:</strong> <a href="mailto:sanghyuk.eric@gmail.com" target="_blank" rel="noopener noreferrer">sanghyuk.eric@gmail.com</a></span>
                   </div>
                   <div className="flex justify-between p-2 bg-red-violet text-white rounded-lg shadow-lg border border-dark-chocolate border-opacity-25">
-                    <span><strong>General Email:</strong> <a href="mailto:homesteadhighschool.fbla@gmail.com" target="_blank" rel="noopener noreferrer">homesteadhighschool.fbla@gmail.com</a></span>
+                    <span><strong>General Email:</strong> <a href="mailto:officers@hhsfbla.com" target="_blank" rel="noopener noreferrer">officers@hhsfbla.com</a></span>
                   </div>
                   <div className="flex justify-between p-2 bg-red-violet text-white rounded-lg shadow-lg border border-dark-chocolate border-opacity-25">
                     <span><strong>Community Service:</strong> <a href="mailto:--" target="_blank" rel="noopener noreferrer">--</a></span>
