@@ -233,10 +233,13 @@ const ProfileCard = () => {
   );
 
   return (
-    <div className="flex flex-col items-center p-0 rounded-lg pb-0">
+      <div className="flex flex-col items-center p-0 rounded-lg pb-0">
       {user ? (
-        <div className="flex flex-col items-center w-11/12 md:w-8/12 lg:w-6/12 xl:w-4/12 h-5/6 
-        rounded-lg pt-10 mt-5 shadow-2xl border-4 border-red-violet bg-watermelon-red bg-opacity-70">
+        <div className="
+          flex flex-col items-center 
+          w-11/12 md:w-8/12 lg:w-6/12 xl:w-5/12 2xl:w-4/12  /* Updated width classes for different screen sizes */
+          h-5/6 rounded-lg pt-10 mt-5 shadow-2xl 
+          border-4 border-red-violet bg-watermelon-red bg-opacity-70">
           <div className="flex justify-center">
             <img src={user.photoURL} alt="Profile" className="w-24 h-24 rounded-full border-2 border-dark-chocolate border-opacity-30 shadow-md" />
           </div>
@@ -247,27 +250,27 @@ const ProfileCard = () => {
           <div className="w-full mt-6">
             <TabContext value={value}>
               <Box>
-              <Tabs 
-                value={value} 
-                onChange={handleChange} 
-                variant={isMobile ? "scrollable" : "fullWidth"} 
-                scrollButtons={isMobile ? "auto" : "false"}
-                textColor="primary" 
-                indicatorColor="primary"
-                sx={{
-                  '& .MuiTabs-indicator': {
-                    backgroundColor: 'white',
-                  },
-                  '& .MuiTab-root': {
-                    color: '#a0aec0', // Set the default color to gray
-                    minWidth: 120, // Increase the minWidth to make the tab wider
-                    whiteSpace: 'nowrap', // Prevent the text from wrapping
-                  },
-                  '& .Mui-selected': {
-                    color: 'white !important', // Set the color of the selected tab to white
-                  },
-                }}
-              >
+                <Tabs 
+                  value={value} 
+                  onChange={handleChange} 
+                  variant={isMobile ? "scrollable" : "fullWidth"} /* Conditional variant for mobile screens */
+                  scrollButtons={isMobile ? "auto" : "false"} /* Conditional scroll buttons for mobile screens */
+                  textColor="primary" 
+                  indicatorColor="primary"
+                  sx={{
+                    '& .MuiTabs-indicator': {
+                      backgroundColor: 'white',
+                    },
+                    '& .MuiTab-root': {
+                      color: '#a0aec0', // Set the default color to gray
+                      minWidth: 120, // Increase the minWidth to make the tab wider
+                      whiteSpace: 'nowrap', // Prevent the text from wrapping
+                    },
+                    '& .Mui-selected': {
+                      color: 'white !important', // Set the color of the selected tab to white
+                    },
+                  }}
+                >
                 <Tab label="Activity Points" value="1"/>
                 <Tab label="Upcoming Events" value="2" />
                 <Tab label="Contact Info" value="3" />
