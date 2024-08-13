@@ -6,6 +6,7 @@ import { getFirestore, collection, query, limit, orderBy, getDocs, where, addDoc
 import { auth } from '@/app/firebase';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
+import { useMediaQuery } from '@mui/material';
 import TabPanel from '@mui/lab/TabPanel';
 import TabContext from '@mui/lab/TabContext';
 import Box from '@mui/material/Box';
@@ -27,6 +28,7 @@ const ProfileCard = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newEvent, setNewEvent] = useState({ title: '', date: '', description: '' });
   const [editingEvent, setEditingEvent] = useState(null);
+  const isMobile = useMediaQuery('(max-width:600px)');
   const [showPastEvents, setShowPastEvents] = useState(false);
 
   useEffect(() => {
@@ -245,28 +247,31 @@ const ProfileCard = () => {
           <div className="w-full mt-6">
             <TabContext value={value}>
               <Box>
-                <Tabs 
-                  value={value} 
-                  onChange={handleChange} 
-                  variant="fullWidth" 
-                  textColor="primary" 
-                  indicatorColor="primary"
-                  sx={{
-                    '& .MuiTabs-indicator': {
-                      backgroundColor: 'white',
-                    },
-                    '& .MuiTab-root': {
-                      color: '#a0aec0', // Set the default color to gray
-                    },
-                    '& .Mui-selected': {
-                      color: 'white !important', // Set the color of the selected tab to white
-                    },
-                  }}
-                >
-                  <Tab label="Activity Points" value="1"/>
-                  <Tab label="Upcoming Events" value="2" />
-                  <Tab label="Contact" value="3" />
-                </Tabs>
+              <Tabs 
+                value={value} 
+                onChange={handleChange} 
+                variant={isMobile ? "scrollable" : "fullWidth"} 
+                scrollButtons={isMobile ? "auto" : "false"}
+                textColor="primary" 
+                indicatorColor="primary"
+                sx={{
+                  '& .MuiTabs-indicator': {
+                    backgroundColor: 'white',
+                  },
+                  '& .MuiTab-root': {
+                    color: '#a0aec0', // Set the default color to gray
+                    minWidth: 120, // Increase the minWidth to make the tab wider
+                    whiteSpace: 'nowrap', // Prevent the text from wrapping
+                  },
+                  '& .Mui-selected': {
+                    color: 'white !important', // Set the color of the selected tab to white
+                  },
+                }}
+              >
+                <Tab label="Activity Points" value="1"/>
+                <Tab label="Upcoming Events" value="2" />
+                <Tab label="Contact Info" value="3" />
+              </Tabs>
               </Box>
               <Box className="mt-4">
                 <TabPanel value="1">
