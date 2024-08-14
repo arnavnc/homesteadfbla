@@ -33,8 +33,8 @@ const officers = {
         {
             "name": "Vincent Wang",
             "position": "VP Public Relation",
-            "bio": "Placeholder",
-            "quote": "Placeholder",
+            "bio": "Hey everyone! I'm Vincent and I'm your Vice President of Public Relations for this school year! In my free time you can find me on the tennis courts, painting, or listening to music (Benson Boone is objectively the best artist out there). Given my role as public relations, it's quite fitting that I love to yap and talk with people. If you see me around, please wave or say hi. I'm excited to meet all of you this year!",
+            "quote": "\"Sometimes I wonder if all this is happening because I didn't forward that email to 10 people\"",
             "image": "Vincent",
         },
         {
