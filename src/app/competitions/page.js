@@ -369,8 +369,7 @@ export default class CompetitionsHistory extends React.Component {
             <p className="text-xl lg:text-3xl font-medium text-gray-300 pb-20">
               View Homestead FBLA&apos;s Competitive History Through the Years
             </p>
-            <div className="bg-watermelon-red w-full p-10 rounded-2xl flex flex-col lg:flex-row justify-center 
-            lg:justify-center bg-opacity-75 gap-10">
+            <div className="bg-watermelon-red w-full p-10 rounded-2xl flex flex-col lg:flex-row justify-center lg:justify-center bg-opacity-75">
               {/* <CompetitionsHistory /> */}
               <CompetitionsHistoryComponent
                 compsHistory={this.state.compsHistory}
