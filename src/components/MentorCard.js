@@ -1,7 +1,7 @@
 "use client"
 import Image from "next/image";
 import Link from "next/link";
-import Arnav from "../../public/static/faces/Arnav.png"
+import Arnav from "../../public/static/faces-old/Arnav.png"
 
 export default function MentorCard({ name, type, competition, desc, image }) {
     return (
