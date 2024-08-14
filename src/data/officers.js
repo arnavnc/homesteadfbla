@@ -91,10 +91,7 @@ const officers = {
     ],
     "projects": {
         "sv": [
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
+
             {
                 "name": "Alessandro Montesi",
                 "position": "Software Ventures Chair",
@@ -110,40 +107,7 @@ const officers = {
                 "image": "Aaron",
             }
         ],
-        "ml": [
->>>>>>> 15acc8fcb951ec4b2bcbce548c5a1820dced2a96
-            {
-                "name": "Alessandro Montesi",
-                "position": "Software Ventures Chair",
-                "bio": "Hi guys! I am Alessandro, and I am one of your amazing tech chairs for this school year! I am hella excited to be teaching you all about tech this year, and can't wait to meet you guys. For fun I adore eating good food, playing tennis, and listening to white girl music (the best kind of music). I am always open to questions and talking, so don't be scared to hit me up!",
-                "quote": "\"The man who asks a question is a fool for a minute, the man who does not ask is a fool for life\" ",
-                "image": "Alessandro",
-            },
-            {
-                "name": "Aaron Huang",
-                "position": "Software Ventures Chair",
-                "bio": "Hi y'all! I'm Aaron and I will be one of your proud tech chairs for this school year along with Alessandro! You guys aren't ready for all the cool tech stuff we are about to teach you guys this year. Outside of FBLA I also really enjoy playing tennis, playing tennis, and playing tennis. Oh yeah and did I mention I also love playing tennis. And if your ever want to talk with me about anything, come talk with me, I love talking!",
-                "quote": "\"True sigmas do tech\"",
-                "image": "Aaron",
-            }
-        ],
-        "ml": [
->>>>>>> 15acc8fcb951ec4b2bcbce548c5a1820dced2a96
-            {
-                "name": "Alessandro Montesi",
-                "position": "Software Ventures Chair",
-                "bio": "Hi guys! I am Alessandro, and I am one of your amazing tech chairs for this school year! I am hella excited to be teaching you all about tech this year, and can't wait to meet you guys. For fun I adore eating good food, playing tennis, and listening to white girl music (the best kind of music). I am always open to questions and talking, so don't be scared to hit me up!",
-                "quote": "\"The man who asks a question is a fool for a minute, the man who does not ask is a fool for life\" ",
-                "image": "Alessandro",
-            },
-            {
-                "name": "Aaron Huang",
-                "position": "Software Ventures Chair",
-                "bio": "Hi y'all! I'm Aaron and I will be one of your proud tech chairs for this school year along with Alessandro! You guys aren't ready for all the cool tech stuff we are about to teach you guys this year. Outside of FBLA I also really enjoy playing tennis, playing tennis, and playing tennis. Oh yeah and did I mention I also love playing tennis. And if your ever want to talk with me about anything, come talk with me, I love talking!",
-                "quote": "\"True sigmas do tech\"",
-                "image": "Aaron",
-            }
-        ],
+       
         "ae": [
             {
                 "name": "Sravika Nemani",
@@ -193,8 +157,7 @@ const officers = {
             }
         ],
         
-<<<<<<< HEAD
-<<<<<<< HEAD
+
         "ml": [
             {
                 "name": "Noah Sato",
@@ -211,10 +174,7 @@ const officers = {
                 "image": "Aayushma",
             }
         ],
-=======
->>>>>>> 15acc8fcb951ec4b2bcbce548c5a1820dced2a96
-=======
->>>>>>> 15acc8fcb951ec4b2bcbce548c5a1820dced2a96
+
     }
 }
     
