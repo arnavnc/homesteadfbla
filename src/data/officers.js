@@ -126,18 +126,18 @@ const officers = {
         ],
         "cs": [
             {
-                "name": "Samik Thakur",
-                "position": "Community Service Chair",
-                "bio": "Hi guys, I'm Samik and I'm very excited to be one of your Community Service Project Chairs this year! Fun facts about me are I have been playing competitive soccer most of my life, I enjoy listening to music, and I love to watch Bollywood movies in my free time (my favorite being taare zameen par). So if you want to chat about Bollywood or just want to talk in general feel free to say hi!",
-                "quote": "\"The key to a happy life is to accept that you are never actually in control\" - Irrfan Khan",
-                "image": "Samik",
-            },
-            {
                 "name": "Arhan Chakravarthy",
                 "position": "Community Service Chair",
                 "bio": "Hey guys, I'm Arhan and I can't wait to serve as one your Community Service Project Chairs this year! During my free time I love playing tennis (im better than alessandro), and watching TV shows (Suits is of course the best show). If you ever see me never be afraid to say hi, and I look forward to meeting y'all!",
                 "quote": "\"Laziness is nothing more than the habit of resting before you get tired.\"",
                 "image": "Arhan",
+            },
+            {
+                "name": "Samik Thakur",
+                "position": "Community Service Chair",
+                "bio": "Hi guys, I'm Samik and I'm very excited to be one of your Community Service Project Chairs this year! Fun facts about me are I have been playing competitive soccer most of my life, I enjoy listening to music, and I love to watch Bollywood movies in my free time (my favorite being taare zameen par). So if you want to chat about Bollywood or just want to talk in general feel free to say hi!",
+                "quote": "\"The key to a happy life is to accept that you are never actually in control\" - Irrfan Khan",
+                "image": "Samik",
             }
         ],
         "pwb": [
