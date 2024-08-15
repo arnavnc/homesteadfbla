@@ -6,6 +6,7 @@ const navigation = {
   about: [
     { name: "Officers", href: "/officers" },
     { name: "Mentors", href: "/mentors" },
+    { name: "Advisers", href:"/advisers"}
 
 
   ],
