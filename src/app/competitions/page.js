@@ -11,20 +11,6 @@ import { getFirestore, doc, getDocs, collection, where, query, getDoc, collectio
 
 export default class CompetitionsHistory extends React.Component {
 
-
-  constructor(props) {
-    super(props);
-    this.compsHistoryQuery = this.compsHistoryQuery.bind(this);
-    this.state = {
-      compsHistory: [],
-      events: [],
-      years: [],
-      conferences: [],
-      loading: false,
-      nothingEntered: false,
-    };
-  }
-
   componentDidMount() {
     window.scrollTo(0, 0);
     const db = getFirestore();
@@ -64,6 +50,19 @@ export default class CompetitionsHistory extends React.Component {
     ]).then(() => {
       this.setState({ conferences: Object.values(tConf) });
     });
+  }
+
+  constructor(props) {
+    super(props);
+    this.compsHistoryQuery = this.compsHistoryQuery.bind(this);
+    this.state = {
+      compHistory: [],
+      events: [],
+      years: [],
+      conferences: [],
+      loading: false,
+      nothingEntered: false,
+    };
   }
 
   compsHistoryQuery(name, year, conf, event, place) {
