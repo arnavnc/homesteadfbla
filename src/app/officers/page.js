@@ -60,9 +60,9 @@ export default function Officers() {
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 gap-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 gap-y-4 my-10">
             {["sv", "cs", "ae", "pwb", "ml"].map((teamKey) => (
-                <div key={teamKey} className="my-10 bg-orange-600 bg-opacity-20 border-2 rounded-lg  border-orange-600 px-8 py-6">
+                <div key={teamKey} className=" mb-6 bg-orange-600 bg-opacity-20 border-2 rounded-lg  border-orange-600 px-8 py-6">
                 <h2 className="text-orange-600 text-2xl font-bold mb-6">Project Chairs | {getTeamTitle(teamKey)}</h2>
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                         {officers.projects[teamKey].map((officer) => (
