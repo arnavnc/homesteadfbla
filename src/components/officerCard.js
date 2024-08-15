@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function OfficerCard({ name, position, bio, quote, image }) {
     return (
-        <figure class="md:flex bg-white bg-opacity-5 rounded-xl p-8 md:p-0">
+        <figure class="md:flex bg-white bg-opacity-5 rounded-xl p-8 md:p-0 ">
             <div class="pt-6 md:p-8 text-center md:text-left space-y-4 h-fit">
                 <Image draggable={false} width={500} height={500} src={`/static/headshots/${image}.JPG`} alt="" class="object-cover object-center h-96 opacity-90 rounded-l-lg rounded-r-lg mx-auto"/>
                 <figcaption class="font-medium">

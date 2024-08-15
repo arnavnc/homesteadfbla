@@ -29,7 +29,7 @@ export default function Officers() {
                 <p className="text-md font-light text-orange-400">The Projects Chairs focus on leading a variety of initiatives designed to expose members to different aspects of business. They oversee the execution of their respective projects, providing regular updates and specific areas of focus through our individual project pages.</p>
             </div>
         </div>
-        <div className="px-10">
+        <div className="px-10 ">
             {/* <h1 className="text-4xl font-bold my-10">Meet our Team!</h1> */}
 
             
