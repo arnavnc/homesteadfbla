@@ -11,7 +11,7 @@ const officers = {
             "name": "Chloe Kim",
             "position": "Executive VP - Development",
             "bio": "Hi FBLA! My name is Chloe, and I will be your EVP of Development this year. I like to stay up watching movies or take a walk around the neighborhood. Most of the times you can find me either staying inside hopping on calls with friends or going to the beach! This year, I'll be working with our four lovely projects, so I hope to see you around at meetings and events!",
-            "quote": "Placeholder",
+            "quote": "\"All right! We did not die today. I call that an unqualified success\"",
             "image": "ChloeK",
         },
         {
