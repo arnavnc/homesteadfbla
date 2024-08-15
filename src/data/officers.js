@@ -95,7 +95,7 @@ const officers = {
             {
                 "name": "Alessandro Montesi",
                 "position": "Software Ventures Chair",
-                "bio": "Hi guys! I am Alessandro, and I am one of your amazing tech chairs for this school year! I am hella excited to be teaching you all about tech this year, and can't wait to meet you guys. For fun I adore eating good food, playing tennis, and listening to white girl music (the best kind of music). I am always open to questions and talking, so don't be scared to hit me up!",
+                "bio": "Hi guys! I am Alessandro, and I am proud to be one of your amazing tech chairs for this school year! I am hella excited to be teaching you all about tech this year, and can't wait to meet you guys. For fun I adore eating good food, playing tennis, and listening to white girl music (the best kind of music). I am always open to questions and talking, so don't be scared to hit me up!",
                 "quote": "\"The man who asks a question is a fool for a minute, the man who does not ask is a fool for life\" ",
                 "image": "Alessandro",
             },
@@ -144,8 +144,8 @@ const officers = {
             {
                 "name": "Serena Fanse",
                 "position": "Partnership with Business Chair",
-                "bio": "Placeholder",
-                "quote": "Placeholder",
+                "bio": "Hi everyone! My name is Serena and I am super excited to be one of your Partnership with Business chairs. In my free time I love to read, watch tv, and listen to music. If you ever have any questions or just want to chat feel free to come up and talk. Looking forward to meeting everyone!",
+                "quote": "\"either you run the day or the day runs you\"",
                 "image": "Serena",
             },
             {
