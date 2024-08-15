@@ -10,6 +10,19 @@ import Image from "next/image";
 import { getFirestore, doc, getDocs, collection, where, query, getDoc, collectionGroup } from "firebase/firestore";
 
 export default class CompetitionsHistory extends React.Component {
+  
+  constructor(props) {
+    super(props);
+    this.compsHistoryQuery = this.compsHistoryQuery.bind(this);
+    this.state = {
+      compsHistory: [],
+      events: [],
+      years: [],
+      conferences: [],
+      loading: false,
+      nothingEntered: false,
+    };
+  }
 
   componentDidMount() {
     window.scrollTo(0, 0);
@@ -52,18 +65,6 @@ export default class CompetitionsHistory extends React.Component {
     });
   }
 
-  constructor(props) {
-    super(props);
-    this.compsHistoryQuery = this.compsHistoryQuery.bind(this);
-    this.state = {
-      compHistory: [],
-      events: [],
-      years: [],
-      conferences: [],
-      loading: false,
-      nothingEntered: false,
-    };
-  }
 
   compsHistoryQuery(name, year, conf, event, place) {
     if (!name && !year && !conf && !event && !place) {
