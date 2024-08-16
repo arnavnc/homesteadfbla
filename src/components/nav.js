@@ -73,16 +73,16 @@ const Nav = () => {
                   <Dropdown />
                 </div>
                 <Link
-                  href="/competitions"
-                  className="rounded-md p-2 font-semibold text-dimWhite hover:text-watermelon-red ease-linear duration-150"
-                >
-                  Competitions History
-                </Link>
-                <Link
                   href="/officers"
                   className="rounded-md p-2 font-semibold text-dimWhite hover:text-watermelon-red ease-linear duration-300"
                 >
                   Meet the Team
+                </Link>
+                <Link
+                  href="/competitions"
+                  className="rounded-md p-2 font-semibold text-dimWhite hover:text-watermelon-red ease-linear duration-150"
+                >
+                  Competitions History
                 </Link>
                 <Link
                   href="/mentors"
@@ -172,15 +172,6 @@ const Nav = () => {
                       <MobileDropdown />
                     </div>
                   </div>
-
-                  <Link href="/competitions" passHref>
-                    <Disclosure.Button
-                      as="a"
-                      className="rounded-md p-2 font-semibold text-gray-300 hover:bg-gray-900/50"
-                    >
-                      Competitions History
-                    </Disclosure.Button>
-                  </Link>
                   <Link href="/officers" passHref>
                     <Disclosure.Button
                       as="a"
@@ -197,7 +188,14 @@ const Nav = () => {
                       Mentors
                     </Disclosure.Button>
                   </Link>
-
+                  <Link href="/competitions" passHref>
+                    <Disclosure.Button
+                      as="a"
+                      className="rounded-md p-2 font-semibold text-gray-300 hover:bg-gray-900/50"
+                    >
+                      Competitions History
+                    </Disclosure.Button>
+                  </Link>
                   <Link href="/press" passHref>
                     <Disclosure.Button
                       as="a"
