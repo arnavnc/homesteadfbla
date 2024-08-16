@@ -79,10 +79,10 @@ const Nav = () => {
                   Competitions History
                 </Link>
                 <Link
-                  href="/press"
+                  href="/officers"
                   className="rounded-md p-2 font-semibold text-dimWhite hover:text-watermelon-red ease-linear duration-300"
                 >
-                  Press Releases
+                  Meet the Team
                 </Link>
                 <Link
                   href="/mentors"
@@ -91,10 +91,10 @@ const Nav = () => {
                   Mentors (Soon!)
                 </Link>
                 <Link
-                  href="/officers"
+                  href="/press"
                   className="rounded-md p-2 font-semibold text-dimWhite hover:text-watermelon-red ease-linear duration-300"
                 >
-                  Meet the Team
+                  Press Releases
                 </Link>
 
                 {user ? (
@@ -181,13 +181,12 @@ const Nav = () => {
                       Competitions History
                     </Disclosure.Button>
                   </Link>
-
-                  <Link href="/press" passHref>
+                  <Link href="/officers" passHref>
                     <Disclosure.Button
                       as="a"
-                      className="rounded-md p-2 font-semibold text-gray-300 hover:bg-gray-900/50"
+                      className="rounded-md p-2 pb-0 font-semibold text-gray-300 hover:bg-gray-900/50"
                     >
-                      Press Releases
+                      Meet the Team
                     </Disclosure.Button>
                   </Link>
                   <Link href="/mentors" passHref>
@@ -198,16 +197,15 @@ const Nav = () => {
                       Mentors
                     </Disclosure.Button>
                   </Link>
-                  <Link href="/officers" passHref>
+
+                  <Link href="/press" passHref>
                     <Disclosure.Button
                       as="a"
-                      className="rounded-md p-2 pb-0 font-semibold text-gray-300 hover:bg-gray-900/50"
+                      className="rounded-md p-2 font-semibold text-gray-300 hover:bg-gray-900/50"
                     >
-                      Meet the Team
+                      Press Releases
                     </Disclosure.Button>
                   </Link>
-
-                  
 
                   <div className="">
                     {user ? (
