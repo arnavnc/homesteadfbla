@@ -151,8 +151,8 @@ const officers = {
             {
                 "name": "Anjay Parthasarathy",
                 "position": "Partnership with Business Chair",
-                "bio": "Placeholder",
-                "quote": "Placeholder",
+                "bio": "Hi guys! My name is Anjay and I can't wait to serve as one of the Partnership with Business chairs this year. Some fun facts about me are that I was born on Friday the thirtheenth (ooh spooky) and I do track outside of FBLA. When I'm not presenting or running, I love to doodle--and you'll find that all of my notebooks are filled with mindless drawings that make up who I am. If you ever have any questions or just want to say hi, I'm always open for a fun conversation! ",
+                "quote": "\"One day or day one\"",
                 "image": "Anjay",
             }
         ],
