@@ -141,7 +141,7 @@ export default function CompetitionsHistoryComponent(props) {
         <Box display="flex" flexWrap="wrap" justifyContent="space-between" alignItems="center" mb={2}>
           <Box sx={{width: 200}} mx={2}>
             <form noValidate autoComplete="off" onSubmit={handleFormSubmit}>
-              <TextField id="name" variant="standard" label="Name" fullWidth />
+              <TextField id="name" variant="standard" label="Full Name" fullWidth />  
             </form>
           </Box>
           <Box sx={{width: 200}} mx={2}>
