@@ -47,8 +47,8 @@ const officers = {
         {
             "name": "Bhavya Krishnan",
             "position": "Ex-Officio / Bay Section President",
-            "bio": "Placeholder",
-            "quote": "Placeholder",
+            "bio": "Hey guys, my name is Bhavya and I'm extremely excited to serve as your Bay Section President and Homestead Ex-Officio. When I'm not at school, I love drawing, listening to podcasts, and playing with my cat! If you see me around, please don't hesistate to say hi.",
+            "quote": "\"There is no sunset worth waking me up for.\"",
             "image": "Bhavya",
         }
     ],
@@ -169,8 +169,8 @@ const officers = {
             {
                 "name": "Aayushma Adhikari",
                 "position": "Middle Level Chair",
-                "bio": "Placeholder",
-                "quote": "Placeholder",
+                "bio": "",
+                "quote": "",
                 "image": "Aayushma",
             }
         ],
