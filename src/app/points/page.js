@@ -18,18 +18,17 @@ export default function PointsPage() {
   const [authType, setAuthType] = useState('');
   const [generatedCode, setGeneratedCode] = useState('');
   const [activityName, setActivityName] = useState('');
+  const [pointsValue, setPointsValue] = useState(); // New state for points value
   const [showFullText, setShowFullText] = useState(false); // New state for text visibility
 
   const fetchUsedCodes = async () => {
     if (user) {
-      // console.log(user)
       const userRef = doc(getFirestore(), 'activityPoints', user.uid);
       const userData = doc(getFirestore(), 'users', user.displayName);
       const userDataSnap = await getDoc(userData);
       const userSnap = await getDoc(userRef);
       if (userSnap.exists()) {
         const generalUserData = userDataSnap.data();
-        // console.log(generalUserData);
         setAuthType(generalUserData.authType);
         setUsedCodes(userSnap.data().usedCodes || []);
       }
@@ -53,14 +52,18 @@ export default function PointsPage() {
     fetchPointCodes();
   }, [user]);
 
-  const verifyCode = () => {
+  const verifyCode = async () => {
     if (usedCodes.includes(secretCode)) {
       setErrorMessage('This code has been used already');
-    } else if (pointCodes.includes(secretCode)) {
-      setCodeVerified(true);
-      setErrorMessage('');
     } else {
-      setErrorMessage('Invalid code');
+      const matchedCode = pointCodes.find(code => code.code === secretCode);
+      if (matchedCode) {
+        setCodeVerified(true);
+        setErrorMessage('');
+        setPointsValue(matchedCode.points); // Retrieve the points associated with the code
+      } else {
+        setErrorMessage('Invalid code');
+      }
     }
   };
 
@@ -81,11 +84,11 @@ export default function PointsPage() {
         }
 
         await updateDoc(userRef, {
-          activityPoints: increment(1),
+          activityPoints: increment(pointsValue), // Use the points associated with the verified code
           usedCodes: [...usedCodes, secretCode],
         });
 
-        console.log("Activity point added successfully.");
+        console.log("Activity point(s) added successfully.");
         setCodeVerified(false);
         setSecretCode('');
       } catch (e) {
@@ -114,9 +117,9 @@ export default function PointsPage() {
   };
 
   const addNewCodeToFirestore = async () => {
-    if (!activityName.trim()) {
-      setErrorMessage('Activity name is required');
-      return;
+    if (!activityName.trim() || pointsValue <= 0) {
+        setErrorMessage('Activity name and a positive point value are required');
+        return;
     }
 
     const newCode = await generateRandomCode();
@@ -126,41 +129,54 @@ export default function PointsPage() {
     const pastCodesRef = doc(db, 'pointCodes', 'Past Codes (Do not use again)');
 
     try {
-      const pointCodesSnap = await getDoc(pointCodesRef);
-      if (pointCodesSnap.exists()) {
-        const currentCodes = pointCodesSnap.data().codes;
-        let newCurrentCodes = [...currentCodes, combinedCode];
-        let newPastCodes = [];
-
-        if (newCurrentCodes.length > 4) {
-          const removedCode = newCurrentCodes.shift();
-          console.log("Removed code:", removedCode);
-          const pastCodesSnap = await getDoc(pastCodesRef);
-          if (pastCodesSnap.exists()) {
-            newPastCodes = pastCodesSnap.data()["past codes"] || [];
-            newPastCodes.push(removedCode);
-          } else {
-            newPastCodes = [removedCode];
-          }
-          await setDoc(pastCodesRef, {
-            "past codes": newPastCodes
-          }, { merge: true });
-          console.log("Updated past codes:", newPastCodes);
+        const pointCodesSnap = await getDoc(pointCodesRef);
+        let currentCodes = [];
+        if (pointCodesSnap.exists()) {
+            currentCodes = pointCodesSnap.data().codes || [];
+        } else {
+            console.log("No current codes document found, creating a new one.");
         }
 
-        await updateDoc(pointCodesRef, {
-          codes: newCurrentCodes
-        });
-        console.log("Updated current codes:", newCurrentCodes);
+        // Add the new code and points to the array
+        currentCodes.push({ code: combinedCode, points: pointsValue });
+        console.log("Current Codes after adding new code:", currentCodes);
+
+        // If the number of current codes exceeds the limit, move the oldest code to past codes
+        if (currentCodes.length > 4) {
+            const removedCode = currentCodes.shift();
+            console.log("Removed code:", removedCode);
+
+            // Check if removedCode is valid and has a code field
+            if (removedCode && removedCode.code) {
+                const pastCodesSnap = await getDoc(pastCodesRef);
+                let pastCodes = [];
+                if (pastCodesSnap.exists()) {
+                    pastCodes = pastCodesSnap.data()["past codes"] || [];
+                }
+                pastCodes.push(removedCode.code);
+
+                await setDoc(pastCodesRef, { "past codes": pastCodes }, { merge: true });
+                console.log("Updated past codes:", pastCodes);
+            } else {
+                console.log("Removed code is invalid or missing the code field.");
+            }
+        }
+
+        // Update the current codes in Firestore
+        await setDoc(pointCodesRef, { codes: currentCodes }, { merge: true });
+        console.log("Updated current codes in Firestore:", currentCodes);
 
         setGeneratedCode(combinedCode);
         console.log("New code generated:", combinedCode);
-      }
     } catch (e) {
-      console.error("Error adding new code: ", e);
+        console.error("Error adding new code to Firestore: ", e);
+        setErrorMessage("An error occurred while generating the code. Please try again.");
     }
-    fetchPointCodes(); // Refresh the point codes
-  };
+    
+    // Refresh the point codes to ensure the UI reflects the new code
+    fetchPointCodes();
+};
+
 
   const toggleText = () => {
     setShowFullText(!showFullText);
@@ -199,7 +215,7 @@ export default function PointsPage() {
               <button 
                 onClick={addActivityPoint} 
                 className="p-2 bg-watermelon-red text-white rounded-lg w-full hover:scale-105 duration-200">
-                Click this to Receive Activity Point!
+                Click this to Receive Activity Points!
               </button>
             )}
             {errorMessage && <p className="text-red-500 mt-2">{errorMessage}</p>}
@@ -239,7 +255,14 @@ export default function PointsPage() {
                     onChange={(e) => setActivityName(e.target.value.replace(/\s/g, ''))}
                     className="border p-2 rounded text-black placeholder:text-gray-700 focus:outline-none w-full bg-red-100/90"
                   />
-                  {/* <div className=""> */}
+                  <input
+                    type="number"
+                    placeholder="Enter points"
+                    value={pointsValue}
+                    onChange={(e) => setPointsValue(Number(e.target.value))}
+                    className="border p-2 rounded text-black placeholder:text-gray-700 focus:outline-none w-full bg-red-100/90"
+                    min="1"
+                  />
                     <button 
                       onClick={addNewCodeToFirestore} 
                       className="p-2 bg-red-violet text-white rounded w-full shadow-lg hover:scale-105 
@@ -249,7 +272,6 @@ export default function PointsPage() {
                     {generatedCode && (
                       <p className="text-white mt-2 flex flex-col">New code generated: <strong>{generatedCode}</strong></p>
                     )}
-                  {/* </div> */}
                 </div>
               </div>
             )}
