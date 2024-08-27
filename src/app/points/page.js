@@ -257,7 +257,7 @@ export default function PointsPage() {
                   />
                   <input
                     type="number"
-                    placeholder="Enter points"
+                    placeholder="Enter point value"
                     value={pointsValue}
                     onChange={(e) => setPointsValue(Number(e.target.value))}
                     className="border p-2 rounded text-black placeholder:text-gray-700 focus:outline-none w-full bg-red-100/90"
