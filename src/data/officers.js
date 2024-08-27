@@ -128,7 +128,7 @@ const officers = {
             {
                 "name": "Arhan Chakravarthy",
                 "position": "Community Service Chair",
-                "bio": "Hey guys, I'm Arhan and I can't wait to serve as one your Community Service Project Chairs this year! During my free time I love playing tennis (im better than alessandro), and watching TV shows (Suits is of course the best show). If you ever see me never be afraid to say hi, and I look forward to meeting y'all!",
+                "bio": "Hey guys, I'm Arhan and I can't wait to serve as one your Community Service Project Chairs this year! During my free time I love playing tennis (im better than alessandro), watching random shows (Suits is of course the best one), and of course watching reels. If you ever see me never be afraid to say hi, and I look forward to meeting y'all!",
                 "quote": "\"Laziness is nothing more than the habit of resting before you get tired.\"",
                 "image": "Arhan",
             },
