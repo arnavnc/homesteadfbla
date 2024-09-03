@@ -15,13 +15,15 @@ import Modal from '@mui/material/Modal';
 import { BiPencil, BiTrash } from "react-icons/bi";
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import { useMediaQuery } from '@mui/material'; // Import useMediaQuery
+import { useMediaQuery, MenuItem, FormControl, Select, InputLabel } from '@mui/material';
 
 const ProfileCard = () => {
   const [user, setUser] = useState(null);
   const [authType, setAuthType] = useState(null);
   const [value, setValue] = useState("1");
+  const [leaderboardType, setLeaderboardType] = useState('regular'); // New state to manage leaderboard type
   const [leaderboardData, setLeaderboardData] = useState([]);
+  const [writtenLeaderboardData, setWrittenLeaderboardData] = useState([]); // New state for written practice session leaderboard
   const [userPlacement, setUserPlacement] = useState(null);
   const [eventsData, setEventsData] = useState([]);
   const [pastEventsData, setPastEventsData] = useState([]);
@@ -30,7 +32,7 @@ const ProfileCard = () => {
   const [editingEvent, setEditingEvent] = useState(null);
   const [showPastEvents, setShowPastEvents] = useState(false);
 
-  const isMobile = useMediaQuery('(max-width:600px)'); // Determine if the screen is mobile
+  const isMobile = useMediaQuery('(max-width:600px)');
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -93,9 +95,49 @@ const ProfileCard = () => {
     }
   }, [user]);
 
+  const fetchWrittenLeaderboardData = useCallback(async () => {
+    if (!user) return;
+    const db = getFirestore();
+    const topUsersQuery = query(collection(db, 'writtenActivityPoints'), orderBy('activityPoints', 'desc'), limit(5));
+    const topUsersSnapshot = await getDocs(topUsersQuery);
+
+    const topUsers = topUsersSnapshot.docs.map(doc => ({
+      name: doc.data().name,
+      activityPoints: doc.data().activityPoints,
+      email: doc.data().email
+    }));
+
+    setWrittenLeaderboardData(topUsers);
+
+    if (!topUsers.some(u => u.email === user.email)) {
+      const userQuery = query(collection(db, 'writtenActivityPoints'), where('email', '==', user.email));
+      const userSnapshot = await getDocs(userQuery);
+
+      if (!userSnapshot.empty) {
+        const userDoc = userSnapshot.docs[0];
+        const userData = {
+          name: userDoc.data().name,
+          activityPoints: userDoc.data().activityPoints,
+          email: userDoc.data().email
+        };
+
+        const allUsersQuery = query(collection(db, 'writtenActivityPoints'), orderBy('activityPoints', 'desc'));
+        const allUsersSnapshot = await getDocs(allUsersQuery);
+        const allUsers = allUsersSnapshot.docs.map(doc => doc.data().email);
+        const userRank = allUsers.indexOf(userData.email) + 1;
+
+        setUserPlacement({ ...userData, rank: userRank });
+      }
+    }
+  }, [user]);
+
   useEffect(() => {
-    fetchLeaderboardData();
-  }, [fetchLeaderboardData]);
+    if (leaderboardType === 'regular') {
+      fetchLeaderboardData();
+    } else if (leaderboardType === 'written') {
+      fetchWrittenLeaderboardData();
+    }
+  }, [leaderboardType, fetchLeaderboardData, fetchWrittenLeaderboardData]);
 
   const fetchEvents = useCallback(async () => {
     const db = getFirestore();
@@ -238,7 +280,7 @@ const ProfileCard = () => {
       {user ? (
         <div className="
           flex flex-col items-center 
-          w-11/12 md:w-8/12 lg:w-7/12 xl:w-5/12 2xl:w-4/12  /* Updated width classes for different screen sizes */
+          w-11/12 md:w-8/12 lg:w-7/12 xl:w-5/12 2xl:w-4/12 
           h-5/6 rounded-lg pt-10 mt-5 shadow-2xl 
           border-4 border-red-violet bg-watermelon-red bg-opacity-70">
           <div className="flex justify-center">
@@ -250,12 +292,12 @@ const ProfileCard = () => {
           </div>
           <div className="w-full mt-6">
             <TabContext value={value}>
-              <Box className="relative"> {/* Add a relative positioning container */}
+              <Box className="relative">
                 <Tabs 
                   value={value} 
                   onChange={handleChange} 
-                  variant={isMobile ? "scrollable" : "fullWidth"} /* Conditional variant for mobile screens */
-                  scrollButtons={isMobile ? "auto" : "false"} /* Conditional scroll buttons for mobile screens */
+                  variant={isMobile ? "scrollable" : "fullWidth"}
+                  scrollButtons={isMobile ? "auto" : "false"}
                   textColor="primary" 
                   indicatorColor="primary"
                   sx={{
@@ -263,41 +305,91 @@ const ProfileCard = () => {
                       backgroundColor: 'white',
                     },
                     '& .MuiTab-root': {
-                      color: '#a0aec0', // Set the default color to gray
-                      minWidth: 120, // Increase the minWidth to make the tab wider
-                      whiteSpace: 'nowrap', // Prevent the text from wrapping
+                      color: '#a0aec0', 
+                      minWidth: 120, 
+                      whiteSpace: 'nowrap',
                     },
                     '& .Mui-selected': {
-                      color: 'white !important', // Set the color of the selected tab to white
+                      color: 'white !important', 
                     },
                     position: 'relative',
-                    overflow: 'visible', // Ensure overflow is visible to show the gradient
+                    overflow: 'visible',
                   }}
                 >
                   <Tab label="Activity Points" value="1"/>
                   <Tab label="Upcoming Events" value="2" />
                   <Tab label="Contact Info" value="3" />
                 </Tabs>
-
-                {/* Gradient overlay for mobile screens */}
-                {/* {isMobile && (
-                  <div className="absolute right-0 top-0 bottom-0 w-12 pointer-events-none bg-gradient-to-l from-watermelon-red to-transparent">
-                    
-                  </div>
-                )} */}
               </Box>
               <Box className="mt-4">
                 <TabPanel value="1">
-                  <div className="space-y-3">
-                    {leaderboardData.map((item, index) => (
-                      <div 
-                        key={index} 
-                        className={`flex justify-between p-2 ${item.email === user.email ? 'bg-red-400 bg-opacity-30' : 'bg-red-violet'} text-white rounded-lg 
-                        shadow-lg border border-dark-chocolate border-opacity-25`}>
-                        <span><strong>{index + 1}</strong> - {item.name}</span>
-                        <span>{item.activityPoints} pts</span>
-                      </div>
-                    ))}
+                <FormControl fullWidth variant="outlined" sx={{ mb: 2 }}>
+                  <InputLabel 
+                    id="leaderboard-type-label" 
+                    sx={{ color: 'white' }} // Keep the label color white
+                  >
+                    Leaderboard Type
+                  </InputLabel>
+                  <Select
+                    labelId="leaderboard-type-label"
+                    id="leaderboard-type"
+                    value={leaderboardType}
+                    label="Leaderboard Type"
+                    onChange={(e) => setLeaderboardType(e.target.value)}
+                    sx={{
+                      color: 'white', // Text color inside the dropdown
+                      '.MuiOutlinedInput-notchedOutline': {
+                        borderColor: 'white', // Border color of the dropdown
+                      },
+                      '&:hover .MuiOutlinedInput-notchedOutline': {
+                        borderColor: 'white', // Keep border white on hover
+                      },
+                      '.MuiSvgIcon-root': {
+                        color: 'white', // Keep the dropdown arrow icon white
+                      },
+                      '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                        borderColor: 'white', // Keep border white when focused
+                      },
+                      '& .MuiSelect-select': {
+                        color: 'white', // Text color inside the dropdown (black for contrast)
+                      },
+                    }}
+                    MenuProps={{
+                      PaperProps: {
+                        sx: {
+                          backgroundColor: 'white', // Background color of the dropdown menu
+                          color: 'black', // Text color of the dropdown menu items
+                        }
+                      }
+                    }}
+                  >
+                    <MenuItem value="regular">Regular Activity Points</MenuItem>
+                    <MenuItem value="written">Written Practice Session Points</MenuItem>
+                  </Select>
+                </FormControl>
+
+                  <div className="space-y-3 mt-4">
+                    {leaderboardType === 'regular' ? (
+                      leaderboardData.map((item, index) => (
+                        <div 
+                          key={index} 
+                          className={`flex justify-between p-2 ${item.email === user.email ? 'bg-red-400 bg-opacity-30' : 'bg-red-violet'} text-white rounded-lg 
+                          shadow-lg border border-dark-chocolate border-opacity-25`}>
+                          <span><strong>{index + 1}</strong> - {item.name}</span>
+                          <span>{item.activityPoints} pts</span>
+                        </div>
+                      ))
+                    ) : (
+                      writtenLeaderboardData.map((item, index) => (
+                        <div 
+                          key={index} 
+                          className={`flex justify-between p-2 ${item.email === user.email ? 'bg-red-400 bg-opacity-30' : 'bg-red-violet'} text-white rounded-lg 
+                          shadow-lg border border-dark-chocolate border-opacity-25`}>
+                          <span><strong>{index + 1}</strong> - {item.name}</span>
+                          <span>{item.activityPoints} pts</span>
+                        </div>
+                      ))
+                    )}
 
                     {userPlacement && !leaderboardData.some(u => u.email === user.email) && (
                       <>
@@ -346,12 +438,12 @@ const ProfileCard = () => {
                             border: '2px solid #000',
                             boxShadow: 24,
                             p: 4,
-                            position: 'relative' // Added relative positioning for the X button
+                            position: 'relative'
                           }}
                         >
                           <IconButton
                             aria-label="close"
-                            onClick={handleCloseModal} // Added onClick handler to close the modal
+                            onClick={handleCloseModal}
                             sx={{
                               position: 'absolute',
                               right: 13,
@@ -412,36 +504,36 @@ const ProfileCard = () => {
                       <p>No upcoming events.</p>
                     ) : (
                       eventsData.map((event, index) => (
-                        <EventCard key={index} event={event} isPastEvent={false} /> // Passed isPastEvent={false} for upcoming events
+                        <EventCard key={index} event={event} isPastEvent={false} />
                       ))
                     )}
                   </div>
 
                   <div className="space-y-6 mt-4">
-                  <Button 
-                    variant="contained" 
-                    sx={{
-                      backgroundColor: '#B23A48', 
-                      color: 'white',
-                      '&:hover': {
-                        backgroundColor: '#B23A48',
-                      },
-                    }} 
-                    onClick={handleTogglePastEvents}
-                  >
-                    {showPastEvents ? "Hide Past Events" : "Show Past Events"}
-                  </Button>
-                  {showPastEvents && (
-                    <>
-                      {pastEventsData.length === 0 ? (
-                        <p>No past events.</p>
-                      ) : (
-                        pastEventsData.map((event, index) => (
-                          <EventCard key={index} event={event} isPastEvent={true} /> // Passed isPastEvent={true} for past events
-                        ))
-                      )}
-                    </>
-                  )}
+                    <Button 
+                      variant="contained" 
+                      sx={{
+                        backgroundColor: '#B23A48', 
+                        color: 'white',
+                        '&:hover': {
+                          backgroundColor: '#B23A48',
+                        },
+                      }} 
+                      onClick={handleTogglePastEvents}
+                    >
+                      {showPastEvents ? "Hide Past Events" : "Show Past Events"}
+                    </Button>
+                    {showPastEvents && (
+                      <>
+                        {pastEventsData.length === 0 ? (
+                          <p>No past events.</p>
+                        ) : (
+                          pastEventsData.map((event, index) => (
+                            <EventCard key={index} event={event} isPastEvent={true} />
+                          ))
+                        )}
+                      </>
+                    )}
                   </div>
                 </TabPanel>
                 <TabPanel value="3">
