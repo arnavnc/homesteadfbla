@@ -367,7 +367,7 @@ const ProfileCard = () => {
                       }
                     }}
                   >
-                    <MenuItem value="regular">Regular Activity Points</MenuItem>
+                    <MenuItem value="regular">Member Activity Points</MenuItem>
                     <MenuItem value="written">Written Competitor Points</MenuItem>
                   </Select>
                 </FormControl>
