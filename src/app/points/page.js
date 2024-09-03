@@ -5,6 +5,8 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../firebase';
 import Nav from '@/components/nav';
 import Footer from '@/components/footer';
+import Image from 'next/image';
+import Officers from "../../../public/static/officers.jpg";
 
 export default function PointsPage() {
   const [user, loading, error] = useAuthState(auth);
@@ -180,6 +182,11 @@ export default function PointsPage() {
   return (
     <>
       <main className="flex flex-col min-h-screen">
+      <Image 
+        src={Officers} 
+        className="fixed blur-sm bg-scroll object-cover opacity-10 h-[100vh] z-[-10]"
+        draggable={false}
+      />
         <Nav />
         <div className="flex flex-col text-center items-center justify-center flex-grow py-12 px-5 md:px-20 space-y-6 lg:space-y-12">
           <div className="container flex flex-col items-center mx-auto p-6 bg-red-violet/60 rounded-lg w-full sm:w-3/4 md:w-1/2 lg:w-1/3 border-2 border-watermelon-red/40 shadow-2xl">
