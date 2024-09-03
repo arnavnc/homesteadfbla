@@ -326,7 +326,12 @@ const ProfileCard = () => {
                 <FormControl fullWidth variant="outlined" sx={{ mb: 2 }}>
                   <InputLabel 
                     id="leaderboard-type-label" 
-                    sx={{ color: 'white' }} // Keep the label color white
+                    sx={{ 
+                      color: 'white', // Set the label color to white
+                      '&.Mui-focused': {
+                        color: 'white' // Ensure label stays white when focused
+                      },
+                    }}
                   >
                     Leaderboard Type
                   </InputLabel>
@@ -357,7 +362,6 @@ const ProfileCard = () => {
                     MenuProps={{
                       PaperProps: {
                         sx: {
-                          backgroundColor: 'white', // Background color of the dropdown menu
                           color: 'black', // Text color of the dropdown menu items
                         }
                       }
