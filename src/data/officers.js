@@ -169,8 +169,8 @@ const officers = {
             {
                 "name": "Aayushma Adhikari",
                 "position": "Middle Level Chair",
-                "bio": "",
-                "quote": "",
+                "bio": "Hey everyone! My name is Aayushma Adhikari and I am going to be one of your Middle Level Chairs this year. Outside of FBLA I love to garden (attempt to keep my plants alive), bingewatch TV shows (currently The Good Place), and get sweet treats with friends. Unless you're a gen alpha middle schooler you proabably won't get to witness my amazing teaching skills but I still love to talk so reach out anytime!",
+                "quote": "\"Pobody's nerfect\"",
                 "image": "Aayushma",
             }
         ],
