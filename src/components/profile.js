@@ -85,12 +85,12 @@ const ProfileCard = () => {
           email: userDoc.data().email
         };
 
-        const allUsersQuery = query(collection(db, 'activityPoints'), orderBy('activityPoints', 'desc'));
-        const allUsersSnapshot = await getDocs(allUsersQuery);
-        const allUsers = allUsersSnapshot.docs.map(doc => doc.data().email);
-        const userRank = allUsers.indexOf(userData.email) + 1;
+        // const allUsersQuery = query(collection(db, 'activityPoints'), orderBy('activityPoints', 'desc'));
+        // const allUsersSnapshot = await getDocs(allUsersQuery);
+        // const allUsers = allUsersSnapshot.docs.map(doc => doc.data().email);
+        // const userRank = allUsers.indexOf(userData.email) + 1;
 
-        setUserPlacement({ ...userData, rank: userRank });
+        setUserPlacement({ ...userData});
       }
     }
   }, [user]);
@@ -367,7 +367,7 @@ const ProfileCard = () => {
                       }
                     }}
                   >
-                    <MenuItem value="regular">Member Activity Points</MenuItem>
+                    <MenuItem value="regular">Activity Points</MenuItem>
                     <MenuItem value="written">Written Competitor Points</MenuItem>
                   </Select>
                 </FormControl>
@@ -402,7 +402,7 @@ const ProfileCard = () => {
                         </div>
                         <div className="flex justify-between p-2 bg-red-400 bg-opacity-30 text-white rounded-lg shadow-lg
                          border border-dark-chocolate border-opacity-25">
-                          <span ><strong>{userPlacement.rank}</strong> - {userPlacement.name}</span>
+                          <span >{userPlacement.name}</span>
                           <span>{userPlacement.activityPoints} pts</span>
                         </div>
                       </>

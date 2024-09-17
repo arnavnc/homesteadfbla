@@ -4,9 +4,6 @@ import { useEffect, useState } from "react";
 import { auth } from "../app/firebase"; 
 
 
-
-
-
 export default function OfficerCard({ name, position, bio, quote, image }) {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 

@@ -58,7 +58,6 @@ export default function Register() {
   });
 
   const validKeys = ["7799774850", "9078422944", "3407372254", "2909954248"];
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setState({

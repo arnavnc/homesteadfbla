@@ -221,7 +221,7 @@ export default function PointsPage() {
             {errorMessage && <p className="text-red-500 mt-2">{errorMessage}</p>}
             {(authType === 'officer' || authType === 'tech') && (
               <div className="container flex flex-col bg-red-violet/40 border border-opacity-15 border-watermelon-red mt-8 px-5 py-6 rounded-lg shadow-xl">
-                <h1 className="text-center mb-1 text-2xl sm:text-3xl font-bold text-white">For Officers</h1>
+                <h1 className="text-center mb-1 text-2xl sm:text-3xl font-bold text-white">Generate Code</h1>
                 <div className="flex flex-col items-center space-y-4 w-full mt-4">
                   <input
                     type="text"

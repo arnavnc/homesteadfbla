@@ -4,13 +4,15 @@ import advisers from "../../data/advisers.js";
 import Footer from "@/components/footer";
 import advisersPic from "../../../public/static/advisers.jpg";
 import Image from "next/image";
+import mentors from "../../data/mentors.js";
 
-export default function Officers() {
+
+export default function Mentors() {
   return (
     <>
       <Image
         src={advisersPic}
-        className="fixed bg-scroll object-cover object-bottom opacity-10 h-[100vh] w-[100vw] z-[-10]"
+        className="fixed blur-sm bg-scroll object-cover object-bottom opacity-10 h-[100vh] w-[100vw] z-[-10]"
         draggable={false}
       />
       <Nav />
@@ -23,9 +25,9 @@ export default function Officers() {
           Here are the dedicated collection of professionals, alumni, officers,
           and students who support our chapter competitors as committed mentors.
         </p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 my-10">
-          {advisers.map((adviser) => (
-            <MentorCard key={adviser.name} {...adviser} />
+        <div className="grid grid-cols-1 md:grid-cols-3 my-10 gap-x-6 gap-y-10 p-0">
+          {mentors.map((mentor) => (
+            <MentorCard key={mentor.name} {...mentor} />
           ))}
         </div>
       </div>

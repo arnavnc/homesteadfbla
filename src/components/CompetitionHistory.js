@@ -136,82 +136,94 @@ export default function CompetitionsHistoryComponent(props) {
   });
 
   return (
-    <div className="pt-2 text-white px-2 sm:px-4 md:px-6 lg:px-8 ">
-      <ThemeProvider theme={theme}>
-        <Box display="flex" flexWrap="wrap" justifyContent="space-between" alignItems="center" mb={2}>
-          <Box sx={{width: 200}} mx={2}>
-            <form noValidate autoComplete="off" onSubmit={handleFormSubmit}>
-              <TextField id="name" variant="standard" label="Full Name" fullWidth />  
-            </form>
-          </Box>
-          <Box sx={{width: 200}} mx={2}>
-            <form noValidate autoComplete="off" onSubmit={handleFormSubmit}>
-              <TextField id="year" variant="standard" label="Year" fullWidth />
-            </form>
-          </Box>
-          <Box sx={{width: 200}} mx={2}>
-            <FormControl variant="standard" fullWidth>
-              <InputLabel id="conf-select-label">
-                Conferences
-              </InputLabel>
-              <Select labelId="conf-select-label" id="conf-select" variant="standard" value={conf} onChange={confChange}>
-                {menuConf}
-              </Select>
-            </FormControl>
-          </Box>
-          <Box sx={{width: 200}} mx={2}>
-            <FormControl variant="standard" fullWidth>
-              <InputLabel id="event-select-label">
-                Events
-              </InputLabel>
-              <Select labelId="event-select-label" id="event-select" variant="standard" value={event} onChange={eventChange}>
-                {menuEvents}
-              </Select>
-            </FormControl>
-          </Box>
+    <div className="pt-2 text-white px-2 sm:px-4 md:px-6 lg:px-8">
+    <ThemeProvider theme={theme}>
+      <Box
+        display="flex"
+        flexWrap="wrap"
+        justifyContent={{ xs: 'center', md: 'space-between' }}
+        alignItems="center"
+        mb={2}
+      >
+        <Box sx={{ width: { xs: '100%', sm: 200 }, mb: { xs: 2, sm: 0 } }} mx={2}>
+          <form noValidate autoComplete="off" onSubmit={handleFormSubmit}>
+            <TextField id="name" variant="standard" label="Full Name" fullWidth />
+          </form>
         </Box>
-
-        <Box display="flex" justifyContent="center" mb={4}>
-          <Button
-            variant="contained"
-            disableElevation
-            // color="primary"
-            onClick={query}
-            className="w-full sm:w-auto"
-          >
-            Search
-          </Button>
+        <Box sx={{ width: { xs: '100%', sm: 200 }, mb: { xs: 2, sm: 0 } }} mx={2}>
+          <form noValidate autoComplete="off" onSubmit={handleFormSubmit}>
+            <TextField id="year" variant="standard" label="Year" fullWidth />
+          </form>
         </Box>
-
-        <Box display="flex" justifyContent="center">
-          {props.nothingEntered && (
-            <div className="justify-content-md-center">
-              <h2 className="text-xl">
-                <i>*You must enter in at least one field</i>
-              </h2>
-            </div>
-          )}
+        <Box sx={{ width: { xs: '100%', sm: 200 }, mb: { xs: 2, sm: 0 } }} mx={2}>
+          <FormControl variant="standard" fullWidth>
+            <InputLabel id="conf-select-label">Conferences</InputLabel>
+            <Select
+              labelId="conf-select-label"
+              id="conf-select"
+              variant="standard"
+              value={conf}
+              onChange={confChange}
+            >
+              {menuConf}
+            </Select>
+          </FormControl>
         </Box>
-
-        <Box>
-          <TableContainer component={Paper} sx={{ maxHeight: 350 }}>
-            <Table stickyHeader>
-              <TableHead>
-                <TableRow>
-                  <TableCell>Name</TableCell>
-                  <TableCell align="right">Year</TableCell>
-                  <TableCell align="right">Conference</TableCell>
-                  <TableCell align="right">Event</TableCell>
-                  <TableCell align="right">Place</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {toRender}
-              </TableBody>
-            </Table>
-          </TableContainer>
+        <Box sx={{ width: { xs: '100%', sm: 200 }, mb: { xs: 2, sm: 0 } }} mx={2}>
+          <FormControl variant="standard" fullWidth>
+            <InputLabel id="event-select-label">Events</InputLabel>
+            <Select
+              labelId="event-select-label"
+              id="event-select"
+              variant="standard"
+              value={event}
+              onChange={eventChange}
+            >
+              {menuEvents}
+            </Select>
+          </FormControl>
         </Box>
-      </ThemeProvider>
-    </div>
+      </Box>
+  
+      <Box display="flex" justifyContent="center" mb={4}>
+        <Button
+          variant="contained"
+          disableElevation
+          onClick={query}
+          className="w-full sm:w-auto"
+        >
+          Search
+        </Button>
+      </Box>
+  
+      <Box display="flex" justifyContent="center">
+        {props.nothingEntered && (
+          <div className="justify-content-md-center">
+            <h2 className="text-xl">
+              <i>*You must enter in at least one field</i>
+            </h2>
+          </div>
+        )}
+      </Box>
+  
+      <Box>
+        <TableContainer component={Paper} sx={{ maxHeight: 350 }}>
+          <Table stickyHeader>
+            <TableHead>
+              <TableRow>
+                <TableCell>Name</TableCell>
+                <TableCell align="right">Year</TableCell>
+                <TableCell align="right">Conference</TableCell>
+                <TableCell align="right">Event</TableCell>
+                <TableCell align="right">Place</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>{toRender}</TableBody>
+          </Table>
+        </TableContainer>
+      </Box>
+    </ThemeProvider>
+  </div>
+  
   );
 }

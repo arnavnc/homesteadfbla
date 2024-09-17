@@ -1,23 +1,42 @@
 "use client"
 import Image from "next/image";
 import Link from "next/link";
-import Aaron from "../../public/static/headshots/Aaron.JPG"
-import Arnav from "../../public/static/faces-old/Arnav.png"
+import { useEffect, useState } from "react";
+import { auth } from "../app/firebase"; 
 
-export default function MentorCard({ name, type, competition, desc, image }) {
+
+export default function MentorCard({ name, type, competitions, desc, image }) {
+
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    useEffect(() => {
+        // Listen for authentication state changes
+        const unsubscribe = auth.onAuthStateChanged((user) => {
+            setIsLoggedIn(!!user); // Set true if user is logged in, otherwise false
+        });
+
+        // Cleanup subscription on unmount
+        return () => unsubscribe();
+    }, []);
+
+    const imageSrc = isLoggedIn ? `/static/mentors/${image}.JPG` : `/static/mentors/default.JPG`;
+
     return (
-        <div class="md:flex bg-white bg-opacity-5 rounded-xl p-8 md:p-0">
-            <Image draggable={false} width={300} height={1000} src={Aaron} alt="" class="h-48 max-w-48 object-cover object-top opacity-50 rounded-l-lg rounded-r-lg md:rounded-r-none mx-auto ml-0"/>
-            <div class="pt-6 md:p-5 text-center md:text-left justify-between flex flex-col">
-                <div class="font-medium mb-3">
-                    <div class="font-bold text-md text-red-violet">
-                        Aaron Huang
+        <div class="md:flex bg-white bg-opacity-10 rounded-xl p-8 md:p-0">
+            <Image draggable={false} width={500} height={500} src={imageSrc} alt="" class="object-cover object-center h-[250px] w-[200px] opacity-90 rounded-l-lg rounded-r-lg mx-auto lg:ml-0 mb-0"/>
+            <div class="pt-6 md:p-5 text-center md:text-left justify-between flex flex-col pb-0">
+                <div class="font-medium mb-0">
+                    <div class="font-bold text-lg text-red-violet mb-1">
+                        {name}
                     </div>
-                    <div class="text-xs text-melon">
-                        Officer Mentor- Mobile Application Development, ...
+                    <div class="text-base text-red-400 mb-1">
+                        {type}
                     </div>
-                    <div class="text-xs text-white my-3 font-light">
-                        Aaron is a ...
+                    <div class="text-sm text-warm-beige mb-1">
+                        {competitions}
+                    </div>
+                    <div class="text-sm text-white mb-0 font-light">
+                        {desc}
                     </div>
                 </div>
             </div>

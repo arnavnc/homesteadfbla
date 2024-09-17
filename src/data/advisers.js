@@ -4,21 +4,21 @@ let advisers = [
         position: "Homestead FBLA Adviser / Business Teacher @ Homestead (19xx - Present)",
         bio: "",
         quote: "",
-        image: "Lee"
+        image: "default"
     },
     {
         name: "Mr. Graeme Logie",
         position: "Homestead FBLA Adviser / Bay Section FBLA Director / Business Teacher @ Homestead (2003 - Present)",
         bio: "",
         quote: "",
-        image: "Logie"
+        image: "default"
     },
     {
         name: "Mrs. Helen Carlson",
         position: "Homestead FBLA Adviser / Business Teacher @ Homestead (20xx - Present)",
         bio: "",
         quote: "",
-        image: "Carlson"
+        image: "default"
     }
 ];
 
