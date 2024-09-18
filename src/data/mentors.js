@@ -160,6 +160,20 @@ let mentors = [
         desc : "(hi, I'm jemma!) I competed in Broadcast Journalism last year, and my favorite part of FBLA was working with my team and all the fun adventures of Bay Section, States, and Nationals. A fun fact about me is that I love baking and photography :)",
         image : "JemmaY"
     },
+    {
+        name : "Anoushka Rathi",
+        type : "Student",
+        competitions : "Introduction to Business Concepts",
+        desc : "Hey! I'm Anoushka and my previous comps were Intro to Biz Concepts and Website Design. Outside of school, I like to dance, play soccer, and travel.",
+        image : "default"
+    },
+    {
+        name : "Leah Pien",
+        type : "Officer",
+        competitions : "Introduction to Business Presentation",
+        desc : "Hello everyone! I'm Leah, and I am currently a sophomore. Some fun facts about me are that I love to play tennis, ski, and get boba with my friends!",
+        image : "default"
+    },
 ]
 
 
