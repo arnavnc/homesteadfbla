@@ -35,14 +35,17 @@ const LoginPage = () => {
 
   const handleGoogleSignIn = async () => {
     try {
+      provider.setCustomParameters({
+        prompt: 'select_account', // Forces the Google popup to ask the user to select an account
+      });
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-      // Optionally, you can perform further checks or actions after login
       console.log('Signed in user:', user);
     } catch (error) {
       console.error('Error signing in with Google:', error);
     }
   };
+  
 
   const checkIfUser = async (user) => {
     try {
