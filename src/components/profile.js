@@ -549,16 +549,16 @@ const ProfileCard = () => {
                     <span><strong>General Email:</strong> <a href="mailto:officers@hhsfbla.com" target="_blank" rel="noopener noreferrer">officers@hhsfbla.com</a></span>
                   </div>
                   <div className="flex justify-between p-2 bg-red-violet text-white rounded-lg shadow-lg border border-dark-chocolate border-opacity-25">
-                    <span><strong>Community Service:</strong> <a href="mailto:--" target="_blank" rel="noopener noreferrer">cs@hhsfbla.com</a></span>
+                    <span><strong>Community Service:</strong> <a href="mailto:cs@hhsfbla.com" target="_blank" rel="noopener noreferrer">cs@hhsfbla.com</a></span>
                   </div>
                   <div className="flex justify-between p-2 bg-red-violet text-white rounded-lg shadow-lg border border-dark-chocolate border-opacity-25">
-                    <span><strong>American Enterprise:</strong> <a href="mailto:--" target="_blank" rel="noopener noreferrer">--</a></span>
+                    <span><strong>American Enterprise:</strong> <a href="mailto:ae@hhsfbla.com" target="_blank" rel="noopener noreferrer">ae@hhsfbla.com</a></span>
                   </div>
                   <div className="flex justify-between p-2 bg-red-violet text-white rounded-lg shadow-lg border border-dark-chocolate border-opacity-25">
-                    <span><strong>Partnership with Business:</strong> <a href="mailto:--" target="_blank" rel="noopener noreferrer">--</a></span>
+                    <span><strong>Partnership with Business:</strong> <a href="mailto:pwb@hhsfbla.com" target="_blank" rel="noopener noreferrer">pwb@hhsfbla.com</a></span>
                   </div>
                   <div className="flex justify-between p-2 bg-red-violet text-white rounded-lg shadow-lg border border-dark-chocolate border-opacity-25">
-                    <span><strong>Software Ventures:</strong> <a href="mailto:--" target="_blank" rel="noopener noreferrer">tech@hhsfbla.com</a></span>
+                    <span><strong>Software Ventures:</strong> <a href="mailto:sv@hhsfbla.com" target="_blank" rel="noopener noreferrer">sv@hhsfbla.com</a></span>
                   </div>
                 </div>
                 </TabPanel>
