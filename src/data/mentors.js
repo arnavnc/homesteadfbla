@@ -14,6 +14,13 @@ let mentors = [
         image : "AlessandroM"
     },
     {
+        name : "Arhan Chakravarthy",
+        type : "Officer",
+        competitions : "Website Coding and Development, Introduction to Business Concepts, Computer Problem Solving",
+        desc : "Hey guys, my name is Arhan and I am a CS chair this year. I love both business and tech, and I can't wait to work with you guys— trust, I will be a good mentor!!",
+        image : "ArhanC"
+    },
+    {
         name : "Serena Fanse",
         type : "Officer",
         competitions : "Business Ethics, Introduction to Social Media Strategies",
