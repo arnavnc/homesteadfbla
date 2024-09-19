@@ -9,11 +9,14 @@ import Nav from '@/components/nav';
 import Footer from '@/components/footer';
 import Arnav from '../../../public/static/officers.jpg';
 
+// Firebase Authentication and Firestore initialization
 const auth = getAuth();
 const provider = new GoogleAuthProvider();
 const db = getFirestore();
 
 const LoginPage = () => {
+
+  // Check if user is authenticated on component mount
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
@@ -33,11 +36,13 @@ const LoginPage = () => {
     return () => unsubscribe();
   }, []);
 
+  // Handle Google sign-in
   const handleGoogleSignIn = async () => {
     try {
       provider.setCustomParameters({
         prompt: 'select_account', // Forces the Google popup to ask the user to select an account
       });
+
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
       console.log('Signed in user:', user);
@@ -45,16 +50,18 @@ const LoginPage = () => {
       console.error('Error signing in with Google:', error);
     }
   };
-  
 
+  // Check if the user exists in the Firestore database
   const checkIfUser = async (user) => {
     try {
       const q = query(collection(db, 'users'), where('email', '==', user.email));
       const querySnapshot = await getDocs(q);
       let userData = null;
+      
       querySnapshot.forEach((doc) => {
         userData = doc.data();
       });
+
       return userData;
     } catch (error) {
       console.error('Error checking user in database:', error);
@@ -70,13 +77,15 @@ const LoginPage = () => {
         draggable={false}
       />
       <Nav />
+      
       <main className="lg:flex justify-evenly">
         <div className="flex flex-col text-center items-center lg:items-center lg:text-center justify-center pt-7 lg:pt-0 lg:h-[45vh] py-2 px-5 md:px-20 space-y-[-25px]">
           <div className="bg-watermelon-red p-10 rounded-2xl w-50 justify-center bg-opacity-50 pt-6 border-4 border-watermelon-red border-opacity-50">
-            <h1 className="mb-2 text-3xl font-semibold mt-0" >
+            <h1 className="mb-2 text-3xl font-semibold mt-0">
               Login to Homestead FBLA!
             </h1>
-            <p className="text-base text-gray-300 mb-6">*You must use your school email</p> {/* Adjusted margin here */}
+            <p className="text-base text-gray-300 mb-6">*You must use your school email</p>
+            
             <div className="flex justify-center">
               <button
                 onClick={handleGoogleSignIn}
@@ -100,17 +109,19 @@ const LoginPage = () => {
                     d="M41.99 20.27H24v7.46h10.33c-1.02 2.58-2.84 4.56-5.12 5.75l5.75 5.75c3.37-3.17 5.54-7.74 5.54-13.21 0-1.78-.27-3.47-.73-5z"
                   />
                 </svg>
-                 Login with Google
+                Login with Google
               </button>
             </div>
+            
             <div className="flex flex-row justify-center mt-4 mb-0">
-              <p className=""> Don&apos;t have an account?</p>
-              <p className="text-transparent">l</p>
-              <a href="/register" className=" text-red-300 underline">Sign up here!</a>
+              <p>Don&apos;t have an account?</p>
+              <span className="text-transparent">l</span>
+              <a href="/register" className="text-red-300 underline">Sign up here!</a>
             </div>
           </div>
         </div>
       </main>
+      
       <Footer />
     </main>
   );
