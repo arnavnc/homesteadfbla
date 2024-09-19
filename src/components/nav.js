@@ -96,13 +96,13 @@ const Nav = () => {
                 >
                   Press Releases
                 </Link>
-
+{/* 
                 <Link
                   href="/mom"
                   className="rounded-md p-2 font-semibold text-dimWhite hover:text-watermelon-red ease-linear duration-300"
                 >
                   Member of the Month(MOM)
-                </Link>
+                </Link> */}
 
                 {user ? (
                   <div className="relative">
@@ -211,7 +211,7 @@ const Nav = () => {
                       Press Releases
                     </Disclosure.Button>
                   </Link>
-
+{/* 
                   <Link href="/mom" passHref>
                     <Disclosure.Button
                       as="a"
@@ -219,7 +219,7 @@ const Nav = () => {
                     >
                       Member of the Month
                     </Disclosure.Button>
-                  </Link>
+                  </Link> */}
 
                   <div className="">
                     {user ? (
