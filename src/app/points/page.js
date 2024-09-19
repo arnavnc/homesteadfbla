@@ -1,12 +1,13 @@
 "use client";
 import React, { useState, useEffect } from 'react';
-import { getFirestore, doc, updateDoc, getDoc, setDoc, increment } from 'firebase/firestore';
+import { getFirestore, doc, updateDoc, getDoc, setDoc, increment, runTransaction } from 'firebase/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../firebase';
 import Nav from '@/components/nav';
 import Footer from '@/components/footer';
 import Image from 'next/image';
 import Officers from "../../../public/static/officers.jpg";
+import debounce from 'lodash/debounce'; // Import debounce
 
 export default function PointsPage() {
   const [user, loading, error] = useAuthState(auth);
@@ -21,6 +22,7 @@ export default function PointsPage() {
   const [activityName, setActivityName] = useState('');
   const [pointsValue, setPointsValue] = useState(0); // New state for points value
   const [pointType, setPointType] = useState('regular'); // New state to manage point type
+  const [isSubmitting, setIsSubmitting] = useState(false); // State to prevent multiple submissions
 
   const fetchUsedCodes = async () => {
     if (user) {
@@ -31,7 +33,7 @@ export default function PointsPage() {
       const userDataSnap = await getDoc(userData);
       const userSnap = await getDoc(userRef);
       const writtenUserSnap = await getDoc(writtenUserRef);
-      
+
       if (userSnap.exists()) {
         const generalUserData = userDataSnap.data();
         setAuthType(generalUserData.authType);
@@ -63,10 +65,14 @@ export default function PointsPage() {
   }, [user]);
 
   const verifyCode = async () => {
+    if (isSubmitting) return; // Prevent multiple submissions
+    setIsSubmitting(true); // Set submitting state
+
     if (usedCodes.includes(secretCode)) {
       setErrorMessage('This code has been used already');
+      setIsSubmitting(false);
     } else {
-      const matchedCode = (pointType === 'regular')
+      const matchedCode = pointType === 'regular'
         ? pointCodes.find(code => code.code === secretCode)
         : writtenPointCodes.find(code => code.code === secretCode); // Adjust for written codes
 
@@ -77,41 +83,53 @@ export default function PointsPage() {
       } else {
         setErrorMessage('Invalid code');
       }
+
+      setIsSubmitting(false);
     }
   };
 
-  const addActivityPoint = async () => {
-    if (user) {
-      const db = getFirestore();
-      const userRef = (pointType === 'regular')
-        ? doc(db, 'activityPoints', user.uid)
-        : doc(db, 'writtenActivityPoints', user.uid); // Adjust for written activity points
-
-      try {
-        const userSnap = await getDoc(userRef);
-        if (!userSnap.exists()) {
-          await setDoc(userRef, {
-            name: user.displayName,
-            activityPoints: 0,
-            email: user.email,
-            usedCodes: [],
+    const addActivityPoint = async () => {
+      if (isSubmitting) return; // Prevent multiple submissions
+      setIsSubmitting(true); // Set submitting state
+    
+      if (user) {
+        const db = getFirestore();
+        const userRef = pointType === 'regular'
+          ? doc(db, 'activityPoints', user.uid)
+          : doc(db, 'writtenActivityPoints', user.uid); // Adjust for written activity points
+    
+        try {
+          await runTransaction(db, async (transaction) => {
+            const userSnap = await transaction.get(userRef);
+            const usedCodes = userSnap.exists() ? userSnap.data().usedCodes || [] : [];
+    
+            // If the code was already used, throw an error
+            if (usedCodes.includes(secretCode)) {
+              throw new Error('Code already used.');
+            }
+    
+            // Update points and mark code as used
+            transaction.update(userRef, {
+              activityPoints: increment(pointsValue),
+              usedCodes: [...usedCodes, secretCode],
+            });
           });
+    
+          console.log("Activity point(s) added successfully.");
+          setCodeVerified(false);
+          setSecretCode('');
+        } catch (e) {
+          console.error("Error adding activity point: ", e);
+          setErrorMessage(e.message);
+        } finally {
+          setIsSubmitting(false);
         }
-
-        await updateDoc(userRef, {
-          activityPoints: increment(pointsValue), // Use the points associated with the verified code
-          usedCodes: [...usedCodes, secretCode],
-        });
-
-        console.log("Activity point(s) added successfully.");
-        setCodeVerified(false);
-        setSecretCode('');
-      } catch (e) {
-        console.error("Error adding activity point: ", e);
       }
-    }
-    window.location.href = '/profile';
-  };
+    };
+
+  // Debounce functions to prevent rapid clicks
+  const debounceVerifyCode = debounce(verifyCode, 100); // Prevent double submission in 1 second
+  const debounceAddActivityPoint = debounce(addActivityPoint, 100);
 
   const generateRandomCode = async () => {
     const db = getFirestore();
@@ -205,7 +223,8 @@ export default function PointsPage() {
                   className="border p-2 rounded text-black placeholder:text-gray-700 focus:outline-none w-full bg-red-100/90"
                 />
                 <button 
-                  onClick={verifyCode} 
+                  onClick={debounceVerifyCode} // Use debounced function
+                  disabled={isSubmitting} // Disable button during submission
                   className="p-2 bg-watermelon-red/75 text-white rounded-lg border border-red-900 
                   border-opacity-15 w-full hover:bg-watermelon-red/90 hover:brightness-110 duration-200">
                   Verify Code
@@ -213,7 +232,8 @@ export default function PointsPage() {
               </div>
             ) : (
               <button 
-                onClick={addActivityPoint} 
+                onClick={debounceAddActivityPoint} // Use debounced function
+                disabled={isSubmitting} // Disable button during submission
                 className="p-2 bg-watermelon-red text-white rounded-lg w-full hover:scale-105 duration-200">
                 Click this to Receive Activity Points!
               </button>
