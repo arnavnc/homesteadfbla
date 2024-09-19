@@ -97,6 +97,13 @@ const Nav = () => {
                   Press Releases
                 </Link>
 
+                <Link
+                  href="/mom"
+                  className="rounded-md p-2 font-semibold text-dimWhite hover:text-watermelon-red ease-linear duration-300"
+                >
+                  Member of the Month(MOM)
+                </Link>
+
                 {user ? (
                   <div className="relative">
                     <button
@@ -202,6 +209,15 @@ const Nav = () => {
                       className="rounded-md p-2 font-semibold text-gray-300 hover:bg-gray-900/50"
                     >
                       Press Releases
+                    </Disclosure.Button>
+                  </Link>
+
+                  <Link href="/mom" passHref>
+                    <Disclosure.Button
+                      as="a"
+                      className="rounded-md p-2 font-semibold text-gray-300 hover:bg-gray-900/50"
+                    >
+                      Member of the Month
                     </Disclosure.Button>
                   </Link>
 

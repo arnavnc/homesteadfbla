@@ -8,16 +8,16 @@ export default function OfficerCard({ name, position, bio, quote, image }) {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
-        // Listen for authentication state changes
+
         const unsubscribe = auth.onAuthStateChanged((user) => {
             setIsLoggedIn(!!user); // Set true if user is logged in, otherwise false
         });
 
-        // Cleanup subscription on unmount
+
         return () => unsubscribe();
     }, []);
 
-    // Determine which image to show based on authentication status
+
     const imageSrc = isLoggedIn ? `/static/headshots/${image}.JPG` : `/static/headshots/default.JPG`;
 
     return (
