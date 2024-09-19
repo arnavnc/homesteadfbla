@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from 'react';
-import { getFirestore, doc, updateDoc, getDoc, setDoc, increment, runTransaction } from 'firebase/firestore';
+import { getFirestore, doc, updateDoc, getDoc, setDoc, increment, runTransaction } from 'firebase/firestore'; // Import runTransaction here
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../firebase';
 import Nav from '@/components/nav';
@@ -88,44 +88,56 @@ export default function PointsPage() {
     }
   };
 
-    const addActivityPoint = async () => {
-      if (isSubmitting) return; // Prevent multiple submissions
-      setIsSubmitting(true); // Set submitting state
-    
-      if (user) {
-        const db = getFirestore();
-        const userRef = pointType === 'regular'
-          ? doc(db, 'activityPoints', user.uid)
-          : doc(db, 'writtenActivityPoints', user.uid); // Adjust for written activity points
-    
-        try {
-          await runTransaction(db, async (transaction) => {
-            const userSnap = await transaction.get(userRef);
-            const usedCodes = userSnap.exists() ? userSnap.data().usedCodes || [] : [];
-    
-            // If the code was already used, throw an error
-            if (usedCodes.includes(secretCode)) {
-              throw new Error('Code already used.');
-            }
-    
-            // Update points and mark code as used
-            transaction.update(userRef, {
-              activityPoints: increment(pointsValue),
-              usedCodes: [...usedCodes, secretCode],
+  const addActivityPoint = async () => {
+    if (isSubmitting) return; // Prevent multiple submissions
+    setIsSubmitting(true); // Set submitting state
+  
+    if (user) {
+      const db = getFirestore();
+      const userRef = pointType === 'regular'
+        ? doc(db, 'activityPoints', user.uid)
+        : doc(db, 'writtenActivityPoints', user.uid); // Adjust for written activity points
+  
+      try {
+        await runTransaction(db, async (transaction) => { // Correct use of runTransaction
+          const userSnap = await transaction.get(userRef);
+  
+          // If the document doesn't exist, create it
+          if (!userSnap.exists()) {
+            transaction.set(userRef, {
+              name: user.displayName,
+              activityPoints: 0,
+              usedCodes: [],
+              email: user.email,
             });
+          }
+  
+          const usedCodes = userSnap.exists() ? userSnap.data().usedCodes || [] : [];
+  
+          // If the code was already used, throw an error
+          if (usedCodes.includes(secretCode)) {
+            throw new Error('Code already used.');
+          }
+  
+          // Update points and mark code as used
+          transaction.update(userRef, {
+            activityPoints: increment(pointsValue),
+            usedCodes: [...usedCodes, secretCode],
           });
-    
-          console.log("Activity point(s) added successfully.");
-          setCodeVerified(false);
-          setSecretCode('');
-        } catch (e) {
-          console.error("Error adding activity point: ", e);
-          setErrorMessage(e.message);
-        } finally {
-          setIsSubmitting(false);
-        }
+        });
+  
+        // Success handling
+        console.log("Activity point(s) added successfully.");
+        setCodeVerified(false);
+        setSecretCode('');
+      } catch (e) {
+        console.error("Error adding activity point: ", e);
+        setErrorMessage(e.message);
+      } finally {
+        setIsSubmitting(false); // Re-enable the form
       }
-    };
+    }
+  };
 
   // Debounce functions to prevent rapid clicks
   const debounceVerifyCode = debounce(verifyCode, 100); // Prevent double submission in 1 second
