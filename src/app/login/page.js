@@ -80,12 +80,13 @@ const LoginPage = () => {
       
       <main className="lg:flex justify-evenly">
         <div className="flex flex-col text-center items-center lg:items-center lg:text-center justify-center pt-7 lg:pt-0 lg:h-[45vh] py-2 px-5 md:px-20 space-y-[-25px]">
-          <div className="bg-watermelon-red p-10 rounded-2xl w-50 justify-center bg-opacity-50 pt-6 border-4 border-watermelon-red border-opacity-50">
+          <div className="bg-watermelon-red p-10 rounded-2xl w-50 justify-center bg-opacity-50 pt-6 border-4 border-watermelon-red border-opacity-50 pb-4">
             <h1 className="mb-2 text-3xl font-semibold mt-0">
               Login to Homestead FBLA!
             </h1>
-            <p className="text-base text-gray-300 mb-6">*You must use your school email</p>
-            
+            <p className="text-base text-gray-300">*You must use your school email</p>
+            {/* <p className="text-gray-300 mb-2">*If login is not working <a href="https://forms.gle/qWu2PN4xwrWAFKem7" className="text-red-400 underline">fill out this form</a></p> */}
+            <p className="text-gray-300 mb-2">*<a href="https://forms.gle/qWu2PN4xwrWAFKem7" className="text-red-400 underline">Fill out this form</a> if login is not working </p>
             <div className="flex justify-center">
               <button
                 onClick={handleGoogleSignIn}
@@ -114,9 +115,7 @@ const LoginPage = () => {
             </div>
             
             <div className="flex flex-row justify-center mt-4 mb-0">
-              <p>Don&apos;t have an account?</p>
-              <span className="text-transparent">l</span>
-              <a href="/register" className="text-red-300 underline">Sign up here!</a>
+              <p>Don&apos;t have an account? <a href="/register" className="text-red-300 underline">Sign up here!</a></p>
             </div>
           </div>
         </div>
