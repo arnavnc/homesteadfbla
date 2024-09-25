@@ -15,6 +15,11 @@ module.exports = {
         'watermelon-red': '#B23A48',
         'melon': '#FCB9B2',
         'warm-beige': '#FED0BB',
+        // 'dark-chocolate': '#FAF1E4',
+        // 'red-violet': '#CEDEBD',
+        // 'watermelon-red': '#9EB384',
+        // 'melon': '#435334',
+        // 'warm-beige': '#243010',
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

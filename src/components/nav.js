@@ -88,7 +88,7 @@ const Nav = () => {
                   href="/mentors"
                   className="rounded-md p-2 font-semibold text-dimWhite hover:text-watermelon-red ease-linear duration-300"
                 >
-                  Mentors (Soon!)
+                  Mentors
                 </Link>
                 <Link
                   href="/press"

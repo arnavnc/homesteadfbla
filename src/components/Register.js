@@ -47,6 +47,14 @@ const theme = createTheme({
   },
 });
 
+function containsUppercase(str) {
+  return /[A-Z]/.test(str);
+}
+
+function containsFirstUppercase(str) {
+  return /[A-Z]/.test(str.slice(0,1));
+}
+
 export default function Register() {
   const [state, setState] = useState({
     firstName: "",
@@ -75,7 +83,10 @@ export default function Register() {
       state.key &&
       validKeys.includes(state.key) &&
       state.email.includes(".fuhsd.org") &&
-      state.id.length == 7
+      state.id.length == 7 && 
+      !containsUppercase(state.email) &&
+      containsFirstUppercase(state.firstName)&&
+      containsFirstUppercase(state.lastName)
     );
   };
 
@@ -95,6 +106,16 @@ export default function Register() {
         setState({
           ...state,
           buttonText: "Please use a valid student ID",
+        });
+      }else if(containsUppercase(state.email)){
+        setState({
+          ...state,
+          buttonText: "Email must be all lowercase",
+        });
+      }else if(!containsFirstUppercase(state.firstName)|| !containsFirstUppercase(state.lastName)){
+        setState({
+          ...state,
+          buttonText: "First and last name must be capitalized",
         });
       }else {
         setState({
