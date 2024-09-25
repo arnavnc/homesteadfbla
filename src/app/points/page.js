@@ -23,6 +23,9 @@ export default function PointsPage() {
   const [pointsValue, setPointsValue] = useState(0); // New state for points value
   const [pointType, setPointType] = useState('regular'); // New state to manage point type
   const [isSubmitting, setIsSubmitting] = useState(false); // State to prevent multiple submissions
+  const [pastCodes, setPastCodes] = useState([]); // State to store past codes
+  const [showPastCodes, setShowPastCodes] = useState(false); // State to toggle past codes view
+  const [showCodes, setShowCodes] = useState(false); // State to toggle visibility
 
   const fetchUsedCodes = async () => {
     if (user) {
@@ -52,16 +55,28 @@ export default function PointsPage() {
     const pointCodesSnapshot = await getDoc(pointCodesCollection);
     if (pointCodesSnapshot.exists()) {
       const codesData = pointCodesSnapshot.data();
-      setPointCodes(codesData.codes);
-      setWrittenPointCodes(codesData.writtenCodes); // Fetch written practice session codes
+      setPointCodes(codesData.codes); // Only fetch current regular codes
+      setWrittenPointCodes(codesData.writtenCodes); // Only fetch current written codes
     } else {
       console.log("No document found");
+    }
+  };
+
+  const fetchPastCodes = async () => {
+    const db = getFirestore();
+    const pastCodesRef = doc(db, 'pointCodes', 'Past Codes (Do not use again)');
+    const pastCodesSnapshot = await getDoc(pastCodesRef);
+    if (pastCodesSnapshot.exists()) {
+      setPastCodes(pastCodesSnapshot.data()["past codes"] || []);
+    } else {
+      console.log("No past codes found");
     }
   };
 
   useEffect(() => {
     fetchUsedCodes();
     fetchPointCodes();
+    fetchPastCodes();
   }, [user]);
 
   const verifyCode = async () => {
@@ -209,6 +224,14 @@ export default function PointsPage() {
     fetchPointCodes();
   };
 
+  const togglePastCodes = () => {
+    setShowPastCodes(!showPastCodes);
+  };
+
+  const toggleCodesVisibility = () => {
+    setShowCodes(!showCodes);
+  };
+
   return (
     <>
       <main className="flex flex-col min-h-screen">
@@ -251,37 +274,68 @@ export default function PointsPage() {
               </button>
             )}
             {errorMessage && <p className="text-red-500 mt-2">{errorMessage}</p>}
-            {(authType === 'officer' || authType === 'tech') && (
-              <div className="container flex flex-col bg-red-violet/40 border border-opacity-15 border-watermelon-red mt-8 px-5 py-6 rounded-lg shadow-xl">
-                <h1 className="text-center mb-1 text-2xl sm:text-3xl font-bold text-white">Generate Code</h1>
-                <div className="flex flex-col items-center space-y-4 w-full mt-4">
-                  <input
-                    type="text"
-                    placeholder="ex. CSPM1 or GM1"
-                    value={activityName}
-                    onChange={(e) => setActivityName(e.target.value.replace(/\s/g, ''))}
-                    className="border p-2 rounded text-black placeholder:text-gray-700 focus:outline-none w-full bg-red-100/90"
-                  />
-                  <input
-                    type="number"
-                    placeholder="Enter point value"
-                    value={pointsValue}
-                    onChange={(e) => setPointsValue(Number(e.target.value))}
-                    className="border p-2 rounded text-black placeholder:text-gray-700 focus:outline-none w-full bg-red-100/90"
-                    min="1"
-                  />
-                    <button 
-                      onClick={addNewCodeToFirestore} 
-                      className="p-2 bg-red-violet text-white rounded w-full shadow-lg hover:scale-105 
-                      hover:brightness-105 duration-150">
-                      Generate new code
-                    </button>
-                    {generatedCode && (
-                      <p className="text-white mt-2 flex flex-col">New code generated: <strong>{generatedCode}</strong></p>
-                    )}
-                </div>
+          {(authType === 'officer' || authType === 'tech') && (
+            <div className="container flex flex-col bg-red-violet/40 border border-opacity-15 border-watermelon-red mt-8 px-5 py-6 rounded-lg shadow-xl">
+              <h1 className="text-center mb-1 text-2xl sm:text-3xl font-bold text-white">Generate Code</h1>
+              <div className="flex flex-col items-center space-y-4 w-full mt-4">
+                <input
+                  type="text"
+                  placeholder="ex. CSPM1 or GM1"
+                  value={activityName}
+                  onChange={(e) => setActivityName(e.target.value.replace(/\s/g, ''))}
+                  className="border p-2 rounded text-black placeholder:text-gray-700 focus:outline-none w-full bg-red-100/90"
+                />
+                <input
+                  type="number"
+                  placeholder="Enter point value"
+                  value={pointsValue}
+                  onChange={(e) => setPointsValue(Number(e.target.value))}
+                  className="border p-2 rounded text-black placeholder:text-gray-700 focus:outline-none w-full bg-red-100/90"
+                  min="1"
+                />
+                <button 
+                  onClick={addNewCodeToFirestore} 
+                  className="p-2 bg-red-violet text-white rounded w-full shadow-lg hover:scale-105 
+                  hover:brightness-105 duration-150">
+                  Generate new code
+                </button>
+                {generatedCode && (
+                  <p className="text-white mt-2 flex flex-col">New code generated: <strong>{generatedCode}</strong></p>
+                )}
+
+                {/* Toggle Button to show/hide codes */}
+                <button 
+                  onClick={toggleCodesVisibility}
+                  className="p-2 bg-red-violet text-white rounded w-full shadow-lg hover:scale-105 hover:brightness-105 duration-150 mt-4">
+                  {showCodes ? 'Hide Codes' : 'Show Codes'}
+                </button>
+
+                {/* Conditionally render codes */}
+                {showCodes && (
+                  <div className="text-white mt-4 w-full">
+                    {/* Regular Codes Section */}
+                    <h2 className="text-lg font-bold">Regular Codes:</h2>
+                    <ul className="list-disc pl-4">
+                      {pointCodes.map((code, index) => (
+                        <li key={index}>{code.code}</li>
+                      ))}
+                    </ul>
+
+                    {/* Separator Line */}
+                    <hr className="border-t border-watermelon-red/60 my-4 w-full" />
+
+                    {/* Written Codes Section */}
+                    <h2 className="text-lg font-bold">Written Competitor Codes:</h2>
+                    <ul className="list-disc pl-4">
+                      {writtenPointCodes.map((code, index) => (
+                        <li key={index}>{code.code}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </div>
-            )}
+            </div>
+          )}
           </div>
         </div>
         <Footer />
