@@ -8,6 +8,8 @@ import Footer from '@/components/footer';
 import Image from 'next/image';
 import Officers from "../../../public/static/officers.jpg";
 import debounce from 'lodash/debounce'; // Import debounce
+import Link from "next/link";
+
 
 export default function PointsPage() {
   const [user, loading, error] = useAuthState(auth);
@@ -26,8 +28,10 @@ export default function PointsPage() {
   const [pastCodes, setPastCodes] = useState([]); // State to store past codes
   const [showPastCodes, setShowPastCodes] = useState(false); // State to toggle past codes view
   const [showCodes, setShowCodes] = useState(false); // State to toggle visibility
+  
 
   const fetchUsedCodes = async () => {
+    
     if (user) {
       const db = getFirestore();
       const userRef = doc(db, 'activityPoints', user.uid);
@@ -241,6 +245,7 @@ export default function PointsPage() {
         draggable={false}
       />
         <Nav />
+        {(user) && (
         <div className="flex flex-col text-center items-center justify-center flex-grow py-12 px-5 md:px-20 space-y-6 lg:space-y-12">
           <div className="container flex flex-col items-center mx-auto p-6 bg-red-violet/60 rounded-lg w-full sm:w-3/4 md:w-1/2 lg:w-1/3 border-2 border-watermelon-red/40 shadow-2xl">
             <h1 className="text-2xl sm:text-3xl font-bold mb-6 text-white">Get Activity Points!</h1>
@@ -338,6 +343,21 @@ export default function PointsPage() {
           )}
           </div>
         </div>
+        )}
+        {(!user) && (
+        <div className="flex flex-col text-center items-center justify-center flex-grow py-12 px-5 md:px-20 space-y-6 lg:space-y-12">
+          <div className = "container flex flex-col items-center mx-auto p-6 bg-red-violet/60 rounded-lg w-full sm:w-3/4 md:w-1/2 lg:w-1/3 border-2 border-watermelon-red/40 shadow-2xl text-3xl">
+             <p>You are not logged in. Please login to get Activity Points!</p>
+            <Link
+              href="./login"
+              className="border-2 border-watermelon-red hover:bg-watermelon-red ease-linear duration-200 cursor-pointer w-fit p-3 text-xl rounded-xl mt-8"
+            >
+              Go to Login Page
+            </Link>
+          </div>
+
+        </div>
+        )}
         <Footer />
       </main>
     </>
