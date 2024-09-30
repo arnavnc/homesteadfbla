@@ -174,6 +174,14 @@ let mentors = [
         desc : "Hello everyone! I'm Leah, and I am currently a sophomore. Some fun facts about me are that I love to play tennis, ski, and get boba with my friends!",
         image : "default"
     },
+    // {
+    //     name : "",
+    //     type : "",
+    //     competitions : "",
+    //     desc : "",
+    //     image : ""
+    // },
+ 
 ]
 
 

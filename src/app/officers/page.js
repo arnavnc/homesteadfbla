@@ -21,7 +21,7 @@ export default function Officers() {
                  className="text-md font-light text-purple-400">The Operations Team is responsible for managing both internal and external communications for the club. They handle logistical tasks like coordinating conferences, overseeing finances, and planning events. Known for their approachable demeanor, they serve as a friendly point of contact within Homestead FBLA.</p>
             </div>
             <div className="border-2  rounded-md border-yellow-600 bg-yellow-600 bg-opacity-10 px-4 py-3">
-                <h1 className="text-lg font-bold text-yellow-600">Competions Team</h1>
+                <h1 className="text-lg font-bold text-yellow-600">Competitions Team</h1>
                 <p className="text-md font-light text-yellow-400">The Competitions Team specializes in managing all competition-related activities throughout the year. This includes conducting tryouts, organizing vetting sessions, and hosting mentorship workshops. Each officer on this team is an expert in a specific type of competition, ensuring a high level of expertise.</p>
             </div>
             <div className="border-2  rounded-md border-orange-600 bg-orange-600 bg-opacity-10 px-4 py-3">

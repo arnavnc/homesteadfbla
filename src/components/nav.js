@@ -82,7 +82,7 @@ const Nav = () => {
                   href="/competitions"
                   className="rounded-md p-2 font-semibold text-dimWhite hover:text-watermelon-red ease-linear duration-150"
                 >
-                  Competitions History
+                  Competition Information
                 </Link>
                 <Link
                   href="/mentors"

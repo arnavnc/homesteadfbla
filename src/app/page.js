@@ -94,7 +94,7 @@ export default function Home() {
             </p>
 
             <Link
-              href="/competitions"
+              href="/compHistory"
               className="border-2  border-watermelon-red hover:bg-watermelon-red 
               ease-linear duration-200 cursor-pointer w-fit p-3 lg:text-[15px] text-sm rounded-xl"
             >
