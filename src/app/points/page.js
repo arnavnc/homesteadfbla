@@ -217,11 +217,20 @@ export default function PointsPage() {
       }
   
       // Update Firestore with the new arrays
-      await setDoc(pointCodesRef, {
-        codes: currentCodes,
-        writtenCodes: writtenCurrentCodes,
-        permanentCodes: permanentCodes // Always update permanentCodes
-      }, { merge: true });
+      if (pointType === 'regular' && currentCodes.length > 4) {
+        const removedCode = currentCodes.shift();
+        const pastCodesSnap = await getDoc(pastCodesRef);
+        let pastCodes = pastCodesSnap.exists() ? pastCodesSnap.data()["past codes"] : [];
+        pastCodes.push(removedCode.code);
+        await setDoc(pastCodesRef, { "past codes": pastCodes }, { merge: true });
+      } else if (writtenCurrentCodes.length > 4) {
+        const removedCode = writtenCurrentCodes.shift();
+        const pastCodesSnap = await getDoc(pastCodesRef);
+        let pastCodes = pastCodesSnap.exists() ? pastCodesSnap.data()["past codes"] : [];
+        pastCodes.push(removedCode.code);
+        await setDoc(pastCodesRef, { "past codes": pastCodes }, { merge: true });
+      }
+      await setDoc(pointCodesRef, { codes: currentCodes, writtenCodes: writtenCurrentCodes }, { merge: true });
   
       setGeneratedCode(combinedCode);
     } catch (e) {
@@ -370,6 +379,18 @@ export default function PointsPage() {
                       ))}
                     </ul>
 
+                  {/* Separator Line */}
+                  <hr className="border-t border-watermelon-red/60 my-4 w-full" />
+
+                  {/* Written Codes Section */}
+                  <h2 className="text-lg font-bold">Permanent Activity Codes:</h2>
+                  <ul className="list-disc pl-4">
+                    {permanentCodes.map((code, index) => (
+                      <li key={index}>{code.code}</li>
+                    ))}
+
+
+                  </ul>
                     {/* Separator Line */}
                     <hr className="border-t border-watermelon-red/60 my-4 w-full" />
 
