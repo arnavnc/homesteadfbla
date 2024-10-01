@@ -10,7 +10,6 @@ import Officers from "../../../public/static/officers.jpg";
 import debounce from 'lodash/debounce'; // Import debounce
 import Link from "next/link";
 
-
 export default function PointsPage() {
   const [user, loading, error] = useAuthState(auth);
   const [secretCode, setSecretCode] = useState('');
@@ -191,54 +190,6 @@ export default function PointsPage() {
     return result;
   };
 
-  // const addNewCodeToFirestore = async () => {
-  //   if (!activityName.trim() || pointsValue <= 0) {
-  //     setErrorMessage('Activity name and a positive point value are required');
-  //     return;
-  //   }
-
-  //   const newCode = await generateRandomCode();
-  //   const combinedCode = `${activityName.toUpperCase()}-${newCode}`;
-  //   const db = getFirestore();
-  //   const pointCodesRef = doc(db, 'pointCodes', 'Current Codes');
-  //   const pastCodesRef = doc(db, 'pointCodes', 'Past Codes (Do not use again)');
-
-  //   try {
-  //     const pointCodesSnap = await getDoc(pointCodesRef);
-  //     let currentCodes = pointCodesSnap.exists() ? pointCodesSnap.data().codes || [] : [];
-  //     let writtenCurrentCodes = pointCodesSnap.exists() ? pointCodesSnap.data().writtenCodes || [] : [];
-
-  //     if (pointType === 'regular') {
-  //       currentCodes.push({ code: combinedCode, points: pointsValue });
-  //     } else {
-  //       writtenCurrentCodes.push({ code: combinedCode, points: pointsValue });
-  //     }
-
-  //     // If the number of current codes exceeds the limit, move the oldest code to past codes
-  //     if (pointType === 'regular' && currentCodes.length > 4) {
-  //       const removedCode = currentCodes.shift();
-  //       const pastCodesSnap = await getDoc(pastCodesRef);
-  //       let pastCodes = pastCodesSnap.exists() ? pastCodesSnap.data()["past codes"] : [];
-  //       pastCodes.push(removedCode.code);
-  //       await setDoc(pastCodesRef, { "past codes": pastCodes }, { merge: true });
-  //     } else if (writtenCurrentCodes.length > 4) {
-  //       const removedCode = writtenCurrentCodes.shift();
-  //       const pastCodesSnap = await getDoc(pastCodesRef);
-  //       let pastCodes = pastCodesSnap.exists() ? pastCodesSnap.data()["past codes"] : [];
-  //       pastCodes.push(removedCode.code);
-  //       await setDoc(pastCodesRef, { "past codes": pastCodes }, { merge: true });
-  //     }
-
-  //     await setDoc(pointCodesRef, { codes: currentCodes, writtenCodes: writtenCurrentCodes }, { merge: true });
-  //     setGeneratedCode(combinedCode);
-  //   } catch (e) {
-  //     console.error("Error adding new code to Firestore: ", e);
-  //     setErrorMessage("An error occurred while generating the code. Please try again.");
-  //   }
-
-  //   fetchPointCodes();
-  // };
-
   const addNewCodeToFirestore = async () => {
     if (!activityName.trim() || pointsValue <= 0) {
       setErrorMessage('Activity name and a positive point value are required');
@@ -351,22 +302,25 @@ export default function PointsPage() {
                   onChange={(e) => {
                     const selectedValue = e.target.value;
                     setSelectedPointType(selectedValue);
-                    if (selectedValue !== 'other' && selectedValue !== 'permanent') {
-                      setPointsValue(Number(selectedValue)); // Set points directly if not "other"
+
+                    const pointValue = parseInt(selectedValue.split('-')[0], 10);
+                    
+                    if (!isNaN(pointValue)) {
+                      setPointsValue(pointValue);
                     } else {
-                      setPointsValue(0); // Set to 0 initially for "other"
+                      setPointsValue(0);
                     }
                   }}
                 >
                   <option value="" disabled>--Point Value--</option>
-                  <option value="2">Regular GM/PM (2)</option>
-                  <option value="2">Lunch Workshop (2)</option>
-                  <option value="2">On Campus School Event (2)</option>
-                  <option value="3">Off Campus School Event (3)</option>
-                  <option value="5">FBLA-PBL Week Activity (5 per hour)</option>
-                  <option value="20">Bay Section Leadership Conference (20)</option>
-                  <option value="30">State Leadership Conference (30)</option>
-                  <option value="35">National Leadership Conference (35)</option>
+                  <option value="2-regular">Regular GM/PM (2)</option>
+                  <option value="2-lunch">Lunch Workshop (2)</option>
+                  <option value="2-on-campus">On Campus School Event (2)</option>
+                  <option value="3-off-campus">Off Campus School Event (3)</option>
+                  <option value="5-fbla-week">FBLA-PBL Week Activity (5 per hour)</option>
+                  <option value="20-bay">Bay Section Leadership Conference (20)</option>
+                  <option value="30-state">State Leadership Conference (30)</option>
+                  <option value="35-national">National Leadership Conference (35)</option>
                   <option value="other">Other (choose point value)</option>
                   <option value="permanent">Permanent Code (choose point value)</option>
                 </select>
