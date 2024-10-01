@@ -20,7 +20,7 @@ export default function Competition() {
             <h1 className="text-4xl md:text-5xl mb-4 font-bold text-center">
               Competitive Information
             </h1>
-            <p className="text-xl md:text-2xl font-light max-w-3xl text-center">
+            <p className="text-xl md:text-2xl font-normal max-w-3xl text-center">
               Learn more about our competitive history, upcoming events, and
               resources to help you succeed in FBLA competitions.
             </p>
