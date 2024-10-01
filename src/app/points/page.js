@@ -208,7 +208,6 @@ export default function PointsPage() {
       let permanentCodes = pointCodesSnap.exists() ? pointCodesSnap.data().permanentCodes || [] : [];
   
       if (selectedPointType === 'permanent') {
-        // Add to permanentCodes array with custom point value
         permanentCodes.push({ code: combinedCode, points: pointsValue });
       } else if (pointType === 'regular') {
         currentCodes.push({ code: combinedCode, points: pointsValue });
@@ -216,33 +215,22 @@ export default function PointsPage() {
         writtenCurrentCodes.push({ code: combinedCode, points: pointsValue });
       }
   
-      // Update Firestore with the new arrays
-      if (pointType === 'regular' && currentCodes.length > 4) {
-        const removedCode = currentCodes.shift();
-        const pastCodesSnap = await getDoc(pastCodesRef);
-        let pastCodes = pastCodesSnap.exists() ? pastCodesSnap.data()["past codes"] : [];
-        pastCodes.push(removedCode.code);
-        await setDoc(pastCodesRef, { "past codes": pastCodes }, { merge: true });
-      } else if (writtenCurrentCodes.length > 4) {
-        const removedCode = writtenCurrentCodes.shift();
-        const pastCodesSnap = await getDoc(pastCodesRef);
-        let pastCodes = pastCodesSnap.exists() ? pastCodesSnap.data()["past codes"] : [];
-        pastCodes.push(removedCode.code);
-        await setDoc(pastCodesRef, { "past codes": pastCodes }, { merge: true });
-      }
-      await setDoc(pointCodesRef, { codes: currentCodes, writtenCodes: writtenCurrentCodes }, { merge: true });
+      await setDoc(pointCodesRef, {
+        codes: currentCodes,
+        writtenCodes: writtenCurrentCodes,
+        permanentCodes: permanentCodes
+      }, { merge: true });
   
       setGeneratedCode(combinedCode);
+      setErrorMessage(''); // Clear any previous error messages
     } catch (e) {
       console.error("Error adding new code to Firestore: ", e);
-      setErrorMessage("An error occurred while generating the code. Please try again.");
+      setErrorMessage(`Error occurred: ${e.message}`); // Provide detailed error message
     }
   
     fetchPointCodes(); // Refresh the codes
-  };
+  };  
   
-  
-
   const togglePastCodes = () => {
     setShowPastCodes(!showPastCodes);
   };
