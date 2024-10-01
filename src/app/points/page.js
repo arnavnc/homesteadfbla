@@ -311,6 +311,11 @@ export default function PointsPage() {
                   onChange={(e) => {
                     const selectedValue = e.target.value;
                     setSelectedPointType(selectedValue);
+                    if (selectedValue !== 'other' && selectedValue !== 'permanent') {
+                      setPointsValue(Number(selectedValue)); // Set points directly if not "other"
+                    } else {
+                      setPointsValue(0); // Set to 0 initially for "other"
+                    }
 
                     const pointValue = parseInt(selectedValue.split('-')[0], 10);
                     
