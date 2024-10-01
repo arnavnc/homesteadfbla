@@ -207,6 +207,8 @@ export default function PointsPage() {
       let writtenCurrentCodes = pointCodesSnap.exists() ? pointCodesSnap.data().writtenCodes || [] : [];
       let permanentCodes = pointCodesSnap.exists() ? pointCodesSnap.data().permanentCodes || [] : [];
   
+
+
       if (selectedPointType === 'permanent') {
         permanentCodes.push({ code: combinedCode, points: pointsValue });
       } else if (pointType === 'regular') {
@@ -214,13 +216,28 @@ export default function PointsPage() {
       } else {
         writtenCurrentCodes.push({ code: combinedCode, points: pointsValue });
       }
-  
-      await setDoc(pointCodesRef, {
-        codes: currentCodes,
-        writtenCodes: writtenCurrentCodes,
-        permanentCodes: permanentCodes
-      }, { merge: true });
-  
+      if (pointType === 'regular' && currentCodes.length > 4) {
+        const removedCode = currentCodes.shift();
+        const db = getFirestore();
+        const pastCodesRef = doc(db, 'pointCodes', 'Past Codes (Do not use again)');
+        const pastCodesSnap = await getDoc(pastCodesRef);
+        console.log("Printing:" + pastCodesSnap);
+        let pastCodes = pastCodesSnap.exists() ? pastCodesSnap.data()["past codes"] : [];
+        pastCodes.push(removedCode.code);
+        await setDoc(pastCodesRef, { "past codes": pastCodes }, { merge: true });
+      } else if (writtenCurrentCodes.length > 4) {
+        const removedCode = writtenCurrentCodes.shift();
+        const db = getFirestore();
+        const pastCodesRef = doc(db, 'pointCodes', 'Past Codes (Do not use again)');
+        const pastCodesSnap = await getDoc(pastCodesRef);
+        let pastCodes = pastCodesSnap.exists() ? pastCodesSnap.data()["past codes"] : [];
+        pastCodes.push(removedCode.code);
+        await setDoc(pastCodesRef, { "past codes": pastCodes }, { merge: true });
+      }
+      await setDoc(pointCodesRef, { codes: currentCodes, writtenCodes: writtenCurrentCodes, permanentCodes: permanentCodes }, { merge: true });
+
+
+
       setGeneratedCode(combinedCode);
       setErrorMessage(''); // Clear any previous error messages
     } catch (e) {
