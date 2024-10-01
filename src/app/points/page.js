@@ -363,7 +363,7 @@ export default function PointsPage() {
                   <option value="2">Lunch Workshop (2)</option>
                   <option value="2">On Campus School Event (2)</option>
                   <option value="3">Off Campus School Event (3)</option>
-                  <option value="5">FBLA-PBL Week Activity (5 per hour)</option>
+                  <option value="5">FBLA-PBL Week Activity (5)</option>
                   <option value="20">Bay Section Leadership Conference (20)</option>
                   <option value="30">State Leadership Conference (30)</option>
                   <option value="35">National Leadership Conference (35)</option>
