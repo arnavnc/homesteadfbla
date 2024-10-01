@@ -20,17 +20,17 @@ export default function Competition() {
           <div className="grid grid-cols-1 gap-6 md:grid-cols-1 lg:grid-cols-3 justify-items-center mt-6 mb-8">
             {/** Grid Items with Equal Size */}
             <div className="bg-red-violet bg-opacity-40 p-6 md:p-10 rounded-2xl m-4 border-2 border-red-violet flex justify-center items-center w-full">
-              <Link href="/compHistory" className="bg-dark-chocolate border-2 border-watermelon-red hover:bg-watermelon-red ease-linear duration-200 cursor-pointer w-full text-center py-4 text-sm md:text-base lg:text-[20px] rounded-xl max-w-[200px]">
+              <Link href="/compHistory" className="bg-dark-chocolate border-2 border-watermelon-red hover:bg-watermelon-red ease-linear duration-200 cursor-pointer w-full text-center py-4 text-xl rounded-xl max-w-48 px-2">
                 Competitive History
               </Link>
             </div>
             <div className="bg-red-violet bg-opacity-40 p-6 md:p-10 rounded-2xl m-4 border-2 border-red-violet flex justify-center items-center w-full">
-              <Link href="/countdown" className="bg-dark-chocolate border-2 border-watermelon-red hover:bg-watermelon-red ease-linear duration-200 cursor-pointer w-full text-center py-4 text-sm md:text-base lg:text-[20px] rounded-xl max-w-[200px]">
+              <Link href="/countdown" className="bg-dark-chocolate border-2 border-watermelon-red hover:bg-watermelon-red ease-linear duration-200 cursor-pointer w-full text-center py-4 text-xl rounded-xl max-w-[200px]">
                 Tryout Form Countdown
               </Link>
             </div>
             <div className="bg-red-violet bg-opacity-40 p-6 md:p-10 rounded-2xl m-4 border-2 border-red-violet flex justify-center items-center w-full">
-              <Link href="/" className="bg-dark-chocolate border-2 border-watermelon-red hover:bg-watermelon-red ease-linear duration-200 cursor-pointer w-full text-center py-4 text-sm md:text-base lg:text-[20px] rounded-xl max-w-[200px]">
+              <Link href="/" className="bg-dark-chocolate border-2 border-watermelon-red hover:bg-watermelon-red ease-linear duration-200 cursor-pointer w-full text-center py-4 text-xl rounded-xl max-w-[200px] ">
                 Competition Resources (Soon)
               </Link>
             </div>

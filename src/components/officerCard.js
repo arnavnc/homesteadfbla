@@ -18,8 +18,8 @@ export default function OfficerCard({ name, position, bio, quote, image }) {
     }, []);
 
 
-    const imageSrc = isLoggedIn ? `/static/headshots/${image}.JPG` : `/static/headshots/default.JPG`;
-
+    // const imageSrc = isLoggedIn ? `/static/headshots/${image}.JPG` : `/static/headshots/default.JPG`;
+    const imageSrc = `/static/headshots/${image}.JPG`;
     return (
         <figure className="md:flex bg-white bg-opacity-5 rounded-xl p-8 md:p-0">
             <div className="pt-6 md:p-8 text-center md:text-left space-y-4 h-fit">

@@ -19,16 +19,19 @@ export default function PointsPage() {
   const [usedCodes, setUsedCodes] = useState([]);
   const [pointCodes, setPointCodes] = useState([]);
   const [writtenPointCodes, setWrittenPointCodes] = useState([]); // For written practice session points
+  const [permanentPointCodes, setPermanentPointCodes] = useState([]); // For permanent codes
   const [authType, setAuthType] = useState('');
   const [generatedCode, setGeneratedCode] = useState('');
   const [activityName, setActivityName] = useState('');
-  const [pointsValue, setPointsValue] = useState(0); // New state for points value
   const [pointType, setPointType] = useState('regular'); // New state to manage point type
   const [isSubmitting, setIsSubmitting] = useState(false); // State to prevent multiple submissions
   const [pastCodes, setPastCodes] = useState([]); // State to store past codes
   const [showPastCodes, setShowPastCodes] = useState(false); // State to toggle past codes view
   const [showCodes, setShowCodes] = useState(false); // State to toggle visibility
-  
+
+  const [permanentCodes, setPermanentCodes] = useState([]); // State to store permanent codes
+  const [selectedPointType, setSelectedPointType] = useState(''); // For dropdown value
+  const [pointsValue, setPointsValue] = useState(0); // For actual points value
 
   const fetchUsedCodes = async () => {
     
@@ -56,11 +59,13 @@ export default function PointsPage() {
   const fetchPointCodes = async () => {
     const db = getFirestore();
     const pointCodesCollection = doc(db, 'pointCodes', 'Current Codes');
+  
     const pointCodesSnapshot = await getDoc(pointCodesCollection);
     if (pointCodesSnapshot.exists()) {
       const codesData = pointCodesSnapshot.data();
-      setPointCodes(codesData.codes); // Only fetch current regular codes
-      setWrittenPointCodes(codesData.writtenCodes); // Only fetch current written codes
+      setPointCodes(codesData.codes); // Fetch regular codes
+      setWrittenPointCodes(codesData.writtenCodes); // Fetch written codes
+      setPermanentCodes(codesData.permanentCodes); // Fetch permanent codes
     } else {
       console.log("No document found");
     }
@@ -86,15 +91,21 @@ export default function PointsPage() {
   const verifyCode = async () => {
     if (isSubmitting) return; // Prevent multiple submissions
     setIsSubmitting(true); // Set submitting state
-
+  
     if (usedCodes.includes(secretCode)) {
       setErrorMessage('This code has been used already');
       setIsSubmitting(false);
     } else {
-      const matchedCode = pointType === 'regular'
-        ? pointCodes.find(code => code.code === secretCode)
-        : writtenPointCodes.find(code => code.code === secretCode); // Adjust for written codes
-
+      // Check both the regular codes and permanent codes for the "Regular Activity Points" option
+      let matchedCode;
+      
+      if (pointType === 'regular') {
+        matchedCode = pointCodes.find(code => code.code === secretCode)
+                     || permanentCodes.find(code => code.code === secretCode); // Search in both regular and permanent codes
+      } else {
+        matchedCode = writtenPointCodes.find(code => code.code === secretCode); // Only check written codes for written type
+      }
+  
       if (matchedCode) {
         setCodeVerified(true);
         setErrorMessage('');
@@ -102,11 +113,11 @@ export default function PointsPage() {
       } else {
         setErrorMessage('Invalid code');
       }
-
+  
       setIsSubmitting(false);
     }
   };
-
+  
   const addActivityPoint = async () => {
     if (isSubmitting) return; // Prevent multiple submissions
     setIsSubmitting(true); // Set submitting state
@@ -180,53 +191,97 @@ export default function PointsPage() {
     return result;
   };
 
+  // const addNewCodeToFirestore = async () => {
+  //   if (!activityName.trim() || pointsValue <= 0) {
+  //     setErrorMessage('Activity name and a positive point value are required');
+  //     return;
+  //   }
+
+  //   const newCode = await generateRandomCode();
+  //   const combinedCode = `${activityName.toUpperCase()}-${newCode}`;
+  //   const db = getFirestore();
+  //   const pointCodesRef = doc(db, 'pointCodes', 'Current Codes');
+  //   const pastCodesRef = doc(db, 'pointCodes', 'Past Codes (Do not use again)');
+
+  //   try {
+  //     const pointCodesSnap = await getDoc(pointCodesRef);
+  //     let currentCodes = pointCodesSnap.exists() ? pointCodesSnap.data().codes || [] : [];
+  //     let writtenCurrentCodes = pointCodesSnap.exists() ? pointCodesSnap.data().writtenCodes || [] : [];
+
+  //     if (pointType === 'regular') {
+  //       currentCodes.push({ code: combinedCode, points: pointsValue });
+  //     } else {
+  //       writtenCurrentCodes.push({ code: combinedCode, points: pointsValue });
+  //     }
+
+  //     // If the number of current codes exceeds the limit, move the oldest code to past codes
+  //     if (pointType === 'regular' && currentCodes.length > 4) {
+  //       const removedCode = currentCodes.shift();
+  //       const pastCodesSnap = await getDoc(pastCodesRef);
+  //       let pastCodes = pastCodesSnap.exists() ? pastCodesSnap.data()["past codes"] : [];
+  //       pastCodes.push(removedCode.code);
+  //       await setDoc(pastCodesRef, { "past codes": pastCodes }, { merge: true });
+  //     } else if (writtenCurrentCodes.length > 4) {
+  //       const removedCode = writtenCurrentCodes.shift();
+  //       const pastCodesSnap = await getDoc(pastCodesRef);
+  //       let pastCodes = pastCodesSnap.exists() ? pastCodesSnap.data()["past codes"] : [];
+  //       pastCodes.push(removedCode.code);
+  //       await setDoc(pastCodesRef, { "past codes": pastCodes }, { merge: true });
+  //     }
+
+  //     await setDoc(pointCodesRef, { codes: currentCodes, writtenCodes: writtenCurrentCodes }, { merge: true });
+  //     setGeneratedCode(combinedCode);
+  //   } catch (e) {
+  //     console.error("Error adding new code to Firestore: ", e);
+  //     setErrorMessage("An error occurred while generating the code. Please try again.");
+  //   }
+
+  //   fetchPointCodes();
+  // };
+
   const addNewCodeToFirestore = async () => {
     if (!activityName.trim() || pointsValue <= 0) {
       setErrorMessage('Activity name and a positive point value are required');
       return;
     }
-
+  
     const newCode = await generateRandomCode();
     const combinedCode = `${activityName.toUpperCase()}-${newCode}`;
     const db = getFirestore();
     const pointCodesRef = doc(db, 'pointCodes', 'Current Codes');
-    const pastCodesRef = doc(db, 'pointCodes', 'Past Codes (Do not use again)');
-
+  
     try {
       const pointCodesSnap = await getDoc(pointCodesRef);
       let currentCodes = pointCodesSnap.exists() ? pointCodesSnap.data().codes || [] : [];
       let writtenCurrentCodes = pointCodesSnap.exists() ? pointCodesSnap.data().writtenCodes || [] : [];
-
-      if (pointType === 'regular') {
+      let permanentCodes = pointCodesSnap.exists() ? pointCodesSnap.data().permanentCodes || [] : [];
+  
+      if (selectedPointType === 'permanent') {
+        // Add to permanentCodes array with custom point value
+        permanentCodes.push({ code: combinedCode, points: pointsValue });
+      } else if (pointType === 'regular') {
         currentCodes.push({ code: combinedCode, points: pointsValue });
       } else {
         writtenCurrentCodes.push({ code: combinedCode, points: pointsValue });
       }
-
-      // If the number of current codes exceeds the limit, move the oldest code to past codes
-      if (pointType === 'regular' && currentCodes.length > 4) {
-        const removedCode = currentCodes.shift();
-        const pastCodesSnap = await getDoc(pastCodesRef);
-        let pastCodes = pastCodesSnap.exists() ? pastCodesSnap.data()["past codes"] : [];
-        pastCodes.push(removedCode.code);
-        await setDoc(pastCodesRef, { "past codes": pastCodes }, { merge: true });
-      } else if (writtenCurrentCodes.length > 4) {
-        const removedCode = writtenCurrentCodes.shift();
-        const pastCodesSnap = await getDoc(pastCodesRef);
-        let pastCodes = pastCodesSnap.exists() ? pastCodesSnap.data()["past codes"] : [];
-        pastCodes.push(removedCode.code);
-        await setDoc(pastCodesRef, { "past codes": pastCodes }, { merge: true });
-      }
-
-      await setDoc(pointCodesRef, { codes: currentCodes, writtenCodes: writtenCurrentCodes }, { merge: true });
+  
+      // Update Firestore with the new arrays
+      await setDoc(pointCodesRef, {
+        codes: currentCodes,
+        writtenCodes: writtenCurrentCodes,
+        permanentCodes: permanentCodes // Always update permanentCodes
+      }, { merge: true });
+  
       setGeneratedCode(combinedCode);
     } catch (e) {
       console.error("Error adding new code to Firestore: ", e);
       setErrorMessage("An error occurred while generating the code. Please try again.");
     }
-
-    fetchPointCodes();
+  
+    fetchPointCodes(); // Refresh the codes
   };
+  
+  
 
   const togglePastCodes = () => {
     setShowPastCodes(!showPastCodes);
@@ -290,14 +345,49 @@ export default function PointsPage() {
                   onChange={(e) => setActivityName(e.target.value.replace(/\s/g, ''))}
                   className="border p-2 rounded text-black placeholder:text-gray-700 focus:outline-none w-full bg-red-100/90"
                 />
-                <input
+                <select 
+                  className="border p-2 rounded text-black w-full bg-red-100/90 placeholder:text-gray-700"
+                  value={selectedPointType}
+                  onChange={(e) => {
+                    const selectedValue = e.target.value;
+                    setSelectedPointType(selectedValue);
+                    if (selectedValue !== 'other' && selectedValue !== 'permanent') {
+                      setPointsValue(Number(selectedValue)); // Set points directly if not "other"
+                    } else {
+                      setPointsValue(0); // Set to 0 initially for "other"
+                    }
+                  }}
+                >
+                  <option value="" disabled>--Point Value--</option>
+                  <option value="2">Regular GM/PM (2)</option>
+                  <option value="2">Lunch Workshop (2)</option>
+                  <option value="2">On Campus School Event (2)</option>
+                  <option value="3">Off Campus School Event (3)</option>
+                  <option value="5">FBLA-PBL Week Activity (5 per hour)</option>
+                  <option value="20">Bay Section Leadership Conference (20)</option>
+                  <option value="30">State Leadership Conference (30)</option>
+                  <option value="35">National Leadership Conference (35)</option>
+                  <option value="other">Other (choose point value)</option>
+                  <option value="permanent">Permanent Code (choose point value)</option>
+                </select>
+                {(selectedPointType === 'other' || selectedPointType === 'permanent') && (
+                  <input
+                    type="number"
+                    placeholder="Enter custom point value"
+                    value={pointsValue}
+                    onChange={(e) => setPointsValue(Number(e.target.value))}
+                    className="border p-2 rounded text-black placeholder:text-gray-700 focus:outline-none w-full bg-red-100/90"
+                    min="1"
+                  />
+                )}
+                {/* <input
                   type="number"
                   placeholder="Enter point value"
                   value={pointsValue}
                   onChange={(e) => setPointsValue(Number(e.target.value))}
                   className="border p-2 rounded text-black placeholder:text-gray-700 focus:outline-none w-full bg-red-100/90"
                   min="1"
-                />
+                /> */}
                 <button 
                   onClick={addNewCodeToFirestore} 
                   className="p-2 bg-red-violet text-white rounded w-full shadow-lg hover:scale-105 

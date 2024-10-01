@@ -19,8 +19,8 @@ export default function MentorCard({ name, type, competitions, desc, image }) {
         return () => unsubscribe();
     }, []);
 
-    // const imageSrc = isLoggedIn ? `/static/mentors/${image}.JPG` : `/static/mentors/default.JPG`;
-    const imageSrc = `/static/mentors/default.JPG`;
+    const imageSrc = isLoggedIn ? `/static/mentors/${image}.JPG` : `/static/mentors/default.JPG`;
+    // const imageSrc = `/static/mentors/default.JPG`;
     return (
         <div class="md:flex bg-white bg-opacity-10 rounded-xl p-8 md:p-0">
             <Image draggable={false} width={500} height={500} src={imageSrc} alt="" class="object-cover object-center h-[250px] w-[200px] opacity-90 rounded-l-lg rounded-r-lg mx-auto lg:ml-0 mb-0"/>

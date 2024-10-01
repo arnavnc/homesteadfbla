@@ -174,16 +174,77 @@ let mentors = [
         desc : "Hello everyone! I'm Leah, and I am currently a sophomore. Some fun facts about me are that I love to play tennis, ski, and get boba with my friends!",
         image : "default"
     },
-    // {
-    //     name : "",
-    //     type : "",
-    //     competitions : "",
-    //     desc : "",
-    //     image : ""
-    // },
- 
+    {
+        name : "Dorie Lee",
+        type : "Officer",
+        competitions : "Social Media Strategies",
+        desc : "Hey! My name is Dorie and this is my third year in FBLA. So excited to meet you all and see you grow as competitiors!",
+        image : "DorieL"
+    },
+    {
+        name : "Anjay Parthasarathy",
+        type : "Officer",
+        competitions : "Introduction to Event Planning",
+        desc : "I'm Anjay, and I love to go on rollercoasters and talk with my friends! I also love to go on adventures and especially love to try new things--whether it be food or other activities.",
+        image : "AnjayP"
+    },
+    {
+        name : "Meredith Tan",
+        type : "Student",
+        competitions : "Agribusiness, Hospitality & Event Management, Introduction to Event Planning",
+        desc : "Hey everyone! My name is Meredith and I'm so excited to be a mentor this year! Previously, I've competed in Intro to EP and Hosp. A fun fact about me is that I'm a volleyball player, retired pianist, and baker :D",
+        image : "MeredithT"
+    },
+    {
+        name : "Varun Narayanan",
+        type : "Officer",
+        competitions : "Economics",
+        desc : "Hi all! I'm Varun and I am pumped to be a mentor this year. I have been a part of FBLA for 3 years and I am currently serving as a Vice President of Speaking Competitions. Looking forward to meeting everyone!",
+        image : "VarunN"
+    },
+    {
+        name : "Sanvi Joshi",
+        type : "Student",
+        competitions : "Business Communications, Sales Presentation",
+        desc : "Hi, I'm Sanvi and I like traveling, reading, and watching movies with friends. I also spend most of my time listening to music.",
+        image : "SanviJ"
+    },
+    {
+        name : "Simran Soni",
+        type : "Student",
+        competitions : "Introduction to Financial Math",
+        desc : "Hi everyone! I'm Simran and I'm excited to be your mentor this year. In my free time I play squash, crochet, and hanging out with friends.",
+        image : "default"
+    },
+    {
+        name : "Armaan Malkani",
+        type : "Student",
+        competitions : "Networking Design",
+        desc : "Hi I’m armaan. I love to play tennis and travel. ",
+        image : "default"
+    },
+    {
+        name : "Jane Ser",
+        type : "Officer",
+        competitions : "Business Communication, Introduction to Business Communication",
+        desc : "Jane is a current junior at Homestead, and the Vice President of Case Competitions this year. She likes to listen to music and read.",
+        image : "JaneS"
+    },
+    {
+        name : "Madhumitha Balaji",
+        type : "Student",
+        competitions : "Organizational Leadership",
+        desc : "HI! I'm Madhumitha Balaji and I am a senior. In my free time, I love making pipe cleaner crafts and card games.",
+        image : "default"
+    },    
+    {
+        name : "Sufee Kathane",
+        type : "Student",
+        competitions : "Introduction to Business Procedures",
+        desc : "Placeholder",
+        image : "SufeeK"
+    },
 ]
-
 
 
 export default mentors;
