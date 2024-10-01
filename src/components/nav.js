@@ -200,7 +200,7 @@ const Nav = () => {
                       as="a"
                       className="rounded-md p-2 font-semibold text-gray-300 hover:bg-gray-900/50"
                     >
-                      Competitions History
+                      Competition Information
                     </Disclosure.Button>
                   </Link>
                   <Link href="/press" passHref>
