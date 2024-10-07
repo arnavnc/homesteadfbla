@@ -42,8 +42,8 @@ export default function PointsPage() {
       const userDataSnap = await getDoc(userData);
       const userSnap = await getDoc(userRef);
       const writtenUserSnap = await getDoc(writtenUserRef);
-
- 
+      console.log("Display Name: " + user.displayName);
+      console.log(user.metadata);
 
       if (userSnap.exists()) {
         const generalUserData = userDataSnap.data();
@@ -61,6 +61,8 @@ export default function PointsPage() {
         setUsedCodes(writtenUserSnap.data().usedCodes || []);
       }
     }
+
+    
   };
 
   const fetchPointCodes = async () => {
