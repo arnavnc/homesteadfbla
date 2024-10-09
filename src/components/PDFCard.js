@@ -20,8 +20,8 @@ export default function PDFCard({ title, date, desc, link, image }) {
                     </div>
                 </div>
                 <div className="bg-dark-chocolate rounded-md px-3 py-2 w-full text-center text-sm border-2 border-dark-chocolate hover:brightness-90 transition ease-linear duration-300">
-                    <Link href={link} target="blank" className="flex flex-row group">
-                        View Press Release <BiRightArrowAlt className='mt-1 scale-[1.35] ml-[7px] group-hover:translate-x-1 ease-linear duration-150 sm:block hidden'/>
+                    <Link href={link} target="blank" className="flex flex-row group justify-center text-lg lg:text-[17px] lg:justify-start">
+                        View Press Release <BiRightArrowAlt className='mt-[6px] scale-[1.35] ml-[7px] group-hover:translate-x-1 ease-linear duration-150 sm:block hidden'/>
                     </Link>
                 </div>
                 
