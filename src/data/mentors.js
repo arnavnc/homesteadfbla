@@ -143,7 +143,7 @@ let mentors = [
         name : "Eric Ko",
         type : "Officer",
         competitions : "Future Business Educator",
-        desc : "Placeholder",
+        desc : "Hey all! I’m Eric, and this is my 6th year of doing FBLA. I’m excited to meet all new competitors this year and help you succeed at NLC!",
         image : "EricK"
     },
     {
