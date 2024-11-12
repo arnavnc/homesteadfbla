@@ -5,6 +5,7 @@ import Link from "next/link";
 import Nav from "@/components/nav";
 import Footer from "@/components/footer";
 import officersPic from "../../../../public/static/officers.jpg";
+import PwBGroupPhoto from "../../../../public/static/PwB Group Photo.jpg"; // Import the new image
 import { useEffect, useState } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
@@ -22,7 +23,12 @@ export default function AmericanEnterprise() {
 
     return (
         <>
-            <Image src={officersPic} className="fixed blur-sm bg-scroll object-cover opacity-10 h-[100vh] w-[100vw] z-[-10]" draggable={false} />
+            <Image 
+                src={officersPic} 
+                className="fixed blur-sm bg-scroll object-cover opacity-10 h-[100vh] w-[100vw] z-[-10]" 
+                draggable={false} 
+                alt="Background Officers"
+            />
             <Nav />
             <div className="h-[80vh] border-2 border-dark-chocolate bg-dark-chocolate p-10 m-10 rounded-xl bg-opacity-30">
                 <h1 className="text-3xl font-bold">Partnership with Business Project</h1>
@@ -45,6 +51,16 @@ export default function AmericanEnterprise() {
                         reach their full potential. Come out to our project meetings to get involved and learn more!
                     </p>
                 )}
+                {/* Add the new image inside the red box */}
+                <div className="mt-5 flex justify-center">
+                    <Image 
+                        src={PwBGroupPhoto} 
+                        className="rounded-lg border border-dark-chocolate shadow-lg" 
+                        alt="PwB Group Photo" 
+                        width={500} // Adjust width as needed
+                        height={300} // Adjust height as needed
+                    />
+                </div>
             </div>
             <Footer />
         </>
