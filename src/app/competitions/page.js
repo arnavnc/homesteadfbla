@@ -39,7 +39,7 @@ export default function Competition() {
             <Link href="/countdown" className="w-full">
               <div className="bg-red-violet bg-opacity-40 p-8 rounded-xl shadow-md border-2 border-red-violet flex items-center justify-center h-full transform hover:scale-105 hover:shadow-2xl hover:bg-gradient-to-r from-red-800 to-watermelon-red transition-all duration-500 ease-in-out cursor-pointer text-center">
                 <span className="text-xl font-semibold text-white">
-                  Tryout Form Countdown
+                  Competitions Release Countdown
                 </span>
               </div>
             </Link>
