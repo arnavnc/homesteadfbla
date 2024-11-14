@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';   
 import { onAuthStateChanged } from 'firebase/auth';
 import { getFirestore, collection, query, limit, orderBy, getDocs, where, addDoc, updateDoc, doc, deleteDoc, setDoc } from 'firebase/firestore';
 import { auth } from '@/app/firebase';
@@ -573,4 +573,4 @@ const ProfileCard = () => {
   );
 };
 
-export default ProfileCard;
+export default ProfileCard; 
