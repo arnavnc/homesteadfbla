@@ -155,7 +155,7 @@ export default function Home() {
               px-8 py-6 pb-9">
             <h1 className="text-xl font-semibold">Officers</h1>
             <p className="text-gray-300 mt-2 mb-[45px]">
-              Homestead FBLA's leadership consists of Teams setting
+              Homestead FBLA&apos;s leadership consists of Teams setting
               strategy, handling logistics and events, and Project Chairs
               leading business initiatives. The officers provide direction,
               organization, and execution of the chapter&apos;s activities.
