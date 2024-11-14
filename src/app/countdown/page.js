@@ -8,7 +8,7 @@ import Image from "next/image";
 
 const Countdown = () => {
   // Set the target date and time here
-  const targetDate = "2024-10-20T23:59:59";
+  const targetDate = "2024-12-04T12:50:59";
 
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft(targetDate));
 
@@ -46,11 +46,11 @@ const Countdown = () => {
       />
       <Nav />
       <div className="flex flex-col items-center justify-center text-center mb-64 mt-32 px-6 lg:px-0">
-        <h1 className="text-5xl lg:text-7xl font-bold mb-6 text-gray-100">Tryout Form Deadline</h1>
-        <p className="text-2xl lg:text-3xl font-bold mb-4 text-gray-300">Turn in your Competition Tryout Form before the deadline!!!</p>
-        <p href="https://docs.google.com/document/d/152ji7uSu-PcamZeIjM7CVck6eS6iuCfitFVj6BoGGgc/edit?usp=sharing" className="text-lg lg:text-2xl font-bold mb-10 text-gray-400">
+        <h1 className="text-5xl lg:text-7xl font-bold mb-6 text-gray-100">Competitions Release Countdown!</h1>
+        <p className="text-2xl lg:text-3xl font-bold mb-16 text-gray-300">Come out to the Competitions Release GM!</p>
+        {/* <p href="https://docs.google.com/document/d/152ji7uSu-PcamZeIjM7CVck6eS6iuCfitFVj6BoGGgc/edit?usp=sharing" className="text-lg lg:text-2xl font-bold mb-10 text-gray-400">
         *Links to <a href="https://docs.google.com/forms/d/e/1FAIpQLSeY2gQHyEutjNmHtncDVKOn_HqT_pY-ElSnLsyzQQej39rPFA/formResponse" className="text-red-300 underline font-bold">Tryout Form</a> and <a href="https://docs.google.com/document/d/152ji7uSu-PcamZeIjM7CVck6eS6iuCfitFVj6BoGGgc/edit?usp=sharing" className="text-red-300 underline font-bold">Tryout Information</a> 
-        </p>
+        </p> */}
         {timeLeft.total > 0 ? (
           <div className="bg-dark-chocolate bg-opacity-90 p-8 rounded-2xl shadow-xl flex flex-col lg:flex-row items-center justify-center text-white">
             <TimeBox value={timeLeft.days} label="DAYS" />
@@ -63,7 +63,7 @@ const Countdown = () => {
           </div>
         ) : (
           <div className="text-3xl lg:text-5xl md:text-7xl font-extrabold text-red-500">
-            Tryout Forms Due!!!
+            Competition Release!!!
           </div>
         )}
       </div>
