@@ -173,7 +173,7 @@ export default function Home() {
         </div>
       </section>
 
-      <ContactForm />
+      {/* <ContactForm /> */}
       
       <Footer />
     </main>
