@@ -49,7 +49,7 @@ export default function AmericanEnterprise() {
             free enterprise system which our country operates under. We also
             host various events that lead to a positive community impact
             (including member socials). At Homestead, we plan to deepen the
-            member’s understanding of the economic system in which we live under
+            member&apos;s understanding of the economic system in which we live under
             and develop a concept in which we will share with our community.
           </p>
         )}
