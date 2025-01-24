@@ -33,11 +33,9 @@ export default function CommunityService() {
         <h1 className="text-3xl font-bold">Community Service</h1>
         {user ? (
           <p className="mt-3 text-lg">
-            The Homestead High School FBLA Community Service Project for 2024-2025 is dedicated to raising awareness and providing support for dementia and Alzheimer&apos;s care. The initiative includes educational activities to teach about brain health and neurodegenerative diseases, alongside collaborations with organizations such as the Alzheimer&apos;s Association. Members will engage with elderly individuals through social activities, advocacy campaigns, and public outreach to reduce stigma and improve their quality of life. By capturing and sharing stories from volunteers and caregivers, the project aims to influence legislation and foster greater awareness within the community. Through compassion, education, and advocacy, the project seeks to make a meaningful impact on individuals and families affected by dementia.
           </p>
         ) : (
           <p className="mt-3 text-lg">
-            The Homestead High School FBLA Community Service Project aims to empower the community through impactful initiatives driven by member engagement, collaboration, and public awareness campaigns. The project focuses on fostering connections and making a positive difference by organizing educational events, building relationships with local organizations, and providing meaningful opportunities for youth and community members to engage and grow. By leveraging leadership, advocacy, and strategic partnerships, the project seeks to inspire change and leave a lasting impact on the community.
           </p>
         )}
       </div>
