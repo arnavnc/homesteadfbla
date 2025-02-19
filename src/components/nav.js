@@ -69,9 +69,9 @@ const Nav = () => {
 
               {/* Desktop Links */}
               <div className="hidden space-x-4 sm:flex text-sm my-auto">
-                <div className="rounded-md p-2 font-semibold text-dimWhite hover:text-watermelon-red ease-linear duration-300 cursor-pointer">
+                {/* <div className="rounded-md p-2 font-semibold text-dimWhite hover:text-watermelon-red ease-linear duration-300 cursor-pointer">
                   <Dropdown />
-                </div>
+                </div> */}
                 <Link
                   href="/officers"
                   className="rounded-md p-2 font-semibold text-dimWhite hover:text-watermelon-red ease-linear duration-300"
@@ -171,14 +171,14 @@ const Nav = () => {
             >
               <div className="my-2 border-t border-gray-800/40 sm:hidden mr-4 ml-[-7px] h-[345px] rounded-lg">
                 <div className="mt-2 flex flex-col space-y-4">
-                  <div className="mt-[3px] mb-[-9px]">
+                  {/* <div className="mt-[3px] mb-[-9px]">
                     <div
                       as="a"
                       className="rounded-md p-2 font-semibold text-gray-300 hover:bg-gray-900/50"
                     >
                       <MobileDropdown />
                     </div>
-                  </div>
+                  </div> */}
                   <Link href="/officers" passHref>
                     <Disclosure.Button
                       as="a"
