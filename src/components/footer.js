@@ -1,14 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
-import logo from '../../public/static/logo.png'
+import logo from "../../public/static/logo.png";
 
 const navigation = {
   about: [
     { name: "Officers", href: "/officers" },
     { name: "Mentors", href: "/mentors" },
-    { name: "Advisers", href:"/advisers"}
-
-
+    { name: "Advisers", href: "/advisers" },
   ],
   history: [
     { name: "Competitions", href: "/competitions" },
@@ -19,7 +17,10 @@ const navigation = {
   projects: [
     { name: "American Enterprise", href: "/projects/american-enterprise" },
     { name: "Community Service", href: "/projects/community-service" },
-    { name: "Partnership with Business", href: "/projects/partnership-with-business" },
+    {
+      name: "Partnership with Business",
+      href: "/projects/partnership-with-business",
+    },
     { name: "Software Ventures", href: "/projects/software-ventures" },
   ],
   legal: [
@@ -60,20 +61,23 @@ export default function Footer() {
     >
       <div className="mx-auto max-w-7xl px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-20 opacity-100">
         <div className="xl:grid xl:grid-cols-3 xl:gap-8">
-            <Link href='/' className="space-x-3 sm:flex text-xl rounded-md 
-                font-semibold cursor-pointer ease-linear duration-300">
-                <Image
-                    className="relative w-12 h-12"
-                    alt="SciLynk Logo"
-                    placeholder="blur"
-                    draggable="false"
-                    src={logo}
-                />
-                <p className="mt-3 hidden md:block">Homestead FBLA</p>
-            </Link>
+          <Link
+            href="/"
+            className="space-x-3 sm:flex text-xl rounded-md 
+                font-semibold cursor-pointer ease-linear duration-300"
+          >
+            <Image
+              className="relative w-12 h-12"
+              alt="SciLynk Logo"
+              placeholder="blur"
+              draggable="false"
+              src={logo}
+            />
+            <p className="mt-3 hidden md:block">Homestead FBLA</p>
+          </Link>
           <div className="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
             <div className="md:grid md:grid-cols-2 md:gap-8">
-            <div>
+              <div>
                 <h3 className="text-sm font-semibold leading-6 text-white">
                   About
                 </h3>
@@ -161,7 +165,8 @@ export default function Footer() {
             ))}
           </div>
           <p className="mt-8 text-sm leading-5 text-neutral-400 md:order-1 md:mt-0">
-            &copy; {new Date().getFullYear()} Homestead FBLA. All rights reserved.
+            &copy; {new Date().getFullYear()} Homestead FBLA. All rights
+            reserved.
           </p>
         </div>
       </div>
