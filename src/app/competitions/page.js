@@ -26,7 +26,7 @@ export default function Competition() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 justify-items-center mt-10">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-2 justify-items-center mt-10">
             {/** Grid Items */}
             <Link href="/compHistory" className="w-full">
               <div className="bg-red-violet bg-opacity-40 p-8 rounded-xl shadow-md border-2 border-red-violet flex items-center justify-center h-full transform hover:scale-105 hover:shadow-2xl hover:bg-gradient-to-r from-red-800 to-watermelon-red transition-all duration-500 ease-in-out cursor-pointer text-center">
@@ -39,16 +39,16 @@ export default function Competition() {
             <Link href="/countdown" className="w-full">
               <div className="bg-red-violet bg-opacity-40 p-8 rounded-xl shadow-md border-2 border-red-violet flex items-center justify-center h-full transform hover:scale-105 hover:shadow-2xl hover:bg-gradient-to-r from-red-800 to-watermelon-red transition-all duration-500 ease-in-out cursor-pointer text-center">
                 <span className="text-xl font-semibold text-white">
-                  Competitions Release Countdown
+                  NLC Countdown
                 </span>
               </div>
             </Link>
-
+{/* 
             <div className="bg-red-violet bg-opacity-40 p-8 rounded-xl shadow-md border-2 border-red-violet flex items-center justify-center h-full transform hover:scale-105 hover:shadow-2xl hover:bg-gradient-to-r from-red-800 to-watermelon-red transition-all duration-500 ease-in-out text-center cursor-pointer">
               <span className="text-xl font-semibold text-white">
                 Competition Resources (Coming Soon!)
               </span>
-            </div>
+            </div> */}
           </div>
         </div>
       </main>
